@@ -1,0 +1,16 @@
+{
+  "name": "chatup",
+  "version": "1.0.0",
+  "description": "A chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ashwin Valento",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "socket.io": "^1.4.8"
+  }
+}
