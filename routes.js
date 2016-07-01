@@ -61,8 +61,17 @@ module.exports = function(app, io) {
 		    socket.broadcast.emit('typing', {
 		      username: socket.username
 		    });
+		    
+		    console.log(socket.username + " is typing");
 		  });
-		
+
+		  // when the client emits 'stop typing', we broadcast it to others
+		  socket.on('stop typing', function () {
+		    socket.broadcast.emit('stop typing', {
+		      username: socket.username
+		    });
+		    console.log(socket.username + " stopped typing");
+		  });
 		
 		// Somebody left the chat
 		socket.on('disconnect', function() {

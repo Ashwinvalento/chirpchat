@@ -1,7 +1,11 @@
 $(function() {
-
+	//Variables
 	// get the ID of the room
 	var room_id = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
+	  var typing = false;
+	
+	
+	
 	// connect to the socket
 	var socket = io();
 
@@ -42,11 +46,18 @@ $(function() {
 		}
 		// Empty the textarea
 		textarea.val("");
+		typing = false;
 		socket.emit('stop typing');
+		console.log("user stopped typing");
 	});
 
 	$("#message").on('input', function() {
-		updateTyping();
+		
+	      if (!typing) {
+	          typing = true;
+	          console.log("user typing");
+	          socket.emit('typing');
+	        }
 	});
 
 	socket.on('receive', function(data) {
