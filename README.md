@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Ashwinvalento/chirpchat.svg?branch=master)](https://travis-ci.org/Ashwinvalento/chirpchat)
+
 # chirpchat [Under Development]
 
 A Fully fledged personal and group chat Node js Application.
