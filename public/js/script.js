@@ -34,7 +34,7 @@ $(function() {
 		console.log(" -- " + textarea.val() + " -- ");
 
 		if (textarea.val().trim().length) {
-			displayMessage(textarea.val(), name, "#00ff00", moment());
+			displayMessage(textarea.val(), name, "#00ffff", moment());
 
 			// Send the message to the other person in the chat
 			socket.emit('new message', {
