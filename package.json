@@ -1,10 +1,10 @@
 {
-  "name": "chatup",
+  "name": "chirpchat",
   "version": "1.0.0",
-  "description": "A chat app",
+  "description": "A Fully fledged chat appication",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/jshint/bin/jshint index.js"
   },
   "author": "Ashwin Valento",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "ejs": "^2.4.2",
     "express": "^4.14.0",
     "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.2"
   }
 }
