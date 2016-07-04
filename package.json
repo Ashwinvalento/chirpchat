@@ -4,7 +4,8 @@
   "description": "A Fully fledged chat appication",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/jshint/bin/jshint index.js"
+    "test": "./node_modules/jshint/bin/jshint index.js",
+    "start": "node index.js"
   },
   "author": "Ashwin Valento",
   "license": "ISC",
