@@ -1,27 +1,66 @@
-<!DOCTYPE html>
 <html>
 
-<head>
-
-	<title>Chat up!</title>
-
-	<link type="text/css" rel="stylesheet" href="css/styles.css" />
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
-
-
-</head>
-
-<body>
-
-	<h1> Chat up! </h1>
+	<head>
 	
-	<a title="Create" href="/newChat" id="create">
-		<div id="createbutton">
-			<div id="little">Create a Private</div>
-			<div id="big">CHAT ROOM!</div>
+		<title>Chirp Chat</title>
+		<link href="//fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="https://bootswatch.com/darkly/bootstrap.min.css">
+		
+	</head>
+
+	<body>
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+	
+					<div class="header">
+						<h2> Welcome to Chirp Chat	</h2>
+							<p>Make a group chat and invite your friends! It's free</p>
+					</div>
+	
+					<div class="well">
+	
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Enter the group ID" id="groupId"> <span
+								class="input-group-btn"><button class="btn btn-default"
+									id="join">Join</button></span>
+						</div>
+						<div class="alert alert-danger" role="alert" id="grouperror">Looks
+							like you need to enter a valid ID to join the group.</div>
+	
+	
+						<div class="text-center">
+							<h2>OR</h2>
+						</div>
+	
+	
+						<div class="btn btn-default create">
+							<a title="Create" href="/newChat" id="create">
+								<div id="createbutton">Create a new room</div>
+							</a>
+	
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</a>
-
-
-</body>
+		<script	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>
+			$("#groupId").focus(function() {
+				$("#grouperror").slideUp();
+			});
+	
+			$("#join").click(function() {
+				if ($("#groupId").val().length > 0) {
+					location.href = "/chat/" + $("#groupId").val();
+				} else {
+					$("#grouperror").slideDown();
+				}
+			});
+		</script>
+	
+	</body>
 </html>
