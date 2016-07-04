@@ -1,5 +1,10 @@
 language: node_js
 node_js:
-  - "6.1"
-  - "4.4"
-  - "iojs"
+- '6.1'
+- '4.4'
+- iojs
+deploy:
+  provider: heroku
+  api_key:
+    secure: MUn+he7vcl+uKdY83E30eZW+faDtpZm6MNbhV2DW8IVpJhQvLWq7VUZWF/MXkYTK5CN0Ix9r1eQyWIWMD4wuItwZKD3dKdWrFq9cmFK9unbd2BRWmJbmKVKtDtWU/PyuS61ZBuwZ9BSO/QyfLOO9GyQKDyYcnhCtPXCeQp0cBVyMBsWhTveNLavHQPwg1jPGNvSaLzTv5OeoxkqHUm9bKg+lspYjKMd8+NvabRADSNllHwXha4FZCmCyHPI2sjvGao966BGl3pATZ83fMvJSL0Kfh0KkgvNwrMXURMk6U5VfkdR3vY7g18htkUGIzbnSOO2nE1fAE9ZHGdTQAoiO9RqMPy+p+trOB3bgLo9C/g/ulKr586uydghjPHfgjc9UU1aSOwMC6Z1V75+secECeGW4LVsBl20w20EZ0BURhLp3oHy0H1+KLmBgRjKY9rC7Hn3Xg8kODRjTVWTsqPrjLXJdxeygMqsxSo2zbnGQ0cMDhb+DCecTXguvUqst+xM1axzb6jMP17dyNTd6tP13WENR6Tx1Ur5+5MofcNhuHn6OiBiVfHbhcq3vb2adYFHfK0euMI1a38SUV8fLBcdyLYPJeabD7+Uh4VZP1hnAspbOAg7ZMkp5FO37P3xXyZpknnDnvsTjwGRvjgRYE1XywODMX8P/YUJ00v0ORMqltcw=
+  app: chirpchat
