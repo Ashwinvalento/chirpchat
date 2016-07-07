@@ -2,8 +2,9 @@
 
 module.exports = function(app, io) {
 
-	
-	//Render Home page
+	// --------------- Route Settings --------------
+
+	// Render Home page
 	app.get('/', function(req, res) {
 
 		// Render views/home.html
@@ -11,88 +12,116 @@ module.exports = function(app, io) {
 	});
 
 	// Create a new chat room
-	app.get('/newChat', function(req,res){
+	app.get('/newChat', function(req, res) {
 
 		// Generate unique id for the room
 		var id = Math.round((Math.random() * 1000000));
 
 		// Redirect to the random room
-		res.redirect('/chat/'+id);
+		res.redirect('/chat/' + id);
 	});
-	
-	
-	app.get('/chat/:id', function(req,res){
+
+	app.get('/chat/:id', function(req, res) {
 		// Render the chat.html view
 		res.render('chat');
 	});
-	
+
+	// ----------------- Socket Connection -------------------
 	// Initialize a new socket.io application, named 'chat'
-	var chat = io.on('connection', function (socket) {
+	var chat = io.on('connection', function(socket) {
+		var addedUser = false;
+
 		
-		socket.on('new user',function(room_id){
-			console.log("connected");
+		
+		socket.on('new user', function(userData) {
+			if (addedUser)
+				return;
+			
 
-			//socket.username = data.user;
-			socket.room = room_id;
-
+			console.log(userData.username + " connected");
+			socket.room = userData.room_id;
+			
 			// Add the client to the room
-			socket.join(room_id);
+			socket.join(userData.room_id);
 			
-			//var room = findClientsSocket(io,room_id);
-//			
-//			socket.emit('peopleinchat', {
-//				number: 1,
-//				user: room[0].username,
-//				avatar: room[0].avatar,
-//				room_id: room_id
-//			});
+			var user = {
+				"username" : userData.username,
+				"usercolor" : userData.usercolor
+			}
+			socket.userData = user;
 			
+			addedUser = true;
 		});
-		
-		// Send message
-		socket.on('new message', function(data){
-			console.log("new message : "+ data.msg);
-			// broadcast message to everyone else except the one who sends it
-			socket.broadcast.to(socket.room).emit('receive', {msg: data.msg, user: data.user, color: data.color});
-		});
-		
-		  // when the client emits 'typing', we broadcast it to others
-		  socket.on('typing', function () {
-		    socket.broadcast.emit('typing', {
-		      username: socket.username
-		    });
-		    
-		    console.log(socket.username + " is typing");
-		  });
 
-		  // when the client emits 'stop typing', we broadcast it to others
-		  socket.on('stop typing', function () {
-		    socket.broadcast.emit('stop typing', {
-		      username: socket.username
-		    });
-		    console.log(socket.username + " stopped typing");
-		  });
-		
+		// Send message
+		socket.on('new message', function(data) {
+			console.log("new message : " + data.msg);
+			// broadcast message to everyone else except the one who sends it
+			socket.broadcast.to(socket.room).emit('receive', {
+				msg : data.msg,
+				username : data.username,
+				usercolor : data.usercolor
+			});
+		});
+
+		// when the client emits 'typing', we broadcast it to others
+		socket.on('typing', function(username) {
+			socket.broadcast.emit('typing', {
+				username : username
+			});
+
+			console.log(username + " is typing");
+		});
+
+		// when the client emits 'stop typing', we broadcast it to others
+		socket.on('stop typing', function(username) {
+			socket.broadcast.emit('stop typing', {
+				username : username
+			});
+			console.log(username + " stopped typing");
+		});
+
 		// Somebody left the chat
 		socket.on('disconnect', function() {
 
-//			// Notify the other person in the chat room
-//			// that his partner has left
-//
-//			socket.broadcast.to(this.room).emit('leave', {
-//				boolean: true,
-//				room: this.room,
-//				user: this.username,
-//				avatar: this.avatar
-//			});
-//
-			// leave the room
-			socket.leave(socket.room);
+			if (addedUser) {
 			
-			console.log("disconnected");
-			});
+				socket.leave(socket.room);
+
+				console.log("disconnected");
+			}
+		});
 		
 		
+		function updateRoomUsers(){
+			for(var i = 0; i < socket.usersList.length; i++) {
+				console.log(socket.usersList[i].username + "\n");
+			}
+			socket.broadcast.emit('room users',{roomUsers: socket.usersList})
+		}
+			
+
 	});
-	
+
 };
+
+
+function findClientsSocket(io,roomId, namespace) {
+	var res = [],
+		ns = io.of(namespace ||"/");    // the default namespace is "/"
+
+	if (ns) {
+		for (var id in ns.connected) {
+			if(roomId) {
+				var index = ns.connected[id].rooms.indexOf(roomId) ;
+				if(index !== -1) {
+					res.push(ns.connected[id]);
+				}
+			}
+			else {
+				res.push(ns.connected[id]);
+			}
+		}
+	}
+	return res;
+}

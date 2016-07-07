@@ -4,40 +4,96 @@
 
 <head>
 
-	<title>Private chat room | Tutorialzine Demo</title>
+<title>Chirp Chat</title>
 
 	<link type="text/css" rel="stylesheet" href="../css/styles.css" />
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
-
+	<link href="//fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
 </head>
 
 <body>
 
+	<div class="container bootstrap snippet">
+	
+	<div class="page-header">
+	<h1 style="font-family: 'Stalemate', cursive;"> Chirp Chat !</h1>
+	</div>
+	
+		<div class="row">
 
-	<div class="chatscreen">
+			<div class="col-md-12 bg-white ">
+	
+				<div class="chat-message">
+					<ul class="chat">
 
-		<ul class="chats">
-			<!-- The chat messages will go here -->
-		</ul>
 
+					</ul>
+				</div>
+
+				<div class="chat-box bg-white">
+
+
+					<form id="chatform" role="form">
+						<div class="input-group">
+
+							<input class="form-control border no-shadow no-rounded"
+								id="message" placeholder="Type your message here"> <span
+								class="input-group-btn">
+								<button class="btn btn-success no-rounded" id="submit"
+									type="submit">Send</button>
+							</span>
+							<!-- /input-group -->
+						</div>
+					</form>
+				</div>
+
+
+			</div>
+		</div>
 	</div>
 
 
-	<footer>
+	<!-- Chat Components -->
+	<!-- Modal -->
+	<div class="modal fade" id="registrationModal" data-keyboard="false"
+		data-backdrop="static" role="dialog">
+		<div class="modal-dialog">
 
-		<form id="chatform">
+			<!-- Modal content-->
+			<div class="modal-content" style="width: 60%">
+				<div class="modal-body">
 
-			<textarea id="message" placeholder="Write something.."></textarea>
-			<input type="submit" id="submit" value="SEND"/>
+					<div class="row ">
+						<div class="col-sm-6 col-sm-offset-3">
+							<div class="img-circle text-center" id="avatar"></div>
+						</div>
 
-		</form>
+					</div>
+					<p class="text-center">Hey there! Who are you.</p>
+					<input type="text" class="form-control"
+						placeholder="Enter Username" id="username">
+					<div class="alert alert-danger" role="alert" id="nameerror">You
+						need a name !</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="saveUser">Save</button>
+				</div>
+			</div>
 
-	</footer>
+		</div>
+	</div>
 
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 	<script src="../js/script.js"></script>
 
 </body>
