@@ -18,3 +18,18 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 ```
 	node index.js
 ```
+
+###**To do Tasks **
+- Improve UI
+- Add Is typing Functionality
+- Show User Connected/Disconnected messages
+- List Group Members
+- Dismiss room if 0 users in a room.
+- Add Avatar for each Member
+- Chat Room Authentication
+- Private Chat
+- Store User Session
+- Email Chat History
+- Message Read 
+- Send Media
+ 
