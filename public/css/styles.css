@@ -1,15 +1,15 @@
 /*dark background to support form theme*/
+* {
+    box-sizing: border-box;
+}
 
 
 body {
-  padding-top: 0;
-  font-size: 12px;
-  color: #777;
-  background: #f9f9f9;
   font-family: 'Open Sans',sans-serif;
-  margin-top:20px;
+  margin:0;
   
 }
+
 
 .homeheader {
 	text-align: center;
@@ -25,11 +25,10 @@ body {
 	margin: 10px;
 }
 
-.header p {
-	color: #6E6E6E;
-	text-shadow: #000 0px 1px 5px;
-	margin-bottom: 30px;
-}
+
+
+
+
 
 .create {
 	width: 100%;
@@ -55,6 +54,56 @@ a#create {
 	color: black;
 }
 
+/* Styles for the main chat screen  */
+
+
+.header-panel {
+    background-color: #009587;
+    height: 144px;
+    position: relative;
+    z-index: 3;
+}
+
+.header-panel div {
+    position: relative;
+    height: 100%;
+}
+
+.header-panel h1 {
+    color: #FFF;
+    /*font-size: 20px;*/
+    /*font-weight: 400;*/
+    position: absolute;
+    top: 0;
+    padding-left: 35px;
+}
+
+
+.pages {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 4;
+    padding: 0;
+    overflow: auto;
+}
+
+.pages > div {
+    padding: 0 0;
+    padding-top: 64px;
+    margin: 0;
+}
+
+.pages .header {
+    color: rgb(82, 101, 162);
+    /*font-size: 24px;*/
+    /*font-weight: normal;*/
+    /*margin-top: 5px;*/
+    /*margin-bottom: 60px;*/
+    /*letter-spacing: 1.20000004768372px;*/
+}
 
 
 .bg-white {
@@ -62,7 +111,7 @@ a#create {
 }
 
 .chat-message {
-  padding: 60px 20px 15px 20px;
+  padding: 10px 20px 15px 20px;
   background: #f9f9f9;
   margin: 10px 0px 50px 0px;
 }
