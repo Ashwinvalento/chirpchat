@@ -48,7 +48,7 @@ module.exports = function(app, io) {
 			socket.userData = user;
 
 			// tell everyone , the new user has joined!
-			socket.broadcast.emit('user joined', {
+			socket.broadcast.to(socket.room).emit('user joined', {
 				username : userData.username
 			});
 
@@ -90,7 +90,7 @@ module.exports = function(app, io) {
 
 				socket.leave(socket.room);
 				// tell everyone , the new user has joined!
-				socket.broadcast.emit('user left', {
+				socket.broadcast.to(socket.room).emit('user left', {
 					username : socket.userData.username
 				});
 				console.log("disconnected");
