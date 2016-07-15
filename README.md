@@ -20,7 +20,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 ```
 
 ###**To do Tasks **
-- Improve UI
+- ~~Improve UI~~
 - Add Is typing Functionality
 - Show User Connected/Disconnected messages
 - List Group Members
