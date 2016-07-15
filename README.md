@@ -20,10 +20,12 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 ```
 
 ###**To do Tasks **
-- Improve UI
+- ~~Improve UI~~
 - Add Is typing Functionality
 - Show User Connected/Disconnected messages
 - List Group Members
+- Add sound for each chat
+- Add Browser notification.
 - Dismiss room if 0 users in a room.
 - Add Avatar for each Member
 - Chat Room Authentication
