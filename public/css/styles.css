@@ -232,14 +232,16 @@ img {
   -o-transform: rotate(45deg);
 }
 
+
 .chat li {
   margin: 15px 0;
+  margin-left: -40px;
 }
 
 
 
 .chat li.right .chat-body {
-  margin-right: 70px;
+  /*margin-right: 70px;*/
   background-color: #dcf8c6;
 }
 
