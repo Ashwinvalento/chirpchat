@@ -3,6 +3,9 @@
     box-sizing: border-box;
 }
 
+body, html {
+  height: 100%;
+}
 
 body {
   font-family: 'Open Sans',sans-serif;
@@ -87,6 +90,7 @@ a#create {
     bottom: 0;
     z-index: 4;
     padding: 0;
+    height: 100%;
     overflow: auto;
 }
 
@@ -94,6 +98,11 @@ a#create {
     padding: 0 0;
     padding-top: 64px;
     margin: 0;
+    height: 95%;
+}
+
+.fill-height{
+	height: 95%
 }
 
 .pages .header {
@@ -105,6 +114,10 @@ a#create {
     /*letter-spacing: 1.20000004768372px;*/
 }
 
+.page{
+	height: 100%;
+
+}
 
 .bg-white {
   background-color: #fff;
@@ -114,6 +127,8 @@ a#create {
   padding: 10px 20px 15px 20px;
   background: #f9f9f9;
   margin: 10px 0px 50px 0px;
+  height: 98%;
+  	overflow: scroll; 
 }
 
 .chat-box {
