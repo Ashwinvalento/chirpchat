@@ -31,25 +31,27 @@ module.exports = function(app, io) {
 	var chat = io.on('connection', function(socket) {
 		var addedUser = false;
 
-		
-		
 		socket.on('new user', function(userData) {
 			if (addedUser)
 				return;
-			
 
 			console.log(userData.username + " connected");
 			socket.room = userData.room_id;
-			
+
 			// Add the client to the room
 			socket.join(userData.room_id);
-			
+
 			var user = {
 				"username" : userData.username,
 				"usercolor" : userData.usercolor
 			}
 			socket.userData = user;
-			
+
+			// tell everyone , the new user has joined!
+			socket.broadcast.emit('user joined', {
+				username : userData.username
+			});
+
 			addedUser = true;
 		});
 
@@ -85,40 +87,40 @@ module.exports = function(app, io) {
 		socket.on('disconnect', function() {
 
 			if (addedUser) {
-			
-				socket.leave(socket.room);
 
+				socket.leave(socket.room);
+				// tell everyone , the new user has joined!
+				socket.broadcast.emit('user left', {
+					username : socket.userData.username
+				});
 				console.log("disconnected");
 			}
 		});
-		
-		
-		function updateRoomUsers(){
-			for(var i = 0; i < socket.usersList.length; i++) {
+
+		function updateRoomUsers() {
+			for (var i = 0; i < socket.usersList.length; i++) {
 				console.log(socket.usersList[i].username + "\n");
 			}
-			socket.broadcast.emit('room users',{roomUsers: socket.usersList})
+			socket.broadcast.emit('room users', {
+				roomUsers : socket.usersList
+			})
 		}
-			
 
 	});
 
 };
 
-
-function findClientsSocket(io,roomId, namespace) {
-	var res = [],
-		ns = io.of(namespace ||"/");    // the default namespace is "/"
+function findClientsSocket(io, roomId, namespace) {
+	var res = [], ns = io.of(namespace || "/"); // the default namespace is "/"
 
 	if (ns) {
-		for (var id in ns.connected) {
-			if(roomId) {
-				var index = ns.connected[id].rooms.indexOf(roomId) ;
-				if(index !== -1) {
+		for ( var id in ns.connected) {
+			if (roomId) {
+				var index = ns.connected[id].rooms.indexOf(roomId);
+				if (index !== -1) {
 					res.push(ns.connected[id]);
 				}
-			}
-			else {
+			} else {
 				res.push(ns.connected[id]);
 			}
 		}
