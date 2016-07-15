@@ -152,7 +152,7 @@ $(function() {
 
 	
 	function scrollToBottom(){
-		$("html, body").animate({ scrollTop: $(document).height()-$(window).height() + 80 },300);
+		$(".chat-message").animate({ scrollTop: $('.chat-message').prop("scrollHeight")}, 300);
 	}
 		
 
