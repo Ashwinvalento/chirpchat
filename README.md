@@ -27,12 +27,9 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - User is Typing 
 
 ###**To do Tasks **
-<<<<<<< HEAD
 - Improve UI (Add Material design)
-- Add Is typing Functionality
-- Show User Connected/Disconnected messages
-=======
->>>>>>> 297098656f4d5776592e57c86531e2bf79823b7e
+- ~~Add Is typing Functionality~~
+- ~~Show User Connected/Disconnected messages~~
 - List Group Members
 - Add sound for each chat
 - Add Browser notification.
