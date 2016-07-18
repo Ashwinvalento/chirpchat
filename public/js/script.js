@@ -12,11 +12,13 @@ $(function() {
 	var avatar = $("#avatar"), username = $("#username"), nameerror = $("#nameerror"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser");
 
 	// Chat Screen vars
-	var message = $("#message"), chatform = $("#chatform"), chat = $(".chat");
+	var message = $("#message"), chatform = $("#chatform"), chat = $(".chat"), typingList = $("#typing-list");
 
 	// connect to the socket
 	var socket = io();
 
+	init();
+	
 	// on connection to server get the id of person's room
 	socket.on('connect',
 			function() {
@@ -80,19 +82,20 @@ $(function() {
 				username : socket.username,
 				usercolor : socket.usercolor
 			});
-
+			// Empty the textarea
+			message.val("");
+			typing = false;
+			//console.log("1. emit stop typing");
+			socket.emit('stop typing', socket.username);
 		}
-		// Empty the textarea
-		message.val("");
-		typing = false;
-		socket.emit('stop typing', socket.username);
+
 	});
 
 	message.on('input', function() {
 
 		if (!typing) {
 			typing = true;
-			console.log("user typing");
+			//console.log("1. emit typing");
 			socket.emit('typing', socket.username);
 		}
 	});
@@ -105,6 +108,16 @@ $(function() {
 		displayMetaMessage(data.username + " has left the room", "#BDC3C7");
 	});
 
+	socket.on('typing', function(data) {
+		//console.log("3. on typing ---- display");
+		displayTypingMessage(data.username,false);
+	});
+	
+	socket.on('stop typing', function(data) {
+		//console.log("3. on stop typing ---- display");
+		displayTypingMessage(data.username ,true);
+	});
+	
 	socket.on('receive', function(data) {
 
 		if (data.msg.trim().length) {
@@ -112,6 +125,10 @@ $(function() {
 		}
 	});
 
+	message.click(function () {
+		message.focus();
+	});
+	  
 	function displayMetaMessage(message, bgcolor) {
 		// Meta message will be displayed in the center of the screen
 
@@ -126,6 +143,38 @@ $(function() {
 		scrollToBottom();
 		chat.append(li);
 
+	}
+	
+	function displayTypingMessage(username,stop){
+		//remove spaces from username
+		var user = username.replace(/ /g, "-");
+		
+		if (stop === false){
+			// add a list element with para id="<username>-typing" when user starts typing
+			var li = $('<li id="'+user+'-typing" class="clearfix label label-info">'
+					+ user 
+					+ '</li>');
+			
+			typingList.append(li);
+			
+			if ($("#typing-list li").length > 1){
+				$(".typing").show("slow");
+			}
+
+
+		}else{
+			
+			// remove the typing message when user stops typing or when message is sent
+			var id='#'+user+'-typing'  ;
+			
+			$(id).remove();
+
+			if ($("#typing-list li").length === 1){
+				$(".typing").hide("slow");
+			}
+
+		}
+		
 	}
 
 	function displayMessage(msg, user, color, now) {
@@ -172,5 +221,8 @@ $(function() {
 			scrollTop : $('.chat-message').prop("scrollHeight")
 		}, 300);
 	}
-
+	
+	function init(){
+		$(".typing").hide();
+	}
 });

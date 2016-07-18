@@ -19,10 +19,14 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 	node index.js
 ```
 
+### Features
+- Material Design UI
+- Group Chat
+- Multiple rooms
+- User Connected/Disconnected messages
+- User is Typing 
+
 ###**To do Tasks **
-- ~~Improve UI~~
-- Add Is typing Functionality
-- Show User Connected/Disconnected messages
 - List Group Members
 - Add sound for each chat
 - Add Browser notification.

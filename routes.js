@@ -68,7 +68,8 @@ module.exports = function(app, io) {
 
 		// when the client emits 'typing', we broadcast it to others
 		socket.on('typing', function(username) {
-			socket.broadcast.emit('typing', {
+			//console.log("2. on typing ---- emit typing");
+			socket.broadcast.to(socket.room).emit('typing', {
 				username : username
 			});
 
@@ -77,7 +78,8 @@ module.exports = function(app, io) {
 
 		// when the client emits 'stop typing', we broadcast it to others
 		socket.on('stop typing', function(username) {
-			socket.broadcast.emit('stop typing', {
+			//console.log("2. on stop typing ---- emit stop typing");
+			socket.broadcast.to(socket.room).emit('stop typing', {
 				username : username
 			});
 			console.log(username + " stopped typing");
