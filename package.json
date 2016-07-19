@@ -7,8 +7,20 @@
     "test": "./node_modules/jshint/bin/jshint index.js",
     "start": "node index.js"
   },
-  "author": "Ashwin Valento",
-  "license": "ISC",
+  "keywords": [
+               "Chat",
+               "Group chat",
+               "Node js",
+               "Material Chat",
+               "Node chat",
+               "chat application"
+               ],
+  "author": "Ashwin Valento <ashwinvalento@gmail.com> (https://ashwinvalento.github.io)",
+  "repository":	{
+	  	"type": "git",
+	    "url": "git@github.com:Ashwinvalento/chirpchat.git"
+	  }
+  "license": "MIT",
   "dependencies": {
     "ejs": "^2.4.2",
     "express": "^4.14.0",
