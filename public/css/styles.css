@@ -28,11 +28,6 @@ body {
 	margin: 10px;
 }
 
-
-
-
-
-
 .create {
 	width: 100%;
 }
@@ -47,16 +42,17 @@ a#create {
 #avatar {
 	width: 100px;
 	height: 100px;
-}
-
-#avatar {
 	text-transform : uppercase;
-	margin-left: 15px;
-	padding: 0px 0px 25px 5px;
+	margin: auto;
+	padding: 0 0 25px 25px;
 	font-size: 80px;
 	color: black;
 }
 
+#username{
+	padding: 10px 10px 10px 10px;
+	margin: 10px 10px 0 10px;
+}
 /* Styles for the main chat screen  */
 
 
@@ -128,14 +124,14 @@ a#create {
   background: #f9f9f9;
   margin: 10px 0px 50px 0px;
   height: 98%;
-  	overflow: scroll; 
+  overflow-y: scroll; 
 }
 
 .chat-box {
   position: fixed;
   bottom: 0;
   right: 0;
-  padding: 0 0 0 10px;
+  padding: 5px 0 0 10px;
   border-top: 1px solid #eee;
   transition: all .5s ease;
   -webkit-transition: all .5s ease;
@@ -265,4 +261,34 @@ img {
 a:hover, a:active, a:focus {
   text-decoration: none;
   outline: 0;
+}
+
+.col-centered {
+    margin: auto;
+    width: 50%;
+}
+
+/* change the look of scrollbar */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 6px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+
+/* For small screens */
+@media only screen and (max-device-width: 480px) {
+
+	::-webkit-scrollbar { 
+	    display: none; 
+	}
 }

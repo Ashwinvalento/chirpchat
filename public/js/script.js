@@ -28,10 +28,17 @@ $(function() {
 						.floor((Math.random() * COLORS.length) + 1)];
 				avatar.css("background-color", usercolor);
 
-				username.keypress(function() {
-					if (username.val().length < 2) {
+				username.keypress(function(event) {
+					
+					var keycode = (event.keyCode ? event.keyCode : event.which);
+					if(keycode == '13'){
+						$( "#saveUser" ).trigger( "click" );	
+					}
+					
+					if (username.val().length > 0) {
 						avatar.text(username.val().charAt(0));
 					}
+					
 				});
 				// Open the registration modal if username is blank
 				if (socket.username == null) {
@@ -98,6 +105,7 @@ $(function() {
 			//console.log("1. emit typing");
 			socket.emit('typing', socket.username);
 		}
+	      
 	});
 
 	socket.on('user joined', function(data) {
@@ -105,6 +113,8 @@ $(function() {
 	});
 	
 	socket.on('user left', function(data) {
+		typing = false;
+		socket.emit('stop typing', data.username);
 		displayMetaMessage(data.username + " has left the room", "#BDC3C7");
 	});
 
@@ -151,7 +161,7 @@ $(function() {
 		
 		if (stop === false){
 			// add a list element with para id="<username>-typing" when user starts typing
-			var li = $('<li id="'+user+'-typing" class="clearfix label label-info">'
+			var li = $('<li id="'+user+'-typing" class="clearfix bg-primary">'
 					+ user 
 					+ '</li>');
 			

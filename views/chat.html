@@ -43,38 +43,38 @@
 			<div class="pages">
 				<div class="row">
 					<div class="col-xs-12 fill-height">
-			<!--  	<div class="well page"> -->		
-							<div class="chat-message">
-								<ul class="chat">
+						<!--  	<div class="well page"> -->
+						<div class="chat-message">
+							<ul class="chat">
 
-								</ul>
-							</div>
+							</ul>
+						</div>
 
-							<div class="chat-box bg-white">
-								<div class="row">
-									<div class="col-sm-12">
-										<div class="typing">
-											<ul id="typing-list" class="list-inline">
-												<li> <strong> Typing : </strong> </li>
-											</ul>
-										</div>
+						<div class="chat-box bg-white">
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="typing">
+										<ul id="typing-list" class="list-inline">
+											<li><strong> Typing : </strong></li>
+										</ul>
 									</div>
 								</div>
-
-								<form id="chatform" role="form">
-									<div class="input-group">
-
-										<input class="form-control border no-shadow no-rounded"
-											id="message" placeholder="Type your message here"
-											autocomplete="off"> <span class="input-group-btn">
-											<button class="btn btn-success no-rounded" id="submit"
-												type="submit">Send</button>
-										</span>
-										<!-- /input-group -->
-									</div>
-								</form>
 							</div>
-				<!--  	</div> -->	
+
+							<form id="chatform" role="form">
+								<div class="input-group">
+
+									<input class="form-control border no-shadow no-rounded"
+										id="message" placeholder="Type your message here"
+										autocomplete="off"> <span class="input-group-btn">
+										<button class="btn btn-success no-rounded" id="submit"
+											type="submit">Send</button>
+									</span>
+									<!-- /input-group -->
+								</div>
+							</form>
+						</div>
+						<!--  	</div> -->
 					</div>
 				</div>
 
@@ -86,32 +86,42 @@
 
 	<!-- Chat Components -->
 	<!-- Modal -->
+
 	<div class="modal fade" id="registrationModal" data-keyboard="false"
 		data-backdrop="static" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog ">
+			<div class="row">
+				<div class="col-sm-12">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-body">
 
-			<!-- Modal content-->
-			<div class="modal-content" style="width: 60%">
-				<div class="modal-body">
-
-					<div class="row ">
-						<div class="col-sm-6 col-sm-offset-3">
-							<div class="img-circle text-center" id="avatar"></div>
+							<div class="row ">
+								<div class="col-sm-4 col-sm-offset-4 ">
+									<div class=" col-centered">
+									<div class="img-circle" id="avatar"></div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 ">
+									<input type="text" class="form-control"
+										placeholder="Enter Username" id="username">
+									<div class="alert alert-danger" role="alert" id="nameerror">You
+										need a name !</div>
+								</div>
+							</div>
 						</div>
-
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" id="saveUser">Save</button>
+						</div>
 					</div>
-					<p class="text-center">Hey there! Who are you.</p>
-					<input type="text" class="form-control"
-						placeholder="Enter Username" id="username">
-					<div class="alert alert-danger" role="alert" id="nameerror">You
-						need a name !</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" id="saveUser">Save</button>
 				</div>
 			</div>
 
 		</div>
+
+		
 	</div>
 
 
