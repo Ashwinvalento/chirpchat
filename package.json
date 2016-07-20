@@ -19,7 +19,7 @@
   "repository":	{
 	  	"type": "git",
 	    "url": "git@github.com:Ashwinvalento/chirpchat.git"
-	  }
+	  },
   "license": "MIT",
   "dependencies": {
     "ejs": "^2.4.2",
