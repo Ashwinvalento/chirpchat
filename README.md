@@ -25,17 +25,18 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - Multiple rooms
 - User Connected/Disconnected messages
 - User is Typing 
+- Add Avatar for each Member
 
 ###**To do Tasks **
 - Improve UI (Add Material design)
 - ~~Add Is typing Functionality~~
 - ~~Show User Connected/Disconnected messages~~
+- ~~Add Avatar for each Member~~
 - List Group Members
 - Add sound for each chat
 - Add Browser notification.
 - Dismiss room if 0 users in a room.
 - Mobile Friendly UI
-- Add Avatar for each Member
 - Chat Room Authentication
 - Private Chat
 - Store User Session

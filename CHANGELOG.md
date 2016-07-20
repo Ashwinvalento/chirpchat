@@ -5,10 +5,11 @@ The changelog adhers to format specified in [keep change log](http://keepachange
 
 ## [Unreleased]
 ### Added
--  Avatar Image for chats
+- Avatar Image for chats
+- Meta Message to self when you join the room 
 
 ### Changed
-- UI modified
+- UI modified : Meta messages removed bg color and added well.
 
 ## [1.0.0] - 2016-07-20
 ### Added
