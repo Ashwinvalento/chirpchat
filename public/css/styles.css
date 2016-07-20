@@ -82,14 +82,13 @@ a#create {
 }
 
 .pages > div {
-    padding: 0 0;
-    padding-top: 64px;
+    padding: 64px 0 64px 0;
     margin: 0;
-    height: 95%;
+    height: 100%;
 }
 
 .fill-height{
-	height: 95%
+	height: 100%
 }
 
 .pages .header {
@@ -114,7 +113,7 @@ a#create {
   padding: 10px 20px 15px 20px;
   background: #f9f9f9;
   margin: 10px 0px 50px 0px;
-  height: 98%;
+  height: 100%;
   overflow-y: scroll; 
 }
 
@@ -130,6 +129,7 @@ a#create {
   -ms-transition: all .5s ease;
   -o-transition: all .5s ease;
   width:100%;
+  z-index: 6;
 }
 
 .typing{
