@@ -146,8 +146,8 @@ $(function() {
 					"gender" : radioValue,
 					"image_url": socket.imageUrl
 				});
+				displayMetaMessage("You joined the room");
 			}
-			displayMetaMessage("You joined the room");
 		});
 		
 		$('input[name="gender"]').on('change', function() {
