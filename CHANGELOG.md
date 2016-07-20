@@ -11,6 +11,9 @@ The changelog adhers to format specified in [keep change log](http://keepachange
 ### Changed
 - UI modified : Meta messages removed bg color and added well.
 
+### Fixed
+- chat input box for mozilla was displayed to the right.
+
 ## [1.0.0] - 2016-07-20
 ### Added
 - Material Design UI
