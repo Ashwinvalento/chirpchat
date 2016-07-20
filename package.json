@@ -1,6 +1,6 @@
 {
   "name": "chirpchat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Fully fledged chat appication",
   "main": "index.js",
   "scripts": {
@@ -8,20 +8,21 @@
     "start": "node index.js"
   },
   "keywords": [
-               "Chat",
-               "Group chat",
-               "Node js",
-               "Material Chat",
-               "Node chat",
-               "chat application"
-               ],
+    "Chat",
+    "Group chat",
+    "Node js",
+    "Material Chat",
+    "Node chat",
+    "chat application"
+  ],
   "author": "Ashwin Valento <ashwinvalento@gmail.com> (https://ashwinvalento.github.io)",
-  "repository":	{
-	  	"type": "git",
-	    "url": "git@github.com:Ashwinvalento/chirpchat.git"
-	  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Ashwinvalento/chirpchat.git"
+  },
   "license": "MIT",
   "dependencies": {
+    "cartoon-avatar": "^1.0.1",
     "ejs": "^2.4.2",
     "express": "^4.14.0",
     "socket.io": "^1.4.8"

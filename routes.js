@@ -1,5 +1,8 @@
 // Create the main routes in this file
 
+//get the avatar library
+var toonavatar = require('cartoon-avatar');
+
 module.exports = function(app, io) {
 
 	// --------------- Route Settings --------------
@@ -30,7 +33,13 @@ module.exports = function(app, io) {
 	// Initialize a new socket.io application, named 'chat'
 	var chat = io.on('connection', function(socket) {
 		var addedUser = false;
-
+		
+		// while logging in , get a random avatar and send back to the client 
+		socket.on('get avatar', function(gender){
+			var url = toonavatar.generate_avatar({"gender":gender});
+			socket.emit('show avatar', url);
+		});
+		
 		socket.on('new user', function(userData) {
 			if (addedUser)
 				return;
@@ -57,12 +66,12 @@ module.exports = function(app, io) {
 
 		// Send message
 		socket.on('new message', function(data) {
-			console.log("new message : " + data.msg);
 			// broadcast message to everyone else except the one who sends it
 			socket.broadcast.to(socket.room).emit('receive', {
 				msg : data.msg,
 				username : data.username,
-				usercolor : data.usercolor
+				usercolor : data.usercolor,
+				imageUrl : data.imageUrl
 			});
 		});
 

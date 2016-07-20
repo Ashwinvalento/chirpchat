@@ -39,15 +39,6 @@ a#create {
 	display: none;
 }
 
-#avatar {
-	width: 100px;
-	height: 100px;
-	text-transform : uppercase;
-	margin: auto;
-	padding: 0 0 25px 25px;
-	font-size: 80px;
-	color: black;
-}
 
 #username{
 	padding: 10px 10px 10px 10px;
@@ -175,13 +166,9 @@ img {
   max-width: 100%;
 }
 
-/* .chat-body {
-  padding-bottom: 20px;
-} */
 
 .chat li.left .chat-body {
-/*   margin-left: 70px;
- */
+   margin-left: 15px;
    background-color: #fff;
 }
 
@@ -249,7 +236,7 @@ img {
 
 
 .chat li.right .chat-body {
-  /*margin-right: 70px;*/
+  margin-right: 15px;
   background-color: #dcf8c6;
 }
 

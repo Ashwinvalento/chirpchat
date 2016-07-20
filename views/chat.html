@@ -97,13 +97,27 @@
 						<div class="modal-body">
 
 							<div class="row ">
-								<div class="col-sm-4 col-sm-offset-4 ">
-									<div class=" col-centered">
-									<div class="img-circle" id="avatar"></div>
-									</div>
+								<div class="col-xs-4 col-xs-offset-4 ">
+									<img class="img-circle"
+										src="http://www.software.iitedu.org.in/img/unknown_user.png"
+										id="avatar-img" />
 								</div>
 							</div>
 							<div class="row">
+								<div class="col-sm-12">
+									<div class="btn-group" data-toggle="buttons">
+										<label class="btn btn-default"> <input type="radio"
+											name="gender" value="male" /> Male
+										</label> <label class="btn btn-default"> <input type="radio"
+											name="gender" value="female" /> Female
+										</label>
+									</div>
+									<div class="alert alert-danger" role="alert" id="gender-error">Please
+										select a gender.</div>
+
+
+								</div>
+
 								<div class="col-sm-12 ">
 									<input type="text" class="form-control"
 										placeholder="Enter Username" id="username">
@@ -121,7 +135,7 @@
 
 		</div>
 
-		
+
 	</div>
 
 
