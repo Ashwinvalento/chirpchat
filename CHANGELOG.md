@@ -8,8 +8,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 - Avatar Image for chats
 - Meta Message to self when you join the room 
 - Group users box (dummy content).
-- navigation button on mobile devices.
-
+- Group users slide navigation for mobile devices 
 
 ### Changed
 - UI modified : Meta messages removed bg color and added well.

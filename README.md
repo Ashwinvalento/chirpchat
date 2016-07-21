@@ -20,15 +20,15 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 ```
 
 ### Features
-- Material Design UI
+- Material Design and Mobile Compatible UI
 - Group Chat
 - Multiple rooms
 - User Connected/Disconnected messages
-- User is Typing 
-- Add Avatar for each Member
+- User is Typing messages
+- Avatar for each Member
 
 ###**To do Tasks **
-- Improve UI (Add Material design)
+- Improve Home Screen UI (Add Material design)
 - ~~Add Is typing Functionality~~
 - ~~Show User Connected/Disconnected messages~~
 - ~~Add Avatar for each Member~~

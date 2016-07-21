@@ -253,10 +253,16 @@ $(function() {
 	}
 	
 	//show group users for mobile devides
-	$( ".gp-chat-toggle" ).click(function() {
-
+	$( ".gp-chat-toggle-btn" ).click(function() {
+	    var hidden = $('.gp-slider-window');
+	    if (hidden.hasClass('visible')){
+	        hidden.animate({"left":"105%"}, "slow").removeClass('visible');
+	        $(".gp-chat-toggle-btn > img").css("transform","rotateY(0deg)");
+	    } else {
+	        hidden.animate({"left":"10%"}, "slow").addClass('visible');
+	        $(".gp-chat-toggle-btn > img").css("transform","rotateY(180deg)");
+	    }
 		});
-	
 	
 
 	function init() {

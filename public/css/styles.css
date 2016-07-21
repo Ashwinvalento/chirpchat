@@ -233,14 +233,14 @@ a:hover, a:active, a:focus {
 
 /* Group users section */
 
-.gp-chat-toggle {
+/* for mobile screen */
+.gp-chat-toggle-btn {
      margin-right: -15px;
      position:absolute;
      top:0;
      right:0;
      float: right;
 }
-
 
 .my-profile {
 	width: 150px;
@@ -298,4 +298,22 @@ a:hover, a:active, a:focus {
 	::-webkit-scrollbar {
 		display: none;
 	}
+	
+	.gp-slider-window {
+		position: absolute;
+		left:105%;
+	}
+	
+	
+}
+
+@media only screen and (min-device-width: 481px) {
+		.gp-slider-window {
+		position: relative;
+	}
+	
+	.gp-slider-window {
+	left: 0 !important;
+	}
+	
 }
