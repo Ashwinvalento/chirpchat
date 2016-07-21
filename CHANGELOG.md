@@ -7,6 +7,9 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ### Added
 - Avatar Image for chats
 - Meta Message to self when you join the room 
+- Group users box (dummy content).
+- navigation button on mobile devices.
+
 
 ### Changed
 - UI modified : Meta messages removed bg color and added well.
@@ -18,7 +21,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ### Fixed
 - chat input box for mozilla was displayed to the right.
 - full Height hack removed. 
-- page well margins
+- page well margins.
 
 ## [1.0.0] - 2016-07-20
 ### Added

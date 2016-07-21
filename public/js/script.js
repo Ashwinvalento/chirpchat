@@ -147,6 +147,10 @@ $(function() {
 					"image_url": socket.imageUrl
 				});
 				displayMetaMessage("You joined the room");
+				//set profile image
+				$("#profile-img").attr("src",socket.imageUrl);
+				$("#profile-name").text(uname);
+				$("#profile-name").css("color",usercolor);
 			}
 		});
 		
@@ -247,6 +251,13 @@ $(function() {
 			scrollTop : $('.chat-message').prop("scrollHeight")
 		}, 300);
 	}
+	
+	//show group users for mobile devides
+	$( ".gp-chat-toggle" ).click(function() {
+
+		});
+	
+	
 
 	function init() {
 		$(".typing").hide();
