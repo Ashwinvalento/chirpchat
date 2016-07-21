@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Ashwinvalento/chirpchat.svg?branch=master)](https://travis-ci.org/Ashwinvalento/chirpchat) ![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge&style=flat) [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
+[![Build Status](https://travis-ci.org/Ashwinvalento/chirpchat.svg?branch=master)](https://travis-ci.org/Ashwinvalento/chirpchat) ![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge&style=flat) ![Beta](https://img.shields.io/badge/stability-beta-orange.svg)
 
 # chirpchat [Under Development]
 
