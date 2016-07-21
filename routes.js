@@ -43,8 +43,6 @@ module.exports = function(app, io) {
 		socket.on('new user', function(userData) {
 			if (addedUser)
 				return;
-
-			console.log(userData.username + " connected");
 			socket.room = userData.room_id;
 
 			// Add the client to the room
@@ -77,7 +75,6 @@ module.exports = function(app, io) {
 
 		// when the client emits 'typing', we broadcast it to others
 		socket.on('typing', function(username) {
-			//console.log("2. on typing ---- emit typing");
 			socket.broadcast.to(socket.room).emit('typing', {
 				username : username
 			});
@@ -87,7 +84,6 @@ module.exports = function(app, io) {
 
 		// when the client emits 'stop typing', we broadcast it to others
 		socket.on('stop typing', function(username) {
-			//console.log("2. on stop typing ---- emit stop typing");
 			socket.broadcast.to(socket.room).emit('stop typing', {
 				username : username
 			});
@@ -104,7 +100,6 @@ module.exports = function(app, io) {
 				socket.broadcast.to(socket.room).emit('user left', {
 					username : socket.userData.username
 				});
-				console.log("disconnected");
 			}
 		});
 
