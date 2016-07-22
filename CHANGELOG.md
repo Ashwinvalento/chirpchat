@@ -21,6 +21,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 - chat input box for mozilla was displayed to the right.
 - full Height hack removed. 
 - page well margins.
+- UI modified : group users list box (dummy data)
 
 ## [1.0.0] - 2016-07-20
 ### Added

@@ -126,13 +126,24 @@ a#create {
 	margin-left: 5px;
 }
 
+
+.timestamp {
+	padding: 0px 10px 0px 10px;
+}
+
+img {
+	max-width: 100%;
+}
+
 .chat {
 	list-style: none;
 	margin: 0;
 }
 
-.timestamp {
-	padding: 0px 10px 0px 10px;
+
+.chat li {
+	margin: 15px 0;
+	margin-left: -40px;
 }
 
 .chat li img {
@@ -141,15 +152,6 @@ a#create {
 	border-radius: 50em;
 	-moz-border-radius: 50em;
 	-webkit-border-radius: 50em;
-}
-
-img {
-	max-width: 100%;
-}
-
-.chat li.left .chat-body {
-	margin-left: 15px;
-	background-color: #fff;
 }
 
 .chat li .chat-body {
@@ -162,6 +164,8 @@ img {
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
+
+
 .chat li .chat-body .header {
 	padding-bottom: 5px;
 	border-bottom: 1px solid #f1f5fc;
@@ -169,6 +173,12 @@ img {
 
 .chat li .chat-body p {
 	margin: 0;
+}
+
+
+.chat li.left .chat-body {
+	margin-left: 15px;
+	background-color: #fff;
 }
 
 .chat li.left .chat-body:before {
@@ -189,6 +199,12 @@ img {
 	-o-transform: rotate(-45deg);
 }
 
+
+.chat li.right .chat-body {
+	margin-right: 15px;
+	background-color: #dcf8c6;
+}
+
 .chat li.right .chat-body:before {
 	position: absolute;
 	top: 10px;
@@ -207,15 +223,6 @@ img {
 	-o-transform: rotate(45deg);
 }
 
-.chat li {
-	margin: 15px 0;
-	margin-left: -40px;
-}
-
-.chat li.right .chat-body {
-	margin-right: 15px;
-	background-color: #dcf8c6;
-}
 
 .primary-font {
 	color: #3c8dbc;
@@ -232,15 +239,6 @@ a:hover, a:active, a:focus {
 }
 
 /* Group users section */
-
-/* for mobile screen */
-.gp-chat-toggle-btn {
-     margin-right: -15px;
-     position:absolute;
-     top:0;
-     right:0;
-     float: right;
-}
 
 .my-profile {
 	width: 150px;
@@ -267,8 +265,7 @@ a:hover, a:active, a:focus {
 	overflow-y: auto;
 	position: relative;
 	height: 100%;
-	margin-left: -30px;
-	margin-right: -10px;
+	background-color: wheat;
 }
 
 .users {
@@ -277,7 +274,52 @@ a:hover, a:active, a:focus {
 	bottom: 0;
 	height: 100%;
 	min-height: 100px;
+	list-style: none;
+	margin: 0;
+	width: 100%;
 }
+
+.users li {
+	margin: 5px 10px;
+	margin-left: -30px;
+	border: 1px solid #f1f5fc;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.users li .chat-img{
+		margin: 5px;
+}
+.users li img {
+	width: 45px;
+	height: 45px;
+	border-radius: 50em;
+	-moz-border-radius: 50em;
+	-webkit-border-radius: 50em;
+}
+
+
+.users li .user-body {
+	position: relative;
+	font-size: 12px;
+	padding: 10px;
+	background-color: #fff;
+}
+
+
+
+/* group chat for mobile screen */
+.gp-chat-toggle-btn {
+     margin-right: -15px;
+     position:absolute;
+     top:0;
+     right:0;
+     float: right;
+}
+
+
+
 
 /* change the look of scrollbar */
 ::-webkit-scrollbar {
@@ -302,6 +344,10 @@ a:hover, a:active, a:focus {
 	.gp-slider-window {
 		position: absolute;
 		left:105%;
+	}
+	
+	.list-scroll {
+		margin-right : 35px;
 	}
 	
 	

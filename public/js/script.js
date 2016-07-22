@@ -230,7 +230,7 @@ $(function() {
 				+ who
 				+ ' clearfix">'
 				+ '<div class="header">'
-				+ '<b class="primary-font" style="color:'
+				+ '<b style="color:'
 				+ user.color
 				+ '">John Doe</b>'
 				+ '<small class="pull-right text-muted"><div class="timestamp">'
