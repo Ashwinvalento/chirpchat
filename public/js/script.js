@@ -1,18 +1,18 @@
 $(function() {
 	// Variables
 	// get the ID of the room
-	var room_id = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
+	var roomId = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
 	var typing = false;
-	var COLORS = [ '#D24D57', '#CF000F', '#F1A9A0', '#663399', '#E4F1FE',
-	               '#8E44AD', '#446CB3', '#4B77BE', '#26A65B', '#65C6BB',
-	               '#C8F7C5', '#F89406', "#F2784B", "#D35400", "#BFBFBF" ];
+	var COLORS = [ '#D24D57', '#96281B', '#DB0A5B', '#663399', '#913D88',
+			'#913D88', '#2C3E50', '#F89406', '#D35400', '#F2784B', '#F9BF3B',
+			'#446CB3', "#E9D460", "#5C97BF", "#BFBFBF" ];
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
 	var username = $("#username"), nameerror = $("#nameerror"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser");
 
 	// Chat Screen vars
-	var message = $("#message"), chatform = $("#chatform"), chat = $(".chat"), typingList = $("#typing-list");
+	var message = $("#message"), chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list");
 
 	// connect to the socket
 	var socket = io();
@@ -41,20 +41,22 @@ $(function() {
 
 		if (message.val().trim().length) {
 			// Create a new chat message and display it directly
-			displayMessage(message.val(), {"name" : socket.username, "color":socket.usercolor, "imageUrl":socket.imageUrl},
-					moment());
+			displayMessage(message.val(), {
+				"name" : socket.username,
+				"color" : socket.userColor,
+				"imageUrl" : socket.imageUrl
+			}, moment());
 
 			// Send the message to the other person in the chat
 			socket.emit('new message', {
 				msg : message.val(),
 				username : socket.username,
-				usercolor : socket.usercolor,
+				userColor : socket.userColor,
 				imageUrl : socket.imageUrl
 			});
 			// Empty the textarea
 			message.val("");
 			typing = false;
-			// console.log("1. emit stop typing");
 			socket.emit('stop typing', socket.username);
 		}
 
@@ -64,42 +66,54 @@ $(function() {
 
 		if (!typing) {
 			typing = true;
-			// console.log("1. emit typing");
 			socket.emit('typing', socket.username);
 		}
 
 	});
 
-	socket.on('show avatar',function(url){
-		$("#avatar-img").attr("src",url);
-		//store Image ID in global variable for later use
+	socket.on('show avatar', function(url) {
+		$("#avatar-img").attr("src", url);
+		// store Image ID in global variable for later use
 		socket.imageUrl = url;
 	});
-	
-	socket.on('user joined', function(data) {
-		displayMetaMessage(data.username + " has joined the room");
+
+	socket.on('users list', function(usersList) {
+		updateGroupUsers(usersList);
+	});
+
+	socket.on('user joined', function(user) {
+		displayMetaMessage(user.username + " has joined the room");
 	});
 
 	socket.on('user left', function(data) {
 		typing = false;
 		socket.emit('stop typing', data.username);
 		displayMetaMessage(data.username + " has left the room");
+		
+		//remove user from group list
+		var userId = data.username.replace(/ /g, "-");
+		var id = '#gp-list-' + userId;
+
+		$(id).remove();
+		
 	});
 
 	socket.on('typing', function(data) {
-		// console.log("3. on typing ---- display");
 		displayTypingMessage(data.username, false);
 	});
 
 	socket.on('stop typing', function(data) {
-		// console.log("3. on stop typing ---- display");
 		displayTypingMessage(data.username, true);
 	});
 
 	socket.on('receive', function(data) {
 
 		if (data.msg.trim().length) {
-			displayMessage(data.msg, {"name" : data.username, "color":data.usercolor, "imageUrl":data.imageUrl} , moment());
+			displayMessage(data.msg, {
+				"name" : data.username,
+				"color" : data.userColor,
+				"imageUrl" : data.imageUrl
+			}, moment());
 		}
 	});
 
@@ -107,15 +121,13 @@ $(function() {
 		message.focus();
 	});
 
-	
-	
 	function showLoginModal() {
 		nameerror.slideUp();
 		gendererror.slideUp();
 
 		registrationModal.modal('show');
 
-		var usercolor = COLORS[Math.floor((Math.random() * COLORS.length) + 1)];
+		var userColor = COLORS[Math.floor((Math.random() * COLORS.length) + 1)];
 
 		username.keypress(function(event) {
 			nameerror.slideUp();
@@ -135,30 +147,31 @@ $(function() {
 			} else if (uname == "") {
 				nameerror.slideDown();
 			} else {
-				socket.username = uname;
-				socket.usercolor = usercolor;
 				registrationModal.modal('hide');
 				// send room id to the server on connection
-				socket.emit('new user', {
-					"room_id" : room_id,
-					"username" : uname,
-					"usercolor" : usercolor,
-					"gender" : radioValue,
-					"image_url": socket.imageUrl
-				});
+				
+				var newUser = {
+						"roomId" : roomId,
+						"username" : uname,
+						"userColor" : userColor,
+						"gender" : radioValue,
+						"imageUrl" : socket.imageUrl
+					}
+				socket.emit('new user',newUser );
 				displayMetaMessage("You joined the room");
-				//set profile image
-				$("#profile-img").attr("src",socket.imageUrl);
+				// set profile image
+				$("#profile-img").attr("src", socket.imageUrl);
 				$("#profile-name").text(uname);
-				$("#profile-name").css("color",usercolor);
+				$("#profile-name").css("color", userColor);
+				
 			}
 		});
-		
+
 		$('input[name="gender"]').on('change', function() {
-				gendererror.slideUp();
-			   var gender = $('input[name="gender"]:checked').val();
-			   socket.emit('get avatar', gender);
-			});
+			gendererror.slideUp();
+			var gender = $('input[name="gender"]:checked').val();
+			socket.emit('get avatar', gender);
+		});
 
 	}
 
@@ -167,9 +180,8 @@ $(function() {
 
 		var li = $('<li class="clearfix">'
 				+ '<div style="margin-left:20%;margin-right:20%;">'
-				+ '<div class="chat-body text-center clearfix well">'
-				+ '<p >' + '</p>' + '</div>' + '</div>'
-				+ '</li>');
+				+ '<div class="chat-body text-center clearfix well">' + '<p >'
+				+ '</p>' + '</div>' + '</div>' + '</li>');
 
 		li.find('p').text(message);
 
@@ -177,6 +189,25 @@ $(function() {
 		chat.append(li);
 
 	}
+	
+	
+	function updateGroupUsers(usersList){
+		
+		var ulContent = " ";
+		usersList.forEach(function(user) { 
+			var userId = user.username.replace(/ /g, "-");
+			var li = '<li class="bg-white clearfix" id="gp-list-'+userId+'">'
+					+ '<span class="chat-img pull-left">'
+					+ '<img src="'+ user.imageUrl +'" alt="User Avatar">'
+					+ '<div class="user-body pull-right clearfix">'
+					+ '<b style="color:'+user.userColor +'"> '+ user.username +'</b>' + '</div>'
+					+ '</span>' + '</li>';
+	
+			ulContent = ulContent.concat(li);
+		});
+		groupUsers.html(ulContent);
+	}
+	
 
 	function displayTypingMessage(username, stop) {
 		// remove spaces from username
@@ -220,13 +251,19 @@ $(function() {
 			who = 'left';
 		}
 
-		var li = $('<li class="' + who + ' clearfix">'
+		var li = $('<li class="'
+				+ who
+				+ ' clearfix">'
 				+
 				// User avatar
-				 '<span class="chat-img pull-'+who+'">' +
-				 '<img src="'+ user.imageUrl +'" alt="User Avatar">' +
-				 '</span>' +
-				'<div class="chat-body pull-'
+				'<span class="chat-img pull-'
+				+ who
+				+ '">'
+				+ '<img src="'
+				+ user.imageUrl
+				+ '" alt="User Avatar">'
+				+ '</span>'
+				+ '<div class="chat-body pull-'
 				+ who
 				+ ' clearfix">'
 				+ '<div class="header">'
@@ -251,19 +288,22 @@ $(function() {
 			scrollTop : $('.chat-message').prop("scrollHeight")
 		}, 300);
 	}
-	
-	//show group users for mobile devides
-	$( ".gp-chat-toggle-btn" ).click(function() {
-	    var hidden = $('.gp-slider-window');
-	    if (hidden.hasClass('visible')){
-	        hidden.animate({"left":"105%"}, "slow").removeClass('visible');
-	        $(".gp-chat-toggle-btn > img").css("transform","rotateY(0deg)");
-	    } else {
-	        hidden.animate({"left":"10%"}, "slow").addClass('visible');
-	        $(".gp-chat-toggle-btn > img").css("transform","rotateY(180deg)");
-	    }
-		});
-	
+
+	// show group users for mobile devides
+	$(".gp-chat-toggle-btn").click(function() {
+		var hidden = $('.gp-slider-window');
+		if (hidden.hasClass('visible')) {
+			hidden.animate({
+				"left" : "105%"
+			}, "slow").removeClass('visible');
+			$(".gp-chat-toggle-btn > img").css("transform", "rotateY(0deg)");
+		} else {
+			hidden.animate({
+				"left" : "10%"
+			}, "slow").addClass('visible');
+			$(".gp-chat-toggle-btn > img").css("transform", "rotateY(180deg)");
+		}
+	});
 
 	function init() {
 		$(".typing").hide();
