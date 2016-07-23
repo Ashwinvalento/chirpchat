@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Ashwinvalento/chirpchat.svg?branch=master)](https://travis-ci.org/Ashwinvalento/chirpchat) ![Heroku](https://img.shields.io/badge/Heroku-Deployed-brightgreen.svg) ![Beta](https://img.shields.io/badge/stability-beta-orange.svg)
+[![Build Status](https://travis-ci.org/Ashwinvalento/chirpchat.svg?branch=master)](https://travis-ci.org/Ashwinvalento/chirpchat) ![Heroku](https://img.shields.io/badge/Heroku-Deployed-brightgreen.svg) ![Beta](https://img.shields.io/badge/stability-stable-brightgreen.svg)
 
 # chirpchat [Under Development]
 
@@ -26,13 +26,14 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - User Connected/Disconnected messages
 - User is Typing messages
 - Avatar for each Member
+- List Group Members
 
 ###**To do Tasks **
 - Improve Home Screen UI (Add Material design)
 - ~~Add Is typing Functionality~~
 - ~~Show User Connected/Disconnected messages~~
 - ~~Add Avatar for each Member~~
-- List Group Members
+- ~~List Group Members~~
 - Add sound for each chat
 - Add Browser notification.
 - Dismiss room if 0 users in a room.
