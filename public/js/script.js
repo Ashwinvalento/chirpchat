@@ -22,7 +22,7 @@ $(function() {
 	// on connection to server get the id of person's room
 	socket.on('connect', function() {
 		// Open the registration modal if username is blank
-		if (socket.username == null) {
+		if (socket.userData == null) {
 			showLoginModal();
 		}
 	});
@@ -41,23 +41,14 @@ $(function() {
 
 		if (message.val().trim().length) {
 			// Create a new chat message and display it directly
-			displayMessage(message.val(), {
-				"name" : socket.username,
-				"color" : socket.userColor,
-				"imageUrl" : socket.imageUrl
-			}, moment());
+			displayMessage(message.val(), socket.userData, moment());
 
 			// Send the message to the other person in the chat
-			socket.emit('new message', {
-				msg : message.val(),
-				username : socket.username,
-				userColor : socket.userColor,
-				imageUrl : socket.imageUrl
-			});
+			socket.emit('new message', message.val(),socket.userData);
 			// Empty the textarea
 			message.val("");
 			typing = false;
-			socket.emit('stop typing', socket.username);
+			socket.emit('stop typing', socket.userData);
 		}
 
 	});
@@ -66,7 +57,7 @@ $(function() {
 
 		if (!typing) {
 			typing = true;
-			socket.emit('typing', socket.username);
+			socket.emit('typing', socket.userData);
 		}
 
 	});
@@ -85,35 +76,31 @@ $(function() {
 		displayMetaMessage(user.username + " has joined the room");
 	});
 
-	socket.on('user left', function(data) {
+	socket.on('user left', function(user) {
 		typing = false;
-		socket.emit('stop typing', data.username);
-		displayMetaMessage(data.username + " has left the room");
+		socket.emit('stop typing', user.username);
+		displayMetaMessage(user.username + " has left the room");
 		
 		//remove user from group list
-		var userId = data.username.replace(/ /g, "-");
+		var userId = user.username.replace(/ /g, "-");
 		var id = '#gp-list-' + userId;
 
 		$(id).remove();
 		
 	});
 
-	socket.on('typing', function(data) {
-		displayTypingMessage(data.username, false);
+	socket.on('typing', function(user) {
+		displayTypingMessage(user.username, false);
 	});
 
-	socket.on('stop typing', function(data) {
-		displayTypingMessage(data.username, true);
+	socket.on('stop typing', function(user) {
+		displayTypingMessage(user.username, true);
 	});
 
-	socket.on('receive', function(data) {
+	socket.on('receive', function(msg,user) {
 
-		if (data.msg.trim().length) {
-			displayMessage(data.msg, {
-				"name" : data.username,
-				"color" : data.userColor,
-				"imageUrl" : data.imageUrl
-			}, moment());
+		if (msg.trim().length) {
+			displayMessage(msg, user, moment());
 		}
 	});
 
@@ -157,6 +144,7 @@ $(function() {
 						"gender" : radioValue,
 						"imageUrl" : socket.imageUrl
 					}
+				socket.userData = newUser;
 				socket.emit('new user',newUser );
 				displayMetaMessage("You joined the room");
 				// set profile image
@@ -245,7 +233,7 @@ $(function() {
 
 		var who = '';
 
-		if (user.name === socket.username) {
+		if (user.username === socket.userData.username) {
 			who = 'right';
 		} else {
 			who = 'left';
@@ -268,14 +256,14 @@ $(function() {
 				+ ' clearfix">'
 				+ '<div class="header">'
 				+ '<b style="color:'
-				+ user.color
+				+ user.userColor
 				+ '">John Doe</b>'
 				+ '<small class="pull-right text-muted"><div class="timestamp">'
 				+ '<i class="timesent" data-time=' + now + '></i> </div>'
 				+ '</small>' + '</div>' + '<p >' + '</p>' + '</div>' + '</li>');
 
 		li.find('p').text(msg);
-		li.find('b').text(user.name);
+		li.find('b').text(user.username);
 
 		scrollToBottom();
 		chat.append(li);

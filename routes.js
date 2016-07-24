@@ -73,28 +73,19 @@ module.exports = function(app, io) {
 		});
 
 		// Send message
-		socket.on('new message', function(data) {
+		socket.on('new message', function(msg,user) {
 			// broadcast message to everyone else except the one who sends it
-			socket.broadcast.to(socket.room).emit('receive', {
-				msg : data.msg,
-				username : data.username,
-				userColor : data.userColor,
-				imageUrl : data.imageUrl
-			});
+			socket.broadcast.to(socket.room).emit('receive', msg, user);
 		});
 
 		// when the client emits 'typing', we broadcast it to others
-		socket.on('typing', function(username) {
-			socket.broadcast.to(socket.room).emit('typing', {
-				username : username
-			});
+		socket.on('typing', function(user) {
+			socket.broadcast.to(socket.room).emit('typing', user);
 		});
 
 		// when the client emits 'stop typing', we broadcast it to others
-		socket.on('stop typing', function(username) {
-			socket.broadcast.to(socket.room).emit('stop typing', {
-				username : username
-			});
+		socket.on('stop typing', function(user) {
+			socket.broadcast.to(socket.room).emit('stop typing', user);
 		});
 
 		// Somebody left the chat
@@ -104,9 +95,7 @@ module.exports = function(app, io) {
 
 				socket.leave(socket.room);
 				// tell everyone , the new user has joined!
-				socket.broadcast.to(socket.room).emit('user left', {
-					username : socket.userData.username
-				});
+				socket.broadcast.to(socket.room).emit('user left',socket.userData );
 			}
 		});
 
