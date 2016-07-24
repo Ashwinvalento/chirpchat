@@ -21,6 +21,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 
 ### Features
 - Material Design and Mobile Compatible UI
+- Mobile Friendly UI
 - Group Chat
 - Multiple rooms
 - User Connected/Disconnected messages
@@ -34,10 +35,10 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - ~~Show User Connected/Disconnected messages~~
 - ~~Add Avatar for each Member~~
 - ~~List Group Members~~
+- ~~Mobile Friendly UI~~
 - Add sound for each chat
 - Add Browser notification.
 - Dismiss room if 0 users in a room.
-- Mobile Friendly UI
 - Chat Room Authentication
 - Private Chat
 - Store User Session

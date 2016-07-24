@@ -21,7 +21,7 @@ $(function() {
 
 	// on connection to server get the id of person's room
 	socket.on('connect', function() {
-		// Open the registration modal if username is blank
+		// Open the registration modal if no user data is stored in the socket
 		if (socket.userData == null) {
 			showLoginModal();
 		}
@@ -44,7 +44,7 @@ $(function() {
 			displayMessage(message.val(), socket.userData, moment());
 
 			// Send the message to the other person in the chat
-			socket.emit('new message', message.val(),socket.userData);
+			socket.emit('new message', message.val(), socket.userData);
 			// Empty the textarea
 			message.val("");
 			typing = false;
@@ -90,11 +90,11 @@ $(function() {
 	});
 
 	socket.on('typing', function(user) {
-		displayTypingMessage(user.username, false);
+		displayTypingMessage(user, false);
 	});
 
 	socket.on('stop typing', function(user) {
-		displayTypingMessage(user.username, true);
+		displayTypingMessage(user, true);
 	});
 
 	socket.on('receive', function(msg,user) {
@@ -197,19 +197,25 @@ $(function() {
 	}
 	
 
-	function displayTypingMessage(username, stop) {
+	function displayTypingMessage(userData, stop) {
 		// remove spaces from username
-		var user = username.replace(/ /g, "-");
+		var user = userData.username.replace(/ /g, "-");
 
 		if (stop === false) {
 			// add a list element with para id="<username>-typing" when user
 			// starts typing
-			var li = $('<li id="' + user
-					+ '-typing" class="clearfix bg-primary">' + user + '</li>');
+			var li = $('<li id="' + user + '-typing" class="clearfix typing-item ">' 
+					+ '<div class="typing-span ">'
+					+ '<img src="../images/typing.png">'
+					+ '<div>'
+					+ '<img class="img-circle" src="'+ userData.imageUrl +'">'
+					+ '<div class=" pull-right clearfix">'
+					+ '<b style="color:'+userData.userColor +'"> '+ userData.username +'</b>' + '</div>'
+					+ '</div></div> </li>');
 
 			typingList.append(li);
 
-			if ($("#typing-list li").length > 1) {
+			if ($("#typing-list li").length > 0) {
 				$(".typing").show("slow");
 			}
 

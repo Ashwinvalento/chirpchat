@@ -39,13 +39,7 @@ module.exports = function(app, io) {
 			var url = toonavatar.generate_avatar({"gender":gender});
 			socket.emit('show avatar', url);
 		});
-		
-//		socket.on('update group list', function(userData) {
-//			//send all connected users list  
-//			listRoomUsers(socket ,userData.roomId);
-//		});
-		
-		
+				
 		socket.on('new user', function(userData) {
 			if (addedUser)
 				return;

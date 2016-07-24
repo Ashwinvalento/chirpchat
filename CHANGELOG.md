@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The changelog adheres to format specified in [keep change log](http://keepachangelog.com)
 
+## [Unreleased]
+### Changed
+- Typing List UI
+
+
+### Fixed
+- chat pull right bug.
+
+
+
 ## [1.1.0] - 2016-07-23
 ### Added
 - Avatar Image for chats
