@@ -122,6 +122,8 @@ $(function() {
 				document.title = windowTitle + " - (" + unreadMsgCount
 						+ ') Unread';
 			}
+			
+			notifyUser("Chirp Chat : New Message",{ body : msg })
 		}
 	});
 
@@ -310,7 +312,7 @@ $(function() {
 	});
 
 	function toggleGroupListWindow() {
-		
+
 		var gpToggleButton = $(".gp-chat-toggle-btn > img");
 		if (gpListWindow.hasClass('visible')) {
 			gpListWindow.animate({
@@ -336,4 +338,26 @@ $(function() {
 		unreadMsgCount = 0;
 		document.title = windowTitle;
 	})
+
+	function notifyUser(title, options) {
+		/*
+		 * title = 'Email received'; options = { body : 'You have a total of 3
+		 * unread emails', tag : 'preset', icon :
+		 * 'http://www.audero.it/favicon.ico' };
+		 */
+
+		if (('Notification' in window)) {
+			Notification.requestPermission(function() {
+				var notification = new Notification(title, options);
+			});
+		}else{
+			//notifications not supported for this browser
+			showError("Notifications not supported in your browser");
+		}
+	}
+	
+	function showError(msg){
+		$(".error-placeholder").html('<div class="alert alert-danger" id="error-msg"><a href="#" class="close" data-dismiss="alert">&times;</a>'+ msg +'</div>')
+	}
+
 });

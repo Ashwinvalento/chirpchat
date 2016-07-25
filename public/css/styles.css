@@ -43,6 +43,17 @@ a#create {
 	margin: 10px 10px 0 10px;
 }
 /* Styles for the main chat screen  */
+
+#error-msg {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    overflow: hidden; 
+}
+
 .header-panel {
 	background-color: #009587;
 	height: 144px;
