@@ -10,7 +10,9 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 
 ### Fixed
 - chat pull right bug.
-
+- typing box animation closing.
+- remove user typing when disconnected.
+- remove user typing when text is erased.
 
 
 ## [1.1.0] - 2016-07-23

@@ -58,6 +58,11 @@ $(function() {
 		if (!typing) {
 			typing = true;
 			socket.emit('typing', socket.userData);
+		}else{
+			if(message.val() === ""){
+				socket.emit('stop typing', socket.userData);
+				typing = false ;
+			}
 		}
 
 	});
@@ -78,7 +83,7 @@ $(function() {
 
 	socket.on('user left', function(user) {
 		typing = false;
-		socket.emit('stop typing', user.username);
+		
 		displayMetaMessage(user.username + " has left the room");
 		
 		//remove user from group list
@@ -86,6 +91,8 @@ $(function() {
 		var id = '#gp-list-' + userId;
 
 		$(id).remove();
+		
+		displayTypingMessage(user, true);
 		
 	});
 
@@ -221,16 +228,17 @@ $(function() {
 
 		} else {
 
-			// remove the typing message when user stops typing or when message
-			// is sent
+			// remove the typing message when user stops typing or when message is sent
 			var id = '#' + user + '-typing';
 
-			$(id).remove();
 
 			if ($("#typing-list li").length === 1) {
-				$(".typing").hide("slow");
+				$(".typing").hide("slow",function() {
+					$(id).remove();
+				  });
+			}else{
+				$(id).remove();
 			}
-
 		}
 
 	}
