@@ -5,6 +5,8 @@
 <head>
 
 <title>Chirp Chat</title>
+<link rel='shortcut icon' href='../images/favicon-16.ico'
+	type='image/x-icon'/ >
 <!--Import Google Icon Font-->
 <link href="//fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -26,15 +28,13 @@
 </head>
 
 <body>
-<div class="error-placeholder">
-
-</div>
+	<div class="error-placeholder"></div>
 	<div class="header-panel shadow-z-2">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-12">
 					<h1 style="font-family: 'Stalemate', cursive;">Chirp Chat !</h1>
-					
+
 				</div>
 			</div>
 		</div>
@@ -43,46 +43,48 @@
 
 	<div class="container-fluid main">
 
-			<div class="page">
-					  <button type="button" class="btn btn-info gp-chat-toggle-btn hidden-sm hidden-md hidden-lg"><img src="../images/nav-icon.png" alt="toggle" /></button>
-			
-				<div class="row">
+		<div class="page">
+			<button type="button"
+				class="btn btn-info gp-chat-toggle-btn hidden-sm hidden-md hidden-lg">
+				<img src="../images/nav-icon.png" alt="toggle" />
+			</button>
+
+			<div class="row">
 				<!-- Main chat screen -->
-					<div class="col-xs-12 col-sm-8 fill-height">
-						<div class=" well well-sm fill-height">
-							<div class="chat-message">
-								<ul class="chat">
-	
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- Profile and Group Users List -->
-					<div class="col-sm-4 fill-height" >
-						<div class=" well well-sm list-fit-height gp-slider-window" >
-						<div class="row">
-								<div class="my-profile">
-									<img class="img-circle"
-										src="../images/unknown_user.png"
-										id="profile-img" />
-									<h4 class="text-center" id="profile-name"> Name </h4>
-								</div>
-							
-						</div>
-						<div class="row list-fit-height-expanded">
+				<div class="col-xs-12 col-sm-8 fill-height">
+					<div class=" well well-sm fill-height">
+						<div class="chat-message">
+							<ul class="chat">
 
-								<div class="list-scroll">
-									<ul class="users">
-									</ul>
-								</div>
-
-						</div>
-							
+							</ul>
 						</div>
 					</div>
 				</div>
+				<!-- Profile and Group Users List -->
+				<div class="col-sm-4 fill-height">
+					<div class=" well well-sm list-fit-height gp-slider-window">
+						<div class="row">
+							<div class="my-profile">
+								<img class="img-circle" src="../images/unknown_user.png"
+									id="profile-img" />
+								<h4 class="text-center" id="profile-name">Name</h4>
+							</div>
+
+						</div>
+						<div class="row list-fit-height-expanded">
+
+							<div class="list-scroll">
+								<ul class="users">
+								</ul>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
 			</div>
-			
+		</div>
+
 		<div class="chat-box bg-white">
 			<div class="row">
 				<div class="col-sm-12">
@@ -124,8 +126,7 @@
 
 							<div class="row ">
 								<div class="col-xs-4 col-xs-offset-4 ">
-									<img class="img-circle"
-										src="../images/unknown_user.png"
+									<img class="img-circle" src="../images/unknown_user.png"
 										id="avatar-img" />
 								</div>
 							</div>
@@ -164,6 +165,7 @@
 
 	</div>
 
+	<div id="sound"></div>
 
 	<script src="../js/jquery.min.js"></script>
 	<script

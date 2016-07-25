@@ -34,12 +34,18 @@ module.exports = function(app, io) {
 	var chat = io.on('connection', function(socket) {
 		var addedUser = false;
 		
-		// while logging in , get a random avatar and send back to the client 
+		// while logging in , get a random avatar and send back to the client
 		socket.on('get avatar', function(gender){
 			var url = toonavatar.generate_avatar({"gender":gender});
 			socket.emit('show avatar', url);
 		});
-				
+		
+		// send a array of room users to validate the username
+		socket.on('room user array', function(roomId){
+
+			var users = listRoomUsers(socket , roomId);
+			socket.emit('room user array', users);
+		});	
 		socket.on('new user', function(userData) {
 			if (addedUser)
 				return;
@@ -59,8 +65,9 @@ module.exports = function(app, io) {
 			// tell everyone , the new user has joined!
 			socket.broadcast.to(socket.room).emit('user joined', user);
 			
-			//send all connected users list  
-			listRoomUsers(socket , userData.roomId);
+			// send all connected users list
+			var userList = listRoomUsers(socket , userData.roomId);
+			io.sockets.in(socket.room).emit('users list', userList);
 						
 			addedUser = true;
 		    
@@ -101,8 +108,10 @@ module.exports = function(app, io) {
 		var connected = io.of("/").connected;
 			// get a list of all clients connected for the namespace
 			for (var id in connected) {
-				// If the connected client is present in the given room, add the data to result
-				// note that the room and userData is stored in the socket on login
+				// If the connected client is present in the given room, add the
+				// data to result
+				// note that the room and userData is stored in the socket on
+				// login
 				if(connected[id].room === room) {
 					var userData = {};
 					userData = connected[id].userData;
@@ -110,7 +119,7 @@ module.exports = function(app, io) {
 				}
 			}
 			// Send to all in the room , including the called socket
-			io.sockets.in(socket.room).emit('users list', users);
+			return users;
 		}
 
 };

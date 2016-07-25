@@ -8,6 +8,7 @@ $(function() {
 			'#446CB3', "#E9D460", "#5C97BF", "#BFBFBF" ];
 	var unreadMsgCount = 0;
 	var windowTitle = "Chirp Chat";
+	var usersInRoom = [];
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
@@ -85,8 +86,22 @@ $(function() {
 		updateGroupUsers(usersList);
 	});
 
+	socket.on('room user array', function(usersList) {
+
+		$.each(usersList, function(index, user) {
+			usersInRoom.push(replaceSpace(user.username));
+		});
+	});
+
 	socket.on('user joined', function(user) {
 		displayMetaMessage(user.username + " has joined the room");
+		notifyUser("Chirp Chat ", {
+			body : user.username.replace(/ +/g, " ") + " joined the room ",
+			icon : user.imageUrl,
+			tag : replaceSpace(user.username)
+		}, 3000);
+		playNotificationSound("../sound/new_user");
+
 	});
 
 	socket.on('user left', function(user) {
@@ -95,12 +110,18 @@ $(function() {
 		displayMetaMessage(user.username + " has left the room");
 
 		// remove user from group list
-		var userId = user.username.replace(/ /g, "-");
+		var userId = replaceSpace(user.username);
 		var id = '#gp-list-' + userId;
 
 		$(id).remove();
 
 		displayTypingMessage(user, true);
+		notifyUser("Chirp Chat ", {
+			body : user.username.replace(/ +/g, " ") + " left the room",
+			icon : user.imageUrl,
+			tag : replaceSpace(user.username)
+		}, 3000);
+		playNotificationSound("../sound/new_user");
 
 	});
 
@@ -122,8 +143,13 @@ $(function() {
 				document.title = windowTitle + " - (" + unreadMsgCount
 						+ ') Unread';
 			}
-			
-			notifyUser("Chirp Chat : New Message",{ body : msg })
+
+			notifyUser("Chirp Chat : New Message", {
+				body : user.username.replace(/ +/g, " ") + ": " + msg,
+				icon : user.imageUrl,
+				tag : replaceSpace(user.username)
+			}, 5000);
+			playNotificationSound("../sound/new_message");
 		}
 	});
 
@@ -134,6 +160,8 @@ $(function() {
 	function showLoginModal() {
 		nameerror.slideUp();
 		gendererror.slideUp();
+
+		socket.emit('room user array', roomId);
 
 		registrationModal.modal('show');
 
@@ -155,6 +183,10 @@ $(function() {
 			if (!radioValue) {
 				gendererror.slideDown();
 			} else if (uname == "") {
+				nameerror.text("You Need a Name!");
+				nameerror.slideDown();
+			} else if (usersInRoom.indexOf(replaceSpace(uname)) !== -1) {
+				nameerror.text("This Name is already taken");
 				nameerror.slideDown();
 			} else {
 				registrationModal.modal('hide');
@@ -205,7 +237,7 @@ $(function() {
 
 		var ulContent = " ";
 		usersList.forEach(function(user) {
-			var userId = user.username.replace(/ /g, "-");
+			var userId = replaceSpace(user.username);
 			var li = '<li class="bg-white clearfix" id="gp-list-' + userId
 					+ '">' + '<span class="chat-img pull-left">' + '<img src="'
 					+ user.imageUrl + '" alt="User Avatar">'
@@ -220,7 +252,7 @@ $(function() {
 
 	function displayTypingMessage(userData, stop) {
 		// remove spaces from username
-		var user = userData.username.replace(/ /g, "-");
+		var user = replaceSpace(userData.username);
 
 		if (stop === false) {
 			// add a list element with para id="<username>-typing" when user
@@ -339,25 +371,43 @@ $(function() {
 		document.title = windowTitle;
 	})
 
-	function notifyUser(title, options) {
-		/*
-		 * title = 'Email received'; options = { body : 'You have a total of 3
-		 * unread emails', tag : 'preset', icon :
-		 * 'http://www.audero.it/favicon.ico' };
-		 */
+	function notifyUser(title, options, time) {
 
 		if (('Notification' in window)) {
 			Notification.requestPermission(function() {
 				var notification = new Notification(title, options);
+				notification.onclick = function(x) {
+					window.focus();
+					this.cancel();
+				};
+				if (time) {
+					setTimeout(notification.close.bind(notification), time);
+				}
 			});
-		}else{
-			//notifications not supported for this browser
+		} else {
+			// notifications not supported for this browser
 			showError("Notifications not supported in your browser");
 		}
 	}
-	
-	function showError(msg){
-		$(".error-placeholder").html('<div class="alert alert-danger" id="error-msg"><a href="#" class="close" data-dismiss="alert">&times;</a>'+ msg +'</div>')
+
+	function playNotificationSound(filename) {
+		document.getElementById("sound").innerHTML = '<audio autoplay="autoplay"><source src="'
+				+ filename
+				+ '.mp3" type="audio/mpeg" /><source src="'
+				+ filename
+				+ '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="'
+				+ filename + '.mp3" /></audio>';
+	}
+
+	function replaceSpace(data) {
+		return data.toLowerCase().replace(/ +/g, "-");
+
+	}
+
+	function showError(msg) {
+		$(".error-placeholder")
+				.html('<div class="alert alert-danger" id="error-msg"><a href="#" class="close" data-dismiss="alert">&times;</a>'
+								+ msg + '</div>')
 	}
 
 });
