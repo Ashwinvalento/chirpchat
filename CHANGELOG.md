@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The changelog adheres to format specified in [keep change log](http://keepachangelog.com)
 
 ## [Unreleased]
+### Added
+- Unread messages count on window title
+ 
 ### Changed
 - Typing List UI
 

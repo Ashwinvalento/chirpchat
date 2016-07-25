@@ -6,13 +6,15 @@ $(function() {
 	var COLORS = [ '#D24D57', '#96281B', '#DB0A5B', '#663399', '#913D88',
 			'#913D88', '#2C3E50', '#F89406', '#D35400', '#F2784B', '#F9BF3B',
 			'#446CB3', "#E9D460", "#5C97BF", "#BFBFBF" ];
+	var unreadMsgCount = 0;
+	var windowTitle = "Chirp Chat";
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
 	var username = $("#username"), nameerror = $("#nameerror"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser");
 
 	// Chat Screen vars
-	var message = $("#message"), chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list");
+	var message = $("#message"), chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list"), gpListWindow = $('.gp-slider-window');
 
 	// connect to the socket
 	var socket = io();
@@ -58,15 +60,16 @@ $(function() {
 		if (!typing) {
 			typing = true;
 			socket.emit('typing', socket.userData);
-		}else{
-			if(message.val() === ""){
+		} else {
+			if (message.val() === "") {
 				socket.emit('stop typing', socket.userData);
-				typing = false ;
+				typing = false;
 			}
 		}
-		
-		//on keypad input, check if the group chat window is up, if so , minimise it
-		if($('.gp-slider-window').hasClass("visible")){
+
+		// on keypad input, check if the group chat window is up, if so ,
+		// minimise it
+		if (gpListWindow.hasClass("visible")) {
 			toggleGroupListWindow();
 		}
 
@@ -88,17 +91,17 @@ $(function() {
 
 	socket.on('user left', function(user) {
 		typing = false;
-		
+
 		displayMetaMessage(user.username + " has left the room");
-		
-		//remove user from group list
+
+		// remove user from group list
 		var userId = user.username.replace(/ /g, "-");
 		var id = '#gp-list-' + userId;
 
 		$(id).remove();
-		
+
 		displayTypingMessage(user, true);
-		
+
 	});
 
 	socket.on('typing', function(user) {
@@ -109,10 +112,16 @@ $(function() {
 		displayTypingMessage(user, true);
 	});
 
-	socket.on('receive', function(msg,user) {
+	socket.on('receive', function(msg, user) {
 
 		if (msg.trim().length) {
+			unreadMsgCount++;
 			displayMessage(msg, user, moment());
+
+			if (unreadMsgCount > 0) {
+				document.title = windowTitle + " - (" + unreadMsgCount
+						+ ') Unread';
+			}
 		}
 	});
 
@@ -148,22 +157,22 @@ $(function() {
 			} else {
 				registrationModal.modal('hide');
 				// send room id to the server on connection
-				
+
 				var newUser = {
-						"roomId" : roomId,
-						"username" : uname,
-						"userColor" : userColor,
-						"gender" : radioValue,
-						"imageUrl" : socket.imageUrl
-					}
+					"roomId" : roomId,
+					"username" : uname,
+					"userColor" : userColor,
+					"gender" : radioValue,
+					"imageUrl" : socket.imageUrl
+				}
 				socket.userData = newUser;
-				socket.emit('new user',newUser );
+				socket.emit('new user', newUser);
 				displayMetaMessage("You joined the room");
 				// set profile image
 				$("#profile-img").attr("src", socket.imageUrl);
 				$("#profile-name").text(uname);
 				$("#profile-name").css("color", userColor);
-				
+
 			}
 		});
 
@@ -189,25 +198,23 @@ $(function() {
 		chat.append(li);
 
 	}
-	
-	
-	function updateGroupUsers(usersList){
-		
+
+	function updateGroupUsers(usersList) {
+
 		var ulContent = " ";
-		usersList.forEach(function(user) { 
+		usersList.forEach(function(user) {
 			var userId = user.username.replace(/ /g, "-");
-			var li = '<li class="bg-white clearfix" id="gp-list-'+userId+'">'
-					+ '<span class="chat-img pull-left">'
-					+ '<img src="'+ user.imageUrl +'" alt="User Avatar">'
+			var li = '<li class="bg-white clearfix" id="gp-list-' + userId
+					+ '">' + '<span class="chat-img pull-left">' + '<img src="'
+					+ user.imageUrl + '" alt="User Avatar">'
 					+ '<div class="user-body pull-right clearfix">'
-					+ '<b style="color:'+user.userColor +'"> '+ user.username +'</b>' + '</div>'
-					+ '</span>' + '</li>';
-	
+					+ '<b style="color:' + user.userColor + '"> '
+					+ user.username + '</b>' + '</div>' + '</span>' + '</li>';
+
 			ulContent = ulContent.concat(li);
 		});
 		groupUsers.html(ulContent);
 	}
-	
 
 	function displayTypingMessage(userData, stop) {
 		// remove spaces from username
@@ -216,13 +223,14 @@ $(function() {
 		if (stop === false) {
 			// add a list element with para id="<username>-typing" when user
 			// starts typing
-			var li = $('<li id="' + user + '-typing" class="clearfix typing-item ">' 
+			var li = $('<li id="' + user
+					+ '-typing" class="clearfix typing-item ">'
 					+ '<div class="typing-span ">'
-					+ '<img src="../images/typing.png">'
-					+ '<div>'
-					+ '<img class="img-circle" src="'+ userData.imageUrl +'">'
-					+ '<div class=" pull-right clearfix">'
-					+ '<b style="color:'+userData.userColor +'"> '+ userData.username +'</b>' + '</div>'
+					+ '<img src="../images/typing.png">' + '<div>'
+					+ '<img class="img-circle" src="' + userData.imageUrl
+					+ '">' + '<div class=" pull-right clearfix">'
+					+ '<b style="color:' + userData.userColor + '"> '
+					+ userData.username + '</b>' + '</div>'
 					+ '</div></div> </li>');
 
 			typingList.append(li);
@@ -233,15 +241,15 @@ $(function() {
 
 		} else {
 
-			// remove the typing message when user stops typing or when message is sent
+			// remove the typing message when user stops typing or when message
+			// is sent
 			var id = '#' + user + '-typing';
 
-
 			if ($("#typing-list li").length === 1) {
-				$(".typing").hide("slow",function() {
+				$(".typing").hide("slow", function() {
 					$(id).remove();
-				  });
-			}else{
+				});
+			} else {
 				$(id).remove();
 			}
 		}
@@ -300,23 +308,22 @@ $(function() {
 	$(".gp-chat-toggle-btn").click(function() {
 		toggleGroupListWindow();
 	});
-	
-	
-	function toggleGroupListWindow(){
-		var gpListWindow = $('.gp-slider-window');
+
+	function toggleGroupListWindow() {
+		
 		var gpToggleButton = $(".gp-chat-toggle-btn > img");
 		if (gpListWindow.hasClass('visible')) {
 			gpListWindow.animate({
 				"left" : "105%"
-			}, "slow",function(){
-				gpListWindow.css("display","none");
+			}, "slow", function() {
+				gpListWindow.css("display", "none");
 			}).removeClass('visible');
 			gpToggleButton.css("transform", "rotateY(0deg)");
 		} else {
 			gpListWindow.animate({
 				"left" : "10%"
 			}, "slow");
-			gpListWindow.addClass('visible').css("display","block");
+			gpListWindow.addClass('visible').css("display", "table");
 			gpToggleButton.css("transform", "rotateY(180deg)");
 		}
 	}
@@ -324,4 +331,9 @@ $(function() {
 	function init() {
 		$(".typing").hide();
 	}
+
+	$(window).focus(function() {
+		unreadMsgCount = 0;
+		document.title = windowTitle;
+	})
 });
