@@ -298,11 +298,14 @@ a:hover, a:active, a:focus {
 
 /* group chat for mobile screen */
 .gp-chat-toggle-btn {
-     margin-right: -15px;
+     padding-right: 15px;
      position:absolute;
      top:0;
      right:0;
      float: right;
+     border: none !important;
+     background: none !important;
+     outline: none !important;
 }
 
 /*User Typing box */
@@ -370,7 +373,7 @@ a:hover, a:active, a:focus {
 }
 
 /* For small screens */
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-width: 768px) {
 	::-webkit-scrollbar {
 		display: none;
 	}
@@ -378,22 +381,23 @@ a:hover, a:active, a:focus {
 	.gp-slider-window {
 		position: absolute;
 		left:105%;
+		display: none;
 	}
 	
-	.list-scroll {
-		margin-right : 35px;
+	
+	.list-fit-height{
+		width: 80%;
 	}
 	
 	
 }
 
-@media only screen and (min-device-width: 481px) {
+@media only screen and (min-width: 768px) {
 		.gp-slider-window {
 		position: relative;
-	}
-	
-	.gp-slider-window {
-	left: 0 !important;
+		display: block !important;
+		left: 0 !important;
+		
 	}
 	
 }

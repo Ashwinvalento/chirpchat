@@ -13,6 +13,8 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 - typing box animation closing.
 - remove user typing when disconnected.
 - remove user typing when text is erased.
+- group list sliding in mobile devices.
+- hide group list when typing message
 
 
 ## [1.1.0] - 2016-07-23

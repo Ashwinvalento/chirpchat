@@ -64,6 +64,11 @@ $(function() {
 				typing = false ;
 			}
 		}
+		
+		//on keypad input, check if the group chat window is up, if so , minimise it
+		if($('.gp-slider-window').hasClass("visible")){
+			toggleGroupListWindow();
+		}
 
 	});
 
@@ -293,19 +298,28 @@ $(function() {
 
 	// show group users for mobile devides
 	$(".gp-chat-toggle-btn").click(function() {
-		var hidden = $('.gp-slider-window');
-		if (hidden.hasClass('visible')) {
-			hidden.animate({
-				"left" : "105%"
-			}, "slow").removeClass('visible');
-			$(".gp-chat-toggle-btn > img").css("transform", "rotateY(0deg)");
-		} else {
-			hidden.animate({
-				"left" : "10%"
-			}, "slow").addClass('visible');
-			$(".gp-chat-toggle-btn > img").css("transform", "rotateY(180deg)");
-		}
+		toggleGroupListWindow();
 	});
+	
+	
+	function toggleGroupListWindow(){
+		var gpListWindow = $('.gp-slider-window');
+		var gpToggleButton = $(".gp-chat-toggle-btn > img");
+		if (gpListWindow.hasClass('visible')) {
+			gpListWindow.animate({
+				"left" : "105%"
+			}, "slow",function(){
+				gpListWindow.css("display","none");
+			}).removeClass('visible');
+			gpToggleButton.css("transform", "rotateY(0deg)");
+		} else {
+			gpListWindow.animate({
+				"left" : "10%"
+			}, "slow");
+			gpListWindow.addClass('visible').css("display","block");
+			gpToggleButton.css("transform", "rotateY(180deg)");
+		}
+	}
 
 	function init() {
 		$(".typing").hide();
