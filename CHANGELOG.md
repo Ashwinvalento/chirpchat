@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 The changelog adheres to format specified in [keep change log](http://keepachangelog.com)
 
-## [Unreleased]
+## [1.3.0] - 2016-07-27
 ### Added
 - Unread messages count on window title
 - Notification for message, user Joined and user Left
@@ -11,7 +11,6 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 - Name Validation to Users List (2 people cannot have the same name)
 - Added Favicon.
 - Emoji support with emoji picker.
-- 
  
 ### Changed
 - Typing List UI
