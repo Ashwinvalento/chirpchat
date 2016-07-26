@@ -10,6 +10,8 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 - Notification Sound for message, user Joined and user Left.
 - Name Validation to Users List (2 people cannot have the same name)
 - Added Favicon.
+- Emoji support with emoji picker.
+- 
  
 ### Changed
 - Typing List UI

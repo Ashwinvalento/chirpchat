@@ -101,6 +101,10 @@ a#create {
 	background-color: #fff;
 }
 
+#submit{
+	padding: 8px;
+}
+
 .chat-message {
 	margin-left: -10px;
 	margin-right: -10px;

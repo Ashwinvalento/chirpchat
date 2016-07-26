@@ -20,6 +20,7 @@
 
 <!-- EmojiOne library for emoji -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css"/>
+<link rel="stylesheet" href="../css/emojionearea.min.css">
 
 <!-- Page Style -->
 <link type="text/css" rel="stylesheet" href="../css/styles.css" />
@@ -98,10 +99,7 @@
 
 			<form id="chatform" role="form">
 				<div class="input-group">
-					<div contentEditable="true" class="form-control border no-shadow no-rounded"
-						id="message" placeholder="Type your message here"
-						autocomplete="off">
-					</div>
+						<input id="emoji-message-box"> 
 					 <span class="input-group-btn">
 						<button class="btn btn-success no-rounded" id="submit"
 							type="submit">Send</button>
@@ -173,6 +171,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 	<script	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 	<script src="//cdn.jsdelivr.net/emojione/2.2.6/lib/js/emojione.min.js"></script>
+	<script src="../js/emojionearea.min.js" type="text/javascript" ></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/material.min.js"></script>
 	<script src="../js/ripples.min.js"></script>

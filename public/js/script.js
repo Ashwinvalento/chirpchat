@@ -10,20 +10,23 @@ $(function() {
 	var windowTitle = "Chirp Chat";
 	var usersInRoom = [];
 	
-	// Emoji Setup
-	emojione.ascii = true;
-	var emojiListUrl = "https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.json";
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
 	var username = $("#username"), nameerror = $("#nameerror"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser");
 
 	// Chat Screen vars
-	var message = $("#message"), chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list"), gpListWindow = $('.gp-slider-window');
+	var chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list"), gpListWindow = $('.gp-slider-window');
 
 	// connect to the socket
 	var socket = io();
-
+	
+	// Emoji Setup
+	emojione.ascii = true;
+	window.emojioneVersion = "2.1.1";
+	var emojiEditor = $("#emoji-message-box").emojioneArea({shortnames:true,placeholder: "Type your text here"});
+	
+	
 	init();
 
 	// on connection to server get the id of person's room
@@ -34,12 +37,11 @@ $(function() {
 		}
 	});
 
-	message.keypress(function(e) {
+	emojiEditor[0].emojioneArea.on("keydown", function(editor, event){
 		// Submit the form on enter
-		if (e.which == 13) {
-			e.preventDefault();
+		if (event.which == 13) {
+			event.preventDefault();
 			chatform.trigger('submit');
-			
 		}
 		
 	});
@@ -47,8 +49,8 @@ $(function() {
 	chatform.on('submit', function(e) {
 		e.preventDefault();
 		
-		var msgText =  message.text();
-		
+		var msgText =  emojiEditor[0].emojioneArea.getText();
+
 		if (msgText.trim().length) {
 			// Create a new chat message and display it directly
 			displayMessage(msgText, socket.userData, moment());
@@ -56,20 +58,20 @@ $(function() {
 			// Send the message to the other person in the chat
 			socket.emit('new message', msgText, socket.userData);
 			// Empty the textarea
-			message.text("");
+			emojiEditor[0].emojioneArea.setText("");
 			typing = false;
 			socket.emit('stop typing', socket.userData);
 		}
 
 	});
 
-	message.on('input', function() {
+	emojiEditor[0].emojioneArea.on("keypress", function(editor, event){
 
 		if (!typing) {
 			typing = true;
 			socket.emit('typing', socket.userData);
 		} else {
-			if (message.val() === "") {
+			if (emojiEditor[0].emojioneArea.getText() === "") {
 				socket.emit('stop typing', socket.userData);
 				typing = false;
 			}
@@ -308,7 +310,6 @@ $(function() {
 
 		//convert emoji's in message to images
 		var processedMsg = emojione.toImage(msg);
-		console.log(processedMsg)
 		var who = '';
 
 		if (user.username === socket.userData.username) {
@@ -389,10 +390,6 @@ $(function() {
 				// notifications not supported for this browser
 				showError("Notifications not supported in your browser");
 			}
-		
-		jQuery.getJSON( emojiListUrl , function(data){
-			console.log(data);
-		} )
 	}
 
 	$(window).focus(function() {

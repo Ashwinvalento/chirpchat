@@ -30,7 +30,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [x] List Group Members
 - [x] Add sound for each chat
 - [x] Add Browser notification (Support for mobile only on https).
-- [x] Add Emoji Support
+- [x] Add Emoji Support and Emoji Picker
 - Improve Home Screen UI (Add Material design)
 - Dismiss room if 0 users in a room.
 - Chat Room Authentication
@@ -58,6 +58,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [push.js](https://nickersoft.github.io/push.js/)
 - [socket.io](http://socket.io/)
 - [emojiOne](http://emojione.com/)
+- [emojiOneArena](http://mervick.github.io/emojionearea/)
 
 
 License:
