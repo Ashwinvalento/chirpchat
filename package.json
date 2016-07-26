@@ -1,7 +1,7 @@
 {
   "name": "chirpchat",
-  "version": "1.2.0",
-  "description": "A Fully fledged chat appication",
+  "version": "1.2.1",
+  "description": "A Fully fledged Node js chat appication for desktop and mobile",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/jshint/bin/jshint index.js",

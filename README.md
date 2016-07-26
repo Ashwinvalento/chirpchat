@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/Ashwinvalento/chirpchat.svg?branch=master)](https://travis-ci.org/Ashwinvalento/chirpchat) ![Heroku](https://img.shields.io/badge/Heroku-Deployed-brightgreen.svg) ![Beta](https://img.shields.io/badge/stability-stable-brightgreen.svg)
 
-# chirpchat [Under Development]
+# chirpchat - A chat application
 
-A Fully fledged personal and group chat Node js Application.
+A Fully fledged personal and group chat Node js Application works for desktop and mobile.
 
 Find the [demo](https://chirpchat.herokuapp.com) at heroku : 
 
@@ -19,25 +19,18 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 	node index.js
 ```
 
-### Features
-- Material Design and Mobile Compatible UI
-- Mobile Friendly UI
-- Group Chat
-- Multiple rooms
-- User Connected/Disconnected messages
-- User is Typing messages
-- Avatar for each Member
-- List Group Members
-
-###**To do Tasks **
+### Features / To Do tasks
+- [x] Material Design and Mobile Compatible UI
+- [x] Mobile Friendly UI
+- [x] Group Chat
+- [x] Multiple rooms
+- [x] User Connected/Disconnected messages
+- [x] User is Typing messages
+- [x] Avatar for each Member
+- [x] List Group Members
+- [x] Add sound for each chat
+- [x] Add Browser notification (Support for mobile only on https).
 - Improve Home Screen UI (Add Material design)
-- ~~Add Is typing Functionality~~
-- ~~Show User Connected/Disconnected messages~~
-- ~~Add Avatar for each Member~~
-- ~~List Group Members~~
-- ~~Mobile Friendly UI~~
-- Add sound for each chat
-- Add Browser notification.
 - Dismiss room if 0 users in a room.
 - Chat Room Authentication
 - Private Chat
@@ -47,6 +40,23 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - Message Read 
 - Send Media
  
+ 
+ 
+### Dependencies:
+### NPM:
+- [express](https://www.npmjs.com/package/express)
+- [ejs](https://www.npmjs.com/package/ejs)
+- [socket.io](https://www.npmjs.com/package/socket.io)
+- [cartoon-avatar](https://www.npmjs.com/package/cartoon-avatar)
+	
+###Web :
+- [bootstrap](http://getbootstrap.com/)
+- [bootstrap-material-design](http://fezvrasta.github.io/bootstrap-material-design/)
+- [Jquery](https://jquery.com/)
+- [Google Fonts](https://www.google.com/fonts)
+- [moment](http://momentjs.com/)
+- [push.js](https://nickersoft.github.io/push.js/)
+- [socket.io](http://socket.io/)
  
 License:
 --------

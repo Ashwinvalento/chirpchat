@@ -7,7 +7,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ### Added
 - Unread messages count on window title
 - Notification for message, user Joined and user Left
-- Notification Sound for message, user Joined and user Left
+- Notification Sound for message, user Joined and user Left.
 - Name Validation to Users List (2 people cannot have the same name)
 - Added Favicon.
  

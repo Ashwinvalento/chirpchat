@@ -98,8 +98,9 @@ $(function() {
 		notifyUser("Chirp Chat ", {
 			body : user.username.replace(/ +/g, " ") + " joined the room ",
 			icon : user.imageUrl,
-			tag : replaceSpace(user.username)
-		}, 3000);
+			tag : replaceSpace(user.username),
+			timeout: 3000
+		});
 		playNotificationSound("../sound/new_user");
 
 	});
@@ -119,8 +120,9 @@ $(function() {
 		notifyUser("Chirp Chat ", {
 			body : user.username.replace(/ +/g, " ") + " left the room",
 			icon : user.imageUrl,
-			tag : replaceSpace(user.username)
-		}, 3000);
+			tag : replaceSpace(user.username),
+			timeout: 4000
+		});
 		playNotificationSound("../sound/new_user");
 
 	});
@@ -138,17 +140,22 @@ $(function() {
 		if (msg.trim().length) {
 			unreadMsgCount++;
 			displayMessage(msg, user, moment());
-
-			if (unreadMsgCount > 0) {
-				document.title = windowTitle + " - (" + unreadMsgCount
-						+ ') Unread';
+			
+			//if the document doesnt have focus
+			if (!document.hasFocus()) {	
+				if (unreadMsgCount > 0) {
+					document.title = windowTitle + " - (" + unreadMsgCount
+							+ ') Unread';
+				}
+			}else{
+				unreadMsgCount = 0;
 			}
-
 			notifyUser("Chirp Chat : New Message", {
 				body : user.username.replace(/ +/g, " ") + ": " + msg,
 				icon : user.imageUrl,
-				tag : replaceSpace(user.username)
-			}, 5000);
+				tag : replaceSpace(user.username),
+				timeout: 3000
+			});
 			playNotificationSound("../sound/new_message");
 		}
 	});
@@ -364,6 +371,15 @@ $(function() {
 
 	function init() {
 		$(".typing").hide();
+		
+		//on connecting , ask for permission
+		
+		if ('Notification' in window) {
+			  Notification.requestPermission();
+			}else{
+				// notifications not supported for this browser
+				showError("Notifications not supported in your browser");
+			}
 	}
 
 	$(window).focus(function() {
@@ -371,32 +387,32 @@ $(function() {
 		document.title = windowTitle;
 	})
 
-	function notifyUser(title, options, time) {
-
-		if (('Notification' in window)) {
-			Notification.requestPermission(function() {
-				var notification = new Notification(title, options);
-				notification.onclick = function(x) {
-					window.focus();
-					this.cancel();
-				};
-				if (time) {
-					setTimeout(notification.close.bind(notification), time);
-				}
-			});
-		} else {
-			// notifications not supported for this browser
-			showError("Notifications not supported in your browser");
+	function notifyUser(title, options) {
+		//display notification only if window doesnt have focus
+		if (!document.hasFocus()) {
+			
+			if (/Mobi/.test(navigator.userAgent)) {
+				//for mobile devices, dont remove the notification
+			    delete options.timeout;
+			}
+			
+			options.onClick = function(x) {
+				window.focus();
+				Push.close(options.tag);
+			};
+			
+			options.vibrate = [300,300]
+			Push.create(title, options);
+		
 		}
 	}
 
 	function playNotificationSound(filename) {
-		document.getElementById("sound").innerHTML = '<audio autoplay="autoplay"><source src="'
+		$("#sound").html('<audio autoplay="autoplay"><source src="'
 				+ filename
-				+ '.mp3" type="audio/mpeg" /><source src="'
-				+ filename
-				+ '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="'
-				+ filename + '.mp3" /></audio>';
+				+ '.mp3" type="audio/mpeg" />'
+				+ '<embed hidden="true" autostart="true" loop="false" src="'
+				+ filename + '.mp3" /></audio>');
 	}
 
 	function replaceSpace(data) {
