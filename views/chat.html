@@ -5,15 +5,12 @@
 <head>
 
 <title>Chirp Chat</title>
-<link rel='shortcut icon' href='../images/favicon-16.ico'
-	type='image/x-icon'/ >
+
+<link rel='shortcut icon' href='../images/favicon-16.ico' type='image/x-icon'/ >
 <!--Import Google Icon Font-->
-<link href="//fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">
 
-
-<link href="//fonts.googleapis.com/css?family=Stalemate"
-	rel="stylesheet">
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 
@@ -21,8 +18,12 @@
 <link href="../css/bootstrap-material-design.min.css" rel="stylesheet">
 <link href="../css/ripples.min.css" rel="stylesheet">
 
+<!-- EmojiOne library for emoji -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css"/>
+
 <!-- Page Style -->
 <link type="text/css" rel="stylesheet" href="../css/styles.css" />
+
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
@@ -97,10 +98,11 @@
 
 			<form id="chatform" role="form">
 				<div class="input-group">
-
-					<input class="form-control border no-shadow no-rounded"
+					<div contentEditable="true" class="form-control border no-shadow no-rounded"
 						id="message" placeholder="Type your message here"
-						autocomplete="off"> <span class="input-group-btn">
+						autocomplete="off">
+					</div>
+					 <span class="input-group-btn">
 						<button class="btn btn-success no-rounded" id="submit"
 							type="submit">Send</button>
 					</span>
@@ -168,15 +170,15 @@
 	<div id="sound"></div>
 
 	<script src="../js/jquery.min.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+	<script	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script src="//cdn.jsdelivr.net/emojione/2.2.6/lib/js/emojione.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/material.min.js"></script>
 	<script src="../js/ripples.min.js"></script>
-	<script src="../js/script.js"></script>
 	<script src="../js/push.min.js"></script>
+	<script src="../js/script.js"></script>
+
 
 </body>
 </html>

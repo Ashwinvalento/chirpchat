@@ -9,6 +9,10 @@ $(function() {
 	var unreadMsgCount = 0;
 	var windowTitle = "Chirp Chat";
 	var usersInRoom = [];
+	
+	// Emoji Setup
+	emojione.ascii = true;
+	var emojiListUrl = "https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji.json";
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
@@ -35,21 +39,24 @@ $(function() {
 		if (e.which == 13) {
 			e.preventDefault();
 			chatform.trigger('submit');
+			
 		}
-
+		
 	});
 
 	chatform.on('submit', function(e) {
 		e.preventDefault();
-
-		if (message.val().trim().length) {
+		
+		var msgText =  message.text();
+		
+		if (msgText.trim().length) {
 			// Create a new chat message and display it directly
-			displayMessage(message.val(), socket.userData, moment());
+			displayMessage(msgText, socket.userData, moment());
 
 			// Send the message to the other person in the chat
-			socket.emit('new message', message.val(), socket.userData);
+			socket.emit('new message', msgText, socket.userData);
 			// Empty the textarea
-			message.val("");
+			message.text("");
 			typing = false;
 			socket.emit('stop typing', socket.userData);
 		}
@@ -299,6 +306,9 @@ $(function() {
 
 	function displayMessage(msg, user, now) {
 
+		//convert emoji's in message to images
+		var processedMsg = emojione.toImage(msg);
+		console.log(processedMsg)
 		var who = '';
 
 		if (user.username === socket.userData.username) {
@@ -328,9 +338,8 @@ $(function() {
 				+ '">John Doe</b>'
 				+ '<small class="pull-right text-muted"><div class="timestamp">'
 				+ '<i class="timesent" data-time=' + now + '></i> </div>'
-				+ '</small>' + '</div>' + '<p >' + '</p>' + '</div>' + '</li>');
+				+ '</small>' + '</div>' + '<div class="message-text" >' + processedMsg +  '</div>' + '</div>' + '</li>');
 
-		li.find('p').text(msg);
 		li.find('b').text(user.username);
 
 		scrollToBottom();
@@ -380,6 +389,10 @@ $(function() {
 				// notifications not supported for this browser
 				showError("Notifications not supported in your browser");
 			}
+		
+		jQuery.getJSON( emojiListUrl , function(data){
+			console.log(data);
+		} )
 	}
 
 	$(window).focus(function() {

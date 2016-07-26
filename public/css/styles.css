@@ -155,7 +155,7 @@ img {
 .chat li .chat-body {
 	position: relative;
 	font-size: 11px;
-	padding: 10px;
+	padding: 10px 10px 0 10px;
 	border: 1px solid #f1f5fc;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
@@ -169,10 +169,18 @@ img {
 	border-bottom: 1px solid #f1f5fc;
 }
 
-.chat li .chat-body p {
+.chat li .chat-body div.message-text {
 	margin: 0;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
+
+/* emoji size  */
+img.emojione{
+	width: 10px !important;
+	height: 10px !important;	
+}
 
 .chat li.left .chat-body {
 	margin-left: 15px;
