@@ -9,47 +9,48 @@ $(function() {
 	var unreadMsgCount = 0;
 	var windowTitle = "Chirp Chat";
 	var usersInRoom = [];
-	
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
-	var username = $("#username"), nameerror = $("#nameerror"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser");
+	var username = $("#username"), nameerror = $("#nameerror"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser"), noUserModal = $('#noUsersModal');
 
 	// Chat Screen vars
 	var chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list"), gpListWindow = $('.gp-slider-window');
 
 	// connect to the socket
 	var socket = io();
-	
+
 	// Emoji Setup
 	emojione.ascii = true;
 	window.emojioneVersion = "2.1.1";
-	var emojiEditor = $("#emoji-message-box").emojioneArea({shortnames:true,placeholder: "Type your text here"});
-	
-	
+	var emojiEditor = $("#emoji-message-box").emojioneArea({
+		shortnames : true,
+		placeholder : "Type your text here"
+	});
+
 	init();
 
 	// on connection to server get the id of person's room
 	socket.on('connect', function() {
 		// Open the registration modal if no user data is stored in the socket
 		if (socket.userData == null) {
-			showLoginModal();
+			showLoginModal();			
 		}
 	});
 
-	emojiEditor[0].emojioneArea.on("keydown", function(editor, event){
+	emojiEditor[0].emojioneArea.on("keydown", function(editor, event) {
 		// Submit the form on enter
 		if (event.which == 13) {
 			event.preventDefault();
 			chatform.trigger('submit');
 		}
-		
+
 	});
 
 	chatform.on('submit', function(e) {
 		e.preventDefault();
-		
-		var msgText =  emojiEditor[0].emojioneArea.getText();
+
+		var msgText = emojiEditor[0].emojioneArea.getText();
 
 		if (msgText.trim().length) {
 			// Create a new chat message and display it directly
@@ -65,7 +66,7 @@ $(function() {
 
 	});
 
-	emojiEditor[0].emojioneArea.on("keypress", function(editor, event){
+	emojiEditor[0].emojioneArea.on("keypress", function(editor, event) {
 
 		if (!typing) {
 			typing = true;
@@ -108,7 +109,7 @@ $(function() {
 			body : user.username.replace(/ +/g, " ") + " joined the room ",
 			icon : user.imageUrl,
 			tag : replaceSpace(user.username),
-			timeout: 3000
+			timeout : 3000
 		});
 		playNotificationSound("../sound/new_user");
 
@@ -130,7 +131,7 @@ $(function() {
 			body : user.username.replace(/ +/g, " ") + " left the room",
 			icon : user.imageUrl,
 			tag : replaceSpace(user.username),
-			timeout: 4000
+			timeout : 4000
 		});
 		playNotificationSound("../sound/new_user");
 
@@ -149,28 +150,24 @@ $(function() {
 		if (msg.trim().length) {
 			unreadMsgCount++;
 			displayMessage(msg, user, moment());
-			
-			//if the document doesnt have focus
-			if (!document.hasFocus()) {	
+
+			// if the document doesnt have focus
+			if (!document.hasFocus()) {
 				if (unreadMsgCount > 0) {
 					document.title = windowTitle + " - (" + unreadMsgCount
 							+ ') Unread';
 				}
-			}else{
+			} else {
 				unreadMsgCount = 0;
 			}
 			notifyUser("Chirp Chat : New Message", {
 				body : user.username.replace(/ +/g, " ") + ": " + msg,
 				icon : user.imageUrl,
 				tag : replaceSpace(user.username),
-				timeout: 3000
+				timeout : 3000
 			});
 			playNotificationSound("../sound/new_message");
 		}
-	});
-
-	message.click(function() {
-		message.focus();
 	});
 
 	function showLoginModal() {
@@ -222,6 +219,13 @@ $(function() {
 				$("#profile-img").attr("src", socket.imageUrl);
 				$("#profile-name").text(uname);
 				$("#profile-name").css("color", userColor);
+				
+				//if you are the only one, show no one dialog
+				if(usersInRoom.length === 0){
+					noUserModal.modal('show');
+				}
+				// show the room url in the box
+				$(".room-url").text(window.location.href);
 
 			}
 		});
@@ -308,7 +312,7 @@ $(function() {
 
 	function displayMessage(msg, user, now) {
 
-		//convert emoji's in message to images
+		// convert emoji's in message to images
 		var processedMsg = emojione.toImage(msg);
 		var who = '';
 
@@ -339,7 +343,8 @@ $(function() {
 				+ '">John Doe</b>'
 				+ '<small class="pull-right text-muted"><div class="timestamp">'
 				+ '<i class="timesent" data-time=' + now + '></i> </div>'
-				+ '</small>' + '</div>' + '<div class="message-text" >' + processedMsg +  '</div>' + '</div>' + '</li>');
+				+ '</small>' + '</div>' + '<div class="message-text" >'
+				+ processedMsg + '</div>' + '</div>' + '</li>');
 
 		li.find('b').text(user.username);
 
@@ -366,14 +371,14 @@ $(function() {
 		if (gpListWindow.hasClass('visible')) {
 			gpListWindow.animate({
 				"left" : "105%"
-			}, "slow", function() {
+			}, "fast", function() {
 				gpListWindow.css("display", "none");
 			}).removeClass('visible');
 			gpToggleButton.css("transform", "rotateY(0deg)");
 		} else {
 			gpListWindow.animate({
 				"left" : "10%"
-			}, "slow");
+			}, "fast");
 			gpListWindow.addClass('visible').css("display", "table");
 			gpToggleButton.css("transform", "rotateY(180deg)");
 		}
@@ -381,15 +386,15 @@ $(function() {
 
 	function init() {
 		$(".typing").hide();
-		
-		//on connecting , ask for permission
-		
+
+		// on connecting , ask for permission
+
 		if ('Notification' in window) {
-			  Notification.requestPermission();
-			}else{
-				// notifications not supported for this browser
-				showError("Notifications not supported in your browser");
-			}
+			Notification.requestPermission();
+		} else {
+			// notifications not supported for this browser
+			showError("Notifications not supported in your browser");
+		}
 	}
 
 	$(window).focus(function() {
@@ -398,31 +403,35 @@ $(function() {
 	})
 
 	function notifyUser(title, options) {
-		//display notification only if window doesnt have focus
+		// display notification only if window doesnt have focus
 		if (!document.hasFocus()) {
-			
-			if (/Mobi/.test(navigator.userAgent)) {
-				//for mobile devices, dont remove the notification
-			    delete options.timeout;
+			if (Notification.permission === "granted") {
+
+				if (/Mobi/.test(navigator.userAgent)) {
+					// for mobile devices, dont remove the notification
+					delete options.timeout;
+				}
+
+				options.onClick = function(x) {
+					window.focus();
+					Push.close(options.tag);
+				};
+
+				options.vibrate = [ 300, 300 ]
+				Push.create(title, options);
 			}
-			
-			options.onClick = function(x) {
-				window.focus();
-				Push.close(options.tag);
-			};
-			
-			options.vibrate = [300,300]
-			Push.create(title, options);
-		
+
 		}
 	}
 
 	function playNotificationSound(filename) {
-		$("#sound").html('<audio autoplay="autoplay"><source src="'
-				+ filename
-				+ '.mp3" type="audio/mpeg" />'
-				+ '<embed hidden="true" autostart="true" loop="false" src="'
-				+ filename + '.mp3" /></audio>');
+		$("#sound")
+				.html(
+						'<audio autoplay="autoplay"><source src="'
+								+ filename
+								+ '.mp3" type="audio/mpeg" />'
+								+ '<embed hidden="true" autostart="true" loop="false" src="'
+								+ filename + '.mp3" /></audio>');
 	}
 
 	function replaceSpace(data) {
@@ -432,7 +441,8 @@ $(function() {
 
 	function showError(msg) {
 		$(".error-placeholder")
-				.html('<div class="alert alert-danger" id="error-msg"><a href="#" class="close" data-dismiss="alert">&times;</a>'
+				.html(
+						'<div class="alert alert-danger" id="error-msg"><a href="#" class="close" data-dismiss="alert">&times;</a>'
 								+ msg + '</div>')
 	}
 

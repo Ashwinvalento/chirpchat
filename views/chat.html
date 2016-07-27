@@ -71,6 +71,11 @@
 									id="profile-img" />
 								<h4 class="text-center" id="profile-name">Name</h4>
 							</div>
+							<div class="col-sm-12">
+								<div class="well well-sm">
+									<div class="room-url"></div>
+								</div>
+							</div>
 
 						</div>
 						<div class="row list-fit-height-expanded">
@@ -113,7 +118,7 @@
 
 
 	<!-- Chat Components -->
-	<!-- Modal -->
+	<!--Registration Modal -->
 
 	<div class="modal fade" id="registrationModal" data-keyboard="false"
 		data-backdrop="static" role="dialog">
@@ -164,7 +169,34 @@
 
 
 	</div>
-
+	
+	<div class="modal fade" id="noUsersModal" role="dialog">
+		
+		<div class="modal-dialog ">	
+			<div class="row">
+				<div class="col-sm-12">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="row noUserRow">
+							 Oops! Looks like It's lonely here 
+							<img style="width:18px; height:18px; margin-left:5px" alt="" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.1.4/assets/png/1f61f.png"> 
+							 But no worries, You can invite them over by sending them the link below!
+							<img style="width:18px; height:18px; margin-left:5px" alt="" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.1.4/assets/png/1f62c.png">
+							<div class="well well-sm">
+								<div class="room-url"></div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+					</div>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div id="sound"></div>
 
 	<script src="../js/jquery.min.js"></script>

@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 The changelog adheres to format specified in [keep change log](http://keepachangelog.com)
 
+## [1.3.1] - 2016-07-27
+### Added
+- added URL box to share to other users.
+
+### Fixed
+- uncaught error if notifications were blocked.
+- group list button defer slide animation. 
+
+
 ## [1.3.0] - 2016-07-27
 ### Added
 - Unread messages count on window title

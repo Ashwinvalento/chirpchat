@@ -105,6 +105,24 @@ a#create {
 	padding: 8px;
 }
 
+.room-url{
+	margin: -5px 0 -5px 0;
+	font-size: smaller;
+}
+
+.noUserRow {
+	margin: 5px;
+}
+
+.noUserRow > div{
+	margin-top: 15px;
+}
+
+.noUserRow > div{
+	margin-top: 15px;
+}
+
+
 .chat-message {
 	margin-left: -10px;
 	margin-right: -10px;
