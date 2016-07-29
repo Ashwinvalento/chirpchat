@@ -6,6 +6,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ## [1.3.1] - 2016-07-27
 ### Added
 - added URL box to share to other users.
+- Material UI home screen.
 
 ### Fixed
 - uncaught error if notifications were blocked.

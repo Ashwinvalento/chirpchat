@@ -10,8 +10,8 @@ module.exports = function(app, io) {
 	// Render Home page
 	app.get('/', function(req, res) {
 
-		// Render views/home.html
-		res.render('home');
+		// Render views/index.html
+		res.render('index');
 	});
 
 	// Create a new chat room

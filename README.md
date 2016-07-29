@@ -31,7 +31,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [x] Add sound for each chat
 - [x] Add Browser notification (Support for mobile only on https).
 - [x] Add Emoji Support and Emoji Picker
-- Improve Home Screen UI (Add Material design)
+- [x] Improve Home Screen UI (Add Material design)
 - Dismiss room if 0 users in a room.
 - Chat Room Authentication
 - Private Chat
