@@ -112,6 +112,9 @@ $(function() {
 			timeout : 3000
 		});
 		playNotificationSound("../sound/new_user");
+		//Hide the invide dialogue if someone joins
+		noUserModal.modal('hide');
+		
 
 	});
 

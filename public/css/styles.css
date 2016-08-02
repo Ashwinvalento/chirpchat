@@ -161,16 +161,37 @@ body{
 	font-size: smaller;
 }
 
-.noUserRow {
-	margin: 5px;
-}
 
-.noUserRow > div{
-	margin-top: 15px;
-}
+/* no Users Modal */
 
-.noUserRow > div{
-	margin-top: 15px;
+
+.no-users {
+	text-align:center;
+	display: block;
+	padding: 0 15px 15px 15px;
+	background-color: #ffffff;
+	border-radius: 3px;
+	box-shadow:0px 3px 3px #e3e4e6;
+	color: #637277;
+}
+.no-users h2 {
+	padding-top: 80px;
+}
+.no-users h5 {
+	 font-weight: normal;
+	 margin: 10px 0 35px;
+ }
+ 
+.no-users .room-url {
+	text-align:center;
+	display: block;
+	margin:0px auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 60px;
+	border-radius: 4px;
+	background-color: #f0f1f3;
+	color: #637277;
 }
 
 

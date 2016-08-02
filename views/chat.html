@@ -6,10 +6,13 @@
 
 <title>Chirp Chat</title>
 
-<link rel='shortcut icon' href='../images/favicon-16.ico' type='image/x-icon'/ >
+<link rel='shortcut icon' href='../images/favicon-16.ico'
+	type='image/x-icon'/ >
 <!--Import Google Icon Font-->
-<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="//fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">
+<link href="//fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Stalemate"
+	rel="stylesheet">
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -19,7 +22,8 @@
 <link href="../css/ripples.min.css" rel="stylesheet">
 
 <!-- EmojiOne library for emoji -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css"/>
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css" />
 <link rel="stylesheet" href="../css/emojionearea.min.css">
 
 <!-- Page Style -->
@@ -104,8 +108,8 @@
 
 			<form id="chatform" role="form">
 				<div class="input-group">
-						<input id="emoji-message-box"> 
-					 <span class="input-group-btn">
+					<input id="emoji-message-box"> <span
+						class="input-group-btn">
 						<button class="btn btn-success no-rounded" id="submit"
 							type="submit">Send</button>
 					</span>
@@ -169,41 +173,30 @@
 
 
 	</div>
-	
+
 	<div class="modal fade" id="noUsersModal" role="dialog">
-		
-		<div class="modal-dialog ">	
-			<div class="row">
-				<div class="col-sm-12">
-				<div class="modal-content">
-					<div class="modal-body">
-						<div class="row noUserRow">
-							 Oops! Looks like It's lonely here 
-							<img style="width:18px; height:18px; margin-left:5px" alt="" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.1.4/assets/png/1f61f.png"> 
-							 But no worries, You can invite them over by sending them the link below!
-							<img style="width:18px; height:18px; margin-left:5px" alt="" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.1.4/assets/png/1f62c.png">
-							<div class="well well-sm">
-								<div class="room-url"></div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-					</div>
-				</div>
-				
+
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="no-users">
+					<h2>Oops! Looks like It's lonely here</h2>
+					<h5>Invite a friend by sending them this URL</h5>
+					<div class="room-url"></div>
 				</div>
 			</div>
 		</div>
+
 	</div>
-	
+
 	<div id="sound"></div>
 
 	<script src="../js/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-	<script	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 	<script src="//cdn.jsdelivr.net/emojione/2.2.6/lib/js/emojione.min.js"></script>
-	<script src="../js/emojionearea.min.js" type="text/javascript" ></script>
+	<script src="../js/emojionearea.min.js" type="text/javascript"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/material.min.js"></script>
 	<script src="../js/ripples.min.js"></script>
