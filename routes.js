@@ -2,7 +2,6 @@
 
 //get the avatar library
 var toonavatar = require('cartoon-avatar');
-
 module.exports = function(app, io) {
 
 	// --------------- Route Settings --------------
@@ -14,21 +13,11 @@ module.exports = function(app, io) {
 		res.render('index');
 	});
 
-	// Create a new chat room
-	app.get('/newChat', function(req, res) {
-
-		// Generate unique id for the room
-		var id = Math.round((Math.random() * 1000000));
-
-		// Redirect to the random room
-		res.redirect('/chat/' + id);
-	});
 
 	app.get('/chat/:id', function(req, res) {
 		// Render the chat.html view
 		res.render('chat');
 	});
-
 	// ----------------- Socket Connection -------------------
 	// Initialize a new socket.io application, named 'chat'
 	var chat = io.on('connection', function(socket) {
@@ -41,16 +30,19 @@ module.exports = function(app, io) {
 		});
 		
 		// send a array of room users to validate the username
-		socket.on('room user array', function(roomId){
-
+		socket.on('room data', function(roomId){
 			var users = listRoomUsers(socket , roomId);
-			socket.emit('room user array', users);
+			data = {
+					'usersList' : users
+					}
+						
+			socket.emit('room data', data);
 		});	
+		
 		socket.on('new user', function(userData) {
 			if (addedUser)
 				return;
 			socket.room = userData.roomId;
-
 			// Add the client to the room
 			socket.join(userData.roomId);
 

@@ -32,8 +32,9 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [x] Add Browser notification (Support for mobile only on https).
 - [x] Add Emoji Support and Emoji Picker
 - [x] Improve Home Screen UI (Add Material design)
+- [x] Room Encryption using AES.
+- Chat Room Authentication.
 - Dismiss room if 0 users in a room.
-- Chat Room Authentication
 - Private Chat
 - Store User Session
 - Email Chat History
@@ -59,6 +60,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [socket.io](http://socket.io/)
 - [emojiOne](http://emojione.com/)
 - [emojiOneArena](http://mervick.github.io/emojionearea/)
+- [sjcl](https://github.com/bitwiseshiftleft/sjcl)
 
 
 License:

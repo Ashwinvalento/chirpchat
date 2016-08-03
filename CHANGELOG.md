@@ -3,9 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The changelog adheres to format specified in [keep change log](http://keepachangelog.com)
 
+## [Unreleased]
+### Added 
+- Room encryption using AES (sjcl.js library) 
+
+###changed
+- replaced url box with button in slider window.
+
 ## [1.3.1] - 2016-07-27
 ### Added
-- added URL box to share to other users.
+- URL box to share to other users.
 - Material UI home screen.
 
 ### Fixed

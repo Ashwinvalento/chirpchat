@@ -22,13 +22,8 @@ body{
 }
 
 
-#grouperror {
-	display: none;
-}
-
-#username {
-	padding: 10px 10px 10px 10px;
-	margin: 10px 10px 0 10px;
+.modal-content .form-group {
+	margin: 0;
 }
 
 /* Index Page Styles */
@@ -52,7 +47,7 @@ body{
 
 .main{
     width: 45%;
-    margin: 45px auto;
+    margin: 10px auto;
     padding: 30px 30px;
 }
 
@@ -157,6 +152,7 @@ body{
 }
 
 .room-url{
+	word-wrap:break-word;
 	margin: -5px 0 -5px 0;
 	font-size: smaller;
 }
@@ -354,6 +350,17 @@ a:hover, a:active, a:focus {
 	border: 1px solid #ccc;
 }
 
+.invite-box {
+	text-align: center;
+}
+
+.invite-box > button {
+	margin-top : -10px;
+	background-color: #009587;
+	color: #eee !important;
+	text-transform: none;
+}
+
 .list-fit-height {
 	display: table;
 	height: 100%;
@@ -495,7 +502,7 @@ a:hover, a:active, a:focus {
 
 @media only screen and (max-width: 460px){
 	.main {
-		margin: 29px auto;
+		margin: -45px auto;
 		width: 100%;
 	}
 

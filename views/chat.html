@@ -6,13 +6,10 @@
 
 <title>Chirp Chat</title>
 
-<link rel='shortcut icon' href='../images/favicon-16.ico'
-	type='image/x-icon'/ >
+<link rel='shortcut icon' href='../images/favicon-16.ico' type='image/x-icon'/ >
 <!--Import Google Icon Font-->
-<link href="//fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<link href="//fonts.googleapis.com/css?family=Stalemate"
-	rel="stylesheet">
+<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -22,8 +19,7 @@
 <link href="../css/ripples.min.css" rel="stylesheet">
 
 <!-- EmojiOne library for emoji -->
-<link rel="stylesheet"
-	href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css" />
 <link rel="stylesheet" href="../css/emojionearea.min.css">
 
 <!-- Page Style -->
@@ -75,10 +71,8 @@
 									id="profile-img" />
 								<h4 class="text-center" id="profile-name">Name</h4>
 							</div>
-							<div class="col-sm-12">
-								<div class="well well-sm">
-									<div class="room-url"></div>
-								</div>
+							<div class="col-sm-12 invite-box">
+								<button class="btn btn-primary" id="invite" >Invite Friends </button>
 							</div>
 
 						</div>
@@ -148,18 +142,20 @@
 											name="gender" value="female" /> Female
 										</label>
 									</div>
-									<div class="alert alert-danger" role="alert" id="gender-error">Please
-										select a gender.</div>
-
-
+									<div class="alert alert-danger" role="alert" id="gender-error"
+										style="display: none">Please select a gender.</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="form-group label-floating">
+										<label for="username" class="control-label">Username</label> <input
+											type="text" class="form-control" id="username"> <span
+											class="help-block">This will be displayed for other
+											users. </span>
+									</div>
+									<div class="alert alert-danger" role="alert" id="nameerror"
+										style="display: none">You need a name !</div>
 								</div>
 
-								<div class="col-sm-12 ">
-									<input type="text" class="form-control"
-										placeholder="Enter Username" id="username">
-									<div class="alert alert-danger" role="alert" id="nameerror">You
-										need a name !</div>
-								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -201,6 +197,7 @@
 	<script src="../js/material.min.js"></script>
 	<script src="../js/ripples.min.js"></script>
 	<script src="../js/push.min.js"></script>
+	<script src="../js/sjcl.js"></script>
 	<script src="../js/script.js"></script>
 
 

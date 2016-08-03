@@ -2,32 +2,69 @@
 <html>
 <head>
 <title>Chirp Chat</title>
+<link rel='shortcut icon' href='../images/favicon-16.ico' type='image/x-icon'/ >
 <!-- for-mobile-apps -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-<meta name="keywords" content="Chirp Chat, A node js chat app for desktop and mobiles" />
-<!-- //for-mobile-apps -->
-<link href="//fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">
-<link href="../css/styles.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Chirp Chat, A node js chat app for desktop and mobiles" />
+<!-- end for-mobile-apps -->
+
+<link href="//fonts.googleapis.com/css?family=Stalemate"
+	rel="stylesheet">
+<!-- Bootstrap -->
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+<!-- Bootstrap Material Design -->
+<link href="../css/bootstrap-material-design.min.css" rel="stylesheet">
+<link href="../css/ripples.min.css" rel="stylesheet">
+<link href="../css/styles.css" rel="stylesheet" type="text/css"
+	media="all" />
 </head>
 <body>
-	<div class="header-panel">
+	<div class="header-panel"></div>
+	<div class="content">
+		<div>
+			<div class="pic-image">
+				<img src="../images/favicon.png" alt=" " />
+			</div>
+			<h1>Welcome to Chirp Chat</h1>
+		</div>
 
-	</div>
-<div class="content">
-	<div>
-	<div class="pic-image"><img src="../images/favicon.png" alt=" "/></div>
-		<h1>Welcome to Chirp Chat</h1>
-	</div>
-	
 		<div class="main">
-							
-				<form action="/newChat">
-				    <input type="submit" value="Lets Chat!" id="create">
-				</form>
+
+			<form action="/chat/" method="get">
+				<div class="password-div">
+					<div class="form-group">
+						<div class="checkbox">
+							<label> <input type="checkbox" id="cb-password">
+								Use Password (All messages will be encrypted)
+							</label>
+						</div>
+					</div>
+					<div class="password-section" style="display: none">
+						<div class="form-group label-floating has-feedback">
+							<label for="password" class="control-label">Password</label> <input
+								type="password" class="form-control" name="password"
+								id="password">
+						</div>
+					</div>
+				</div>
+				<input type="submit" value="Lets Chat!" id="create">
+			</form>
 
 		</div>
-</div>
+	</div>
+	<script src="../js/jquery.min.js"></script>
+	<script
+		src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/material.min.js"></script>
+	<script src="../js/ripples.min.js"></script>
+	<script src="../js/sjcl.js"></script>
+	<script src="../js/index.js"></script>
+
 </body>
 </html>

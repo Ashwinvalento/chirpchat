@@ -2,6 +2,7 @@ $(function() {
 	// Variables
 	// get the ID of the room
 	var roomId = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
+	var roomPass = getUrlVars()["password"] || null;
 	var typing = false;
 	var COLORS = [ '#D24D57', '#96281B', '#DB0A5B', '#663399', '#913D88',
 			'#913D88', '#2C3E50', '#F89406', '#D35400', '#F2784B', '#F9BF3B',
@@ -12,7 +13,7 @@ $(function() {
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
-	var username = $("#username"), nameerror = $("#nameerror"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser"), noUserModal = $('#noUsersModal');
+	var username = $("#username"), nameerror = $("#nameerror"), password = $("#password"), passerror = $("#pass-error"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser"), noUserModal = $('#noUsersModal');
 
 	// Chat Screen vars
 	var chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list"), gpListWindow = $('.gp-slider-window');
@@ -34,7 +35,7 @@ $(function() {
 	socket.on('connect', function() {
 		// Open the registration modal if no user data is stored in the socket
 		if (socket.userData == null) {
-			showLoginModal();			
+			showLoginModal();
 		}
 	});
 
@@ -57,7 +58,7 @@ $(function() {
 			displayMessage(msgText, socket.userData, moment());
 
 			// Send the message to the other person in the chat
-			socket.emit('new message', msgText, socket.userData);
+			socket.emit('new message', encryptData(msgText), socket.userData);
 			// Empty the textarea
 			emojiEditor[0].emojioneArea.setText("");
 			typing = false;
@@ -96,9 +97,9 @@ $(function() {
 		updateGroupUsers(usersList);
 	});
 
-	socket.on('room user array', function(usersList) {
+	socket.on('room data', function(data) {
 
-		$.each(usersList, function(index, user) {
+		$.each(data.usersList, function(index, user) {
 			usersInRoom.push(replaceSpace(user.username));
 		});
 	});
@@ -112,9 +113,8 @@ $(function() {
 			timeout : 3000
 		});
 		playNotificationSound("../sound/new_user");
-		//Hide the invide dialogue if someone joins
+		// Hide the invide dialogue if someone joins
 		noUserModal.modal('hide');
-		
 
 	});
 
@@ -148,9 +148,9 @@ $(function() {
 		displayTypingMessage(user, true);
 	});
 
-	socket.on('receive', function(msg, user) {
-
-		if (msg.trim().length) {
+	socket.on('receive', function(encmsg, user) {
+		var msg = decryptData(encmsg);
+		if (msg!== undefined && msg.trim().length) {
 			unreadMsgCount++;
 			displayMessage(msg, user, moment());
 
@@ -174,10 +174,8 @@ $(function() {
 	});
 
 	function showLoginModal() {
-		nameerror.slideUp();
-		gendererror.slideUp();
 
-		socket.emit('room user array', roomId);
+		socket.emit('room data', roomId);
 
 		registrationModal.modal('show');
 
@@ -190,6 +188,14 @@ $(function() {
 				$("#saveUser").trigger("click");
 			}
 
+		});
+
+		password.keypress(function(event) {
+			passerror.slideUp();
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if (keycode == '13') {
+				$("#saveUser").trigger("click");
+			}
 		});
 
 		saveUser.click(function() {
@@ -222,9 +228,9 @@ $(function() {
 				$("#profile-img").attr("src", socket.imageUrl);
 				$("#profile-name").text(uname);
 				$("#profile-name").css("color", userColor);
-				
-				//if you are the only one, show no one dialog
-				if(usersInRoom.length === 0){
+
+				// if you are the only one, show no one dialog
+				if (usersInRoom.length === 0) {
 					noUserModal.modal('show');
 				}
 				// show the room url in the box
@@ -388,6 +394,9 @@ $(function() {
 	}
 
 	function init() {
+		// initialize the material library
+		$.material.init();
+
 		$(".typing").hide();
 
 		// on connecting , ask for permission
@@ -404,6 +413,11 @@ $(function() {
 		unreadMsgCount = 0;
 		document.title = windowTitle;
 	})
+	
+	$("#invite").click(function(){
+		$(".no-users h2").text("");
+		noUserModal.modal('toggle');
+	});
 
 	function notifyUser(title, options) {
 		// display notification only if window doesnt have focus
@@ -449,4 +463,34 @@ $(function() {
 								+ msg + '</div>')
 	}
 
+	function getUrlVars() {
+		var vars = [], hash;
+		var hashes = window.location.href.slice(
+				window.location.href.indexOf('?') + 1).split('&');
+		for (var i = 0; i < hashes.length; i++) {
+			hash = hashes[i].split('=');
+			vars.push(hash[0]);
+			vars[hash[0]] = hash[1];
+		}
+		return vars;
+	}
+
+	function encryptData(data) {
+		if (roomPass) {
+			return sjcl.encrypt(roomPass, data);
+		} else {
+			return data;
+		}
+	}
+	function decryptData(data) {
+		try {
+			if (roomPass) {
+				return sjcl.decrypt(roomPass, data);
+			} else {
+				return data;
+			}
+		} catch (err) {
+			showError("Decryption failed : You or someone in the room has a wrong password");
+		}
+	}
 });
