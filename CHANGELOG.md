@@ -9,6 +9,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 
 ###changed
 - replaced url box with button in slider window.
+- code cleanup.(removed custom form validation and added html5 validation).
 
 ## [1.3.1] - 2016-07-27
 ### Added

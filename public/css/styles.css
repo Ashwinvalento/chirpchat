@@ -151,11 +151,6 @@ body{
 	padding: 8px;
 }
 
-.room-url{
-	word-wrap:break-word;
-	margin: -5px 0 -5px 0;
-	font-size: smaller;
-}
 
 
 /* no Users Modal */
@@ -180,8 +175,10 @@ body{
  
 .no-users .room-url {
 	text-align:center;
+	word-wrap:break-word;
 	display: block;
 	margin:0px auto;
+	font-size: smaller;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-bottom: 60px;

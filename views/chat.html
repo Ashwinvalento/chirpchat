@@ -125,6 +125,7 @@
 				<div class="col-sm-12">
 					<!-- Modal content-->
 					<div class="modal-content">
+					<form id="registrationForm">
 						<div class="modal-body">
 
 							<div class="row ">
@@ -135,32 +136,29 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-12 gender-buttons">
-									<div class="btn-group" data-toggle="buttons">
+									<div class="btn-group" data-toggle="buttons" >
 										<label class="btn btn-default"> <input type="radio"
-											name="gender" value="male" /> Male
+											name="gender" value="male" required/> Male
 										</label> <label class="btn btn-default"> <input type="radio"
 											name="gender" value="female" /> Female
 										</label>
 									</div>
-									<div class="alert alert-danger" role="alert" id="gender-error"
-										style="display: none">Please select a gender.</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="form-group label-floating">
 										<label for="username" class="control-label">Username</label> <input
-											type="text" class="form-control" id="username"> <span
-											class="help-block">This will be displayed for other
-											users. </span>
+											type="text" class="form-control" id="username" required pattern=".{4,}" title="User name must contain atleast 4 letters" > <span
+											class="help-block">People will see you by this name. </span>
+											
 									</div>
-									<div class="alert alert-danger" role="alert" id="nameerror"
-										style="display: none">You need a name !</div>
 								</div>
 
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" id="saveUser">Save</button>
+							<button type="submit" class="btn btn-default" >Save</button>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>

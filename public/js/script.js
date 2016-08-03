@@ -13,7 +13,7 @@ $(function() {
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
-	var username = $("#username"), nameerror = $("#nameerror"), password = $("#password"), passerror = $("#pass-error"), gendererror = $("#gender-error"), registrationModal = $('#registrationModal'), saveUser = $("#saveUser"), noUserModal = $('#noUsersModal');
+	var username = $("#username"), registrationModal = $('#registrationModal'), noUserModal = $('#noUsersModal'), registrationForm = $("#registrationForm");
 
 	// Chat Screen vars
 	var chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list"), gpListWindow = $('.gp-slider-window');
@@ -150,7 +150,7 @@ $(function() {
 
 	socket.on('receive', function(encmsg, user) {
 		var msg = decryptData(encmsg);
-		if (msg!== undefined && msg.trim().length) {
+		if (msg !== undefined && msg.trim().length) {
 			unreadMsgCount++;
 			displayMessage(msg, user, moment());
 
@@ -181,35 +181,14 @@ $(function() {
 
 		var userColor = COLORS[Math.floor((Math.random() * COLORS.length) + 1)];
 
-		username.keypress(function(event) {
-			nameerror.slideUp();
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if (keycode == '13') {
-				$("#saveUser").trigger("click");
-			}
-
-		});
-
-		password.keypress(function(event) {
-			passerror.slideUp();
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if (keycode == '13') {
-				$("#saveUser").trigger("click");
-			}
-		});
-
-		saveUser.click(function() {
+		registrationForm.submit(function(event) {
+			event.preventDefault();
 
 			var uname = username.val();
 			var radioValue = $("input[name='gender']:checked").val();
-			if (!radioValue) {
-				gendererror.slideDown();
-			} else if (uname == "") {
-				nameerror.text("You Need a Name!");
-				nameerror.slideDown();
-			} else if (usersInRoom.indexOf(replaceSpace(uname)) !== -1) {
-				nameerror.text("This Name is already taken");
-				nameerror.slideDown();
+			if (usersInRoom.indexOf(replaceSpace(uname)) !== -1) {
+				$("#username")[0].setCustomValidity('The name "' + uname
+						+ '" is already taken');
 			} else {
 				registrationModal.modal('hide');
 				// send room id to the server on connection
@@ -240,7 +219,6 @@ $(function() {
 		});
 
 		$('input[name="gender"]').on('change', function() {
-			gendererror.slideUp();
 			var gender = $('input[name="gender"]:checked').val();
 			socket.emit('get avatar', gender);
 		});
@@ -413,8 +391,8 @@ $(function() {
 		unreadMsgCount = 0;
 		document.title = windowTitle;
 	})
-	
-	$("#invite").click(function(){
+
+	$("#invite").click(function() {
 		$(".no-users h2").text("");
 		noUserModal.modal('toggle');
 	});
