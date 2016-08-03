@@ -6,6 +6,13 @@ A Fully fledged personal and group chat Node js Application works for desktop an
 
 Find the [demo](https://chirpchat.herokuapp.com) at heroku : 
 
+##Screenshots
+### Desktop Version
+![index screen](/screenshots/desktop/index.png?raw=true "Index Screen") ![Login Screen](/screenshots/desktop/reg.png?raw=true "Login Screen") ![Chat screen](/screenshots/desktop/chat.png?raw=true "Chat Screen")
+
+### Desktop Version
+![index screen](/screenshots/phone/index.png?raw=true "Index Screen") ![Login Screen](/screenshots/phone/reg.png?raw=true "Login Screen") ![Chat screen](/screenshots/phone/chat.png?raw=true "Chat Screen") ![Users screen](/screenshots/phone/users.bmp?raw=true "Users List")
+
 ### How to Run the app
 
 * Clone this repo.

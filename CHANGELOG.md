@@ -6,6 +6,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ## [Unreleased]
 ### Added 
 - Room encryption using AES (sjcl.js library) 
+- Screenshots to readme.
 
 ###changed
 - replaced url box with button in slider window.
