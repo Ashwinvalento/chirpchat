@@ -6,10 +6,13 @@
 
 <title>Chirp Chat</title>
 
-<link rel='shortcut icon' href='../images/favicon-16.ico' type='image/x-icon'/ >
+<link rel='shortcut icon' href='../images/favicon-16.ico'
+	type='image/x-icon'/ >
 <!--Import Google Icon Font-->
-<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="//fonts.googleapis.com/css?family=Stalemate" rel="stylesheet">
+<link href="//fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Stalemate"
+	rel="stylesheet">
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -19,7 +22,8 @@
 <link href="../css/ripples.min.css" rel="stylesheet">
 
 <!-- EmojiOne library for emoji -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css" />
+<link rel="stylesheet"
+	href="//cdn.jsdelivr.net/emojione/2.2.6/assets/css/emojione.min.css" />
 <link rel="stylesheet" href="../css/emojionearea.min.css">
 
 <!-- Page Style -->
@@ -72,7 +76,8 @@
 								<h4 class="text-center" id="profile-name">Name</h4>
 							</div>
 							<div class="col-sm-12 invite-box">
-								<button class="btn btn-primary" id="invite" >Invite Friends </button>
+								<button class="btn btn-primary btn-raised" id="invite">Invite
+									Friends</button>
 							</div>
 
 						</div>
@@ -125,39 +130,57 @@
 				<div class="col-sm-12">
 					<!-- Modal content-->
 					<div class="modal-content">
-					<form id="registrationForm">
-						<div class="modal-body">
+						<form id="registrationForm" novalidate>
+							<div class="modal-body">
 
-							<div class="row ">
-								<div class="col-xs-4 col-xs-offset-4 ">
-									<img class="img-circle" src="../images/unknown_user.png"
-										id="avatar-img" />
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12 gender-buttons">
-									<div class="btn-group" data-toggle="buttons" >
-										<label class="btn btn-default"> <input type="radio"
-											name="gender" value="male" required/> Male
-										</label> <label class="btn btn-default"> <input type="radio"
-											name="gender" value="female" /> Female
-										</label>
+								<div class="row ">
+									<div class="col-xs-4 col-xs-offset-4 ">
+										<img class="img-circle" src="../images/unknown_user.png"
+											id="avatar-img" />
 									</div>
 								</div>
-								<div class="col-sm-12">
-									<div class="form-group label-floating">
-										<label for="username" class="control-label">Username</label> <input
-											type="text" class="form-control" id="username" required pattern=".{4,}" title="User name must contain atleast 4 letters" > <span
-											class="help-block">People will see you by this name. </span>
-											
+								<div class="row">
+									<div class="col-sm-12 gender-buttons">
+										<div class="btn-group btn-group-raised" data-toggle="buttons">
+											<label class="btn btn-default"> <input type="radio"
+												name="gender" value="male" required /> Male
+											</label> <label class="btn btn-default"> <input type="radio"
+												name="gender" value="female" /> Female
+											</label>
+										</div>
+										<div class="alert alert-danger" role="alert" id="gender-error"
+											style="display: none; padding: 5px; margin-top: -7px">Please
+											Select a gender</div>
 									</div>
-								</div>
+									<div class="col-sm-12">
+										<div class="form-group label-floating username-section">
+											<label for="username" class="control-label">Username</label>
+											<input type="text" class="form-control" id="username">
+											<span class="help-block">People will see you by this
+												name. </span>
+											<div class="alert alert-danger" role="alert"
+												id="username-error"
+												style="display: none; padding: 5px; margin-top: -7px">username
+												is in use</div>
+										</div>
+									</div>
+									<div class="col-sm-12 password-section" style="display: none">
+										<div class="form-group label-floating">
+											<label for="password" class="control-label">Password</label>
+											<input type="password" class="form-control" id="password">
+											<span class="help-block">Enter the password </span>
+											<div class="alert alert-danger" role="alert" id="pass-error"
+												style="display: none; padding: 5px; margin-top: -7px">Password
+												incorrect (Also make sure the URL is correct)</div>
 
+										</div>
+									</div>
+
+								</div>
 							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-default" >Save</button>
-						</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-default">Save</button>
+							</div>
 						</form>
 					</div>
 				</div>

@@ -6,11 +6,17 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ## [Unreleased]
 ### Added 
 - Room encryption using AES (sjcl.js library) 
-- Screenshots to readme.
+- Chat Room Authentication.
+- Screenshots to README.
+- Authentication and Encryption notes to README.
+- Background blur for modals.
 
 ###changed
 - replaced url box with button in slider window.
 - code cleanup.(removed custom form validation and added html5 validation).
+
+###fixed
+- jQuery issue in firefox.
 
 ## [1.3.1] - 2016-07-27
 ### Added

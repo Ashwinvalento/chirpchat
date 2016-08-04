@@ -39,8 +39,9 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [x] Add Browser notification (Support for mobile only on https).
 - [x] Add Emoji Support and Emoji Picker
 - [x] Improve Home Screen UI (Add Material design)
+- [x] html message support.
 - [x] Room Encryption using AES.
-- Chat Room Authentication.
+- [x] Chat Room Authentication.
 - Dismiss room if 0 users in a room.
 - Private Chat
 - Store User Session
@@ -48,6 +49,18 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - Message Read 
 - Send Media
  
+## How Authentication and encryption works:
+* When the user creates a new chat room with a password, the sha-256 of the password is computed and appended to the URL. 
+* The URL along with the password has to be shared securely with the friend.
+* When the friend connects to the given URL,The login page opens and he is asked for the password. The sha-256 of the entered password is matched with the password appended with the url. If the password is correct, The user is given access to the room.
+* When the user enters the password in the login page, it is stored as plain text in on the client side.
+* The plain text password will be used to encrypt each message (using aes cipher) broadcasted to the group.
+* only the users who know the actual password will be able to decrypt the message.
+
+###Note:
+* At no point is the plain text password sent over the network nor is the hash saved in the server.
+* A Man in the Middle (MiM) may compute sha-256 of his own password and replace the password in the URL and gain access to the room, But he will not be able to read any messages since the messages are encrypted using the plain text password.
+* A Man in the Middle (MiM) may use Lookup Tables or Rainbow Tables to decode the sha-256 hash to find the plaintext password, therefore, the user needs to use a complicated password. 
  
  
 ### Dependencies:
