@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The changelog adheres to format specified in [keep change log](http://keepachangelog.com)
 
 ## [Unreleased]
+###Changed
+- removed html support for users.
+
+###Fixed
+- Users could remotely modifiy UI and run scripts on remote node.
+
+## [1.4.0] - 2016-07-05
 ### Added 
 - Room encryption using AES (sjcl.js library) 
 - Chat Room Authentication.

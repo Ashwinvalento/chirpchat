@@ -62,7 +62,10 @@ $(document)
 
 						if (msgText.trim().length) {
 							// Create a new chat message and display it directly
-							displayMessage(msgText, socket.userData, moment());
+							displayMessage({
+								'type' : 'text',
+								'msg' : msgText
+							}, socket.userData, moment());
 
 							// Send the message to the other person in the chat
 							socket.emit('new message', encryptData(msgText),
@@ -165,10 +168,11 @@ $(document)
 					});
 
 					socket.on('receive', function(encmsg, user) {
-						var msg = decryptData(encmsg);
+						var dMsg = decryptData(encmsg);
+						var msg = dMsg.msg;
 						if (msg !== undefined && msg.trim().length) {
 							unreadMsgCount++;
-							displayMessage(msg, user, moment());
+							displayMessage(dMsg, user, moment());
 
 							// if the document doesnt have focus
 							if (!document.hasFocus()) {
@@ -179,14 +183,16 @@ $(document)
 							} else {
 								unreadMsgCount = 0;
 							}
-							notifyUser("Chirp Chat : New Message", {
-								body : user.username.replace(/ +/g, " ") + ": "
-										+ msg,
-								icon : user.imageUrl,
-								tag : replaceSpace(user.username),
-								timeout : 3000
-							});
-							playNotificationSound("../sound/new_message");
+							if (dMsg.type === 'text') {
+								notifyUser("Chirp Chat : New Message", {
+									body : user.username.replace(/ +/g, " ")
+											+ ": " + msg,
+									icon : user.imageUrl,
+									tag : replaceSpace(user.username),
+									timeout : 3000
+								});
+								playNotificationSound("../sound/new_message");
+							}
 						}
 					});
 
@@ -234,7 +240,7 @@ $(document)
 											&& pass !== roomPass) {
 										$('#pass-error').slideDown();
 									} else if (socket.imageUrl == null) {
-										$('#pass-error')
+										$('#gender-error')
 												.text(
 														"Loading user image. Please wait.");
 										$('#pass-error').slideDown();
@@ -267,7 +273,6 @@ $(document)
 										// show the room url in the box
 										$(".room-url").text(
 												window.location.href);
-
 									}
 								});
 
@@ -377,10 +382,10 @@ $(document)
 
 					}
 
-					function displayMessage(msg, user, now) {
+					function displayMessage(msgObj, user, now) {
 
-						// convert emoji's in message to images
-						var processedMsg = emojione.toImage(msg);
+						var msg = msgObj.msg;
+
 						var who = '';
 
 						if (user.username === socket.userData.username) {
@@ -411,10 +416,27 @@ $(document)
 								+ '<small class="pull-right text-muted"><div class="timestamp">'
 								+ '<i class="timesent" data-time=' + now
 								+ '></i> </div>' + '</small>' + '</div>'
-								+ '<div class="message-text" >' + processedMsg
-								+ '</div>' + '</div>' + '</li>');
+								+ '<div class="message-text" >' + '</div>'
+								+ '</div>' + '</li>');
 
 						li.find('b').text(user.username);
+
+						if (msg.match(/<[ ]*(script|style)/)) {
+							// if the text contains script or style tag, display
+							// it as text
+							li.find('.message-text').text(msg);
+						} else if (msg.match(/[\uD800-\uDFFF]/)) {
+							// if the text has emojione images, display as html
+							li.find('.message-text')
+									.html(emojione.toImage(msg));
+						} else if (msgObj.type === "html") {
+							// If the text type is html, display as html
+							li.find('.message-text').html(msg);
+						} else {
+							// all other texts , display as text
+							li.find('.message-text')
+									.text(emojione.toImage(msg));
+						}
 
 						scrollToBottom();
 						chat.append(li);
@@ -538,15 +560,36 @@ $(document)
 					}
 
 					function encryptData(data) {
-						console.log("encrypting : pass = " + ptPass)
-						return sjcl.encrypt(ptPass, data);
+						if (data === Object(data)) {
+							return sjcl.encrypt(ptPass, sjcl.json.encode(data));
+						} else {
+							return sjcl.encrypt(ptPass, data);
+						}
+
 					}
 					function decryptData(data) {
-						console.log("decrypting : pass = " + ptPass)
 						try {
-							return sjcl.decrypt(ptPass, data);
+							// decrypt the data, if it throws error, then the
+							// key is incorrect.
+							var decryptedData = sjcl.decrypt(ptPass, data);
+							try {
+								// decode the decrypted data, If it returns
+								// error, its not a Json data.
+								return {
+									'type' : 'text',
+									'msg' : sjcl.json.decode(decryptedData)
+								};
+							} catch (err) {
+								return {
+									'type' : 'text',
+									'msg' : decryptedData
+								};
+							}
 						} catch (err) {
-							return '<div class="alert alert-danger text-center" >- Message decryption failed - <br/> Either you or the sender has incorrect password <br/> Also make sure you have the correct url</div>';
+							return {
+								'type' : 'html',
+								'msg' : '<div class="alert alert-danger text-center" >- Message decryption failed - <br/> Either you or the sender has incorrect password <br/> Also make sure you have the correct url</div>'
+							};
 						}
 					}
 				});
