@@ -80,6 +80,16 @@ module.exports = function(app, io) {
 		socket.on('stop typing', function(user) {
 			socket.broadcast.to(socket.room).emit('stop typing', user);
 		});
+		
+		//Sending attachments
+		socket.on("attachment", function(image, buffer) {
+		     if(image){
+		         console.log(" image: ");
+		     }
+		     socket.broadcast.to(socket.room).emit('attachment', buffer);
+
+		 });
+		
 
 		// Somebody left the chat
 		socket.on('disconnect', function() {

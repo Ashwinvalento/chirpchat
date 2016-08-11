@@ -107,7 +107,12 @@
 
 			<form id="chatform" role="form">
 				<div class="input-group">
-					<input id="emoji-message-box"> <span
+					<span class="input-group-btn"> <a
+						class="btn btn-success no-rounded" id="attach" tabindex="0"
+						data-container=".container-fluid" data-placement="top" data-trigger="focus"> <img
+							src="../images/attach.png" alt="Attach">
+					</a>
+					</span> <input id="emoji-message-box"> <span
 						class="input-group-btn">
 						<button class="btn btn-success no-rounded" id="submit"
 							type="submit">Send</button>
@@ -201,6 +206,18 @@
 					<div class="room-url"></div>
 				</div>
 			</div>
+		</div>
+
+	</div>
+
+
+	<div id="attach-content" class="hidden">
+		<div class="row">
+			<div class="col-md-12">
+			<input type="file" id="files" name="files[]" multiple />
+				<!-- <a class="button" role="button" id="picture"><img class="img" src="../images/picture.png" alt="Picture" /></a>
+			 -->
+			 </div>
 		</div>
 
 	</div>
