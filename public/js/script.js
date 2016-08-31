@@ -429,13 +429,17 @@ $(document)
 							// if the text has emojione images, display as html
 							li.find('.message-text')
 									.html(emojione.toImage(msg));
+						} else if(emojione.shortnameToUnicode(msg).match(/[\uD800-\uDFFF]/)){
+							// convert all short names to unicode and match
+							li.find('.message-text')
+							.html(emojione.toImage(msg));
 						} else if (msgObj.type === "html") {
 							// If the text type is html, display as html
 							li.find('.message-text').html(msg);
 						} else {
 							// all other texts , display as text
 							li.find('.message-text')
-									.text(emojione.toImage(msg));
+									.text(msg);
 						}
 
 						scrollToBottom();
