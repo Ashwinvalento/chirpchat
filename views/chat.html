@@ -51,7 +51,7 @@
 
 		<div class="page">
 			<button type="button"
-				class="btn btn-info gp-chat-toggle-btn hidden-sm hidden-md hidden-lg">
+				class="btn btn-info gp-chat-toggle-btn visible-xs">
 				<img src="../images/nav-icon.png" alt="toggle" />
 			</button>
 
@@ -108,8 +108,7 @@
 			<form id="chatform" role="form">
 				<div class="input-group">
 					<span class="input-group-btn"> <a
-						class="btn btn-success no-rounded" id="attach" tabindex="0"
-						data-container=".container-fluid" data-placement="top" data-trigger="focus"> <img
+						class="btn btn-success no-rounded" id="attach" > <img
 							src="../images/attach.png" alt="Attach">
 					</a>
 					</span> <input id="emoji-message-box"> <span
@@ -209,34 +208,48 @@
 		</div>
 
 	</div>
+	
+	
+	<div class="modal fade" id="attachmentModal" role="dialog">
 
-
-	<div id="attach-content" class="hidden">
-		<div class="row">
-			<div class="col-md-12">
-			<input type="file" id="files" name="files[]" multiple />
-				<!-- <a class="button" role="button" id="picture"><img class="img" src="../images/picture.png" alt="Picture" /></a>
-			 -->
-			 </div>
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="no-users">
+					<h2>Select files to send</h2>
+					
+					<p id='dropzone'>
+			            Drag and drop files from your desktop here (or select them from the input below).<br />
+			            <br />
+			             <br />
+			          </p>
+					
+					<input type="file" id="file-input" name="file-input" multiple />
+					
+					<ul id='file-list'></ul>
+					
+					<button class="btn btn-primary" id="send-att"> Send </button>
+					<button class="btn btn-primary" id="clear-att"> Cancel </button>
+				</div>
+			</div>
 		</div>
 
 	</div>
+	
 
 	<div id="sound"></div>
 
 	<script src="../js/jquery.min.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script	src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js" type="text/javascript"></script>
+	<script	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js" type="text/javascript"></script>
 	<script src="//cdn.jsdelivr.net/emojione/2.2.6/lib/js/emojione.min.js"></script>
 	<script src="../js/emojionearea.min.js" type="text/javascript"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/material.min.js"></script>
-	<script src="../js/ripples.min.js"></script>
-	<script src="../js/push.min.js"></script>
-	<script src="../js/sjcl.js"></script>
-	<script src="../js/script.js"></script>
+	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../js/material.min.js" type="text/javascript"></script>
+	<script src="../js/ripples.min.js" type="text/javascript"></script>
+	<script src="../js/filereader.js" type="text/javascript" ></script>
+	<script src="../js/push.min.js" type="text/javascript"></script>
+	<script src="../js/sjcl.js" type="text/javascript"></script>
+	<script src="../js/script.js" type="text/javascript"></script>
 
 
 </body>

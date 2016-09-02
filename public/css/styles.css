@@ -475,6 +475,40 @@ a:hover, a:active, a:focus {
 	padding-right: 5px;
 }
 
+
+/* Attachment section*/
+
+#attachmentModal > div {
+	height: 80%;
+}
+
+#file-list {
+    display: inline-block;
+    overflow: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    margin: 0 0 1em;
+    white-space: nowrap;
+}
+
+#file-list li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.filename{
+  overflow:hidden; 
+  white-space:nowrap; 
+  text-overflow:ellipsis; 
+  width:100px; 
+}
+
+#dropzone.drag{
+    background: #f9b660;
+}
+
+
+
 /* change the look of scrollbar */
 ::-webkit-scrollbar {
 	width: 8px;

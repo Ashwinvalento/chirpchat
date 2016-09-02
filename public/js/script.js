@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
-	var username = $("#username"), password = $("#password"), registrationModal = $('#registrationModal'), noUserModal = $('#noUsersModal'), registrationForm = $("#registrationForm");
+	var username = $("#username"), password = $("#password"), registrationModal = $('#registrationModal'), attachmentModal = $('#attachmentModal'), noUserModal = $('#noUsersModal'), registrationForm = $("#registrationForm");
 
 	// Chat Screen vars
 	var chatform = $("#chatform"), chat = $(".chat"), groupUsers = $(".users"), typingList = $("#typing-list"), gpListWindow = $('.gp-slider-window');
@@ -194,6 +194,15 @@ $(document).ready(function() {
 		}
 	});
 
+	
+	socket.on('attachment', function(attachment) {
+		displayMessage({
+			'type' : 'html',
+			'msg' : "<img class='img' style='width:200px; height:200px' src='"+attachment.value+"'> </img>"
+		}, socket.userData, moment());
+
+	});
+	
 	function showLoginModal() {
 
 		socket.emit('room data', roomId);
@@ -483,7 +492,6 @@ $(document).ready(function() {
 
 		$(".typing").hide();
 		
-		initAttachPopover();
 	    
 		// on connecting , ask for permission
 
@@ -505,35 +513,72 @@ $(document).ready(function() {
 		noUserModal.modal('toggle');
 	});
 
-	function initAttachPopover(){
-    $("#attach").popover({
-        html : true, 
-        content: function() {
-          return $("#attach-content").html();
-        }
+	$("#attach").click(function() {
+		attachmentModal.modal('toggle');
+	});
+
+	var attachments = [];
+
+    
+    $("#file-input, #dropzone").fileReaderJS({
+	    on: {
+		      load: function(e, file) {
+		        
+		      var id = "g_"+file.extra.groupID+"_f_"+file.extra.fileID;
+		        var li = $("<li id='" + id +"'>" +
+					        "<div class='att-thumb'> </div>" +
+					        "<div class='filename'>" + file.name + "</div> " +
+					        "</li>");
+		        
+		
+		        if (file.type.match(/image/)) {
+		        	var thumb = "<img src='"+e.target.result+"' class='img' style='height:100px;min-width:100px' > </img>";
+		        } else {
+		        	var thumb = "<img src='../images/file.png' class='img' style='height:100px;min-width:100px' > </img>";
+		        }
+		        
+		        li.find('.att-thumb').html(thumb);
+		
+		        $("#file-list").append(li);
+		        
+		      },
+		      loadend : function(e, file){
+		    	  file = {'id' : "g_"+file.extra.groupID+"_f_"+file.extra.fileID,
+		    			   'value': e.target.result,
+		    			   'type' : file.type }
+		    	  
+			      attachments.push(file);    	  
+		      },
+		      error: function(e, file) {
+		        $("#file_" + file.extra.fileID).addClass("error");
+		      }
+		    }
+		  });
+    
+    
+    
+    
+    $("#send-att").on("click", function(){
+    	
+    	for (var i = 0; i < attachments.length; i++){
+    		socket.emit('attachment', attachments[i]);
+    	}
+  	    
+    	//empty the attachment list once sent
+    	attachments = [];
+    	$("#file-list").empty();
+    	attachmentModal.modal('hide');
     });
     
-    
-    
-//    $(document).on("click", ".popover #picture" , function(){
-//    	var reader = new FileReader();
-//    	
-//    	reader.onload = function(event) {
-//    	    var contents = event.target.result;
-//    	    console.log("File contents: " + contents);
-//    	    socket.emit('attachment', { image: true, buffer: contents });
-//    	};
-//
-//    	reader.onerror = function(event) {
-//    	    console.error("File could not be read! Code " + event.target.error.code);
-//    	};
-//
-//    	reader.readAsText("C:\Users\ashwin_valento\Desktop\demo images\phone\chat.png");
-//    	
-//    });
-    
-	}
-	
+	 $("#clear-att").on("click", function(){
+    	  	    
+    	//empty the attachment list 
+    	attachments = [];
+    	$("#file-list").empty();
+    	attachmentModal.modal('hide');
+    });
+	 
+	 
 	
     function handleFileSelect(evt) {
     	console.log("handle file ip");

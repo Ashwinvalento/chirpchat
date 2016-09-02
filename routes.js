@@ -82,11 +82,8 @@ module.exports = function(app, io) {
 		});
 		
 		//Sending attachments
-		socket.on("attachment", function(image, buffer) {
-		     if(image){
-		         console.log(" image: ");
-		     }
-		     socket.broadcast.to(socket.room).emit('attachment', buffer);
+		socket.on("attachment", function(attachment) {
+		      socket.broadcast.to(socket.room).emit('attachment', attachment);
 
 		 });
 		
