@@ -482,18 +482,61 @@ a:hover, a:active, a:focus {
 	height: 80%;
 }
 
+.attach-box {
+	text-align: center;
+}
+
+.attach-list {
+    background-color: #bdc3c7;
+    margin: 0 10px auto;
+    border: 1px solid #7f8c8d !important;
+    border-radius: 10px;
+}
+
 #file-list {
     display: inline-block;
     overflow: auto;
     overflow-y: hidden;
     max-width: 100%;
-    margin: 0 0 1em;
+    padding: 0;
+    margin: 0;
     white-space: nowrap;
+    float: left;
 }
 
 #file-list li {
+		position: relative;
+		left: 0;
+		top: 0;
     display: inline-block;
     vertical-align: top;
+    margin: 5px 3px;
+    padding: 8px;
+    background-color: #2c3e50;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+#file-list li div.att-thumb {
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+#file-list li div.delete-att {
+	position: absolute;
+	top: 0;
+	bottom:0;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	display: none;
+	background-color: rgba(231, 76, 60,0.7);
+}
+
+.delete-att img{
+	margin-top: 35px;
 }
 
 .filename{
@@ -503,8 +546,28 @@ a:hover, a:active, a:focus {
   width:100px; 
 }
 
+.image-attach {
+    text-align: center;
+}
+
+.image-attach img {
+    width: inherit !important;
+    height: 120px !important;
+    border-radius: 0 !important;
+    padding: 5px;
+}
+
+#dropzone {
+	padding: 50px 0 20px 0;
+}
+
 #dropzone.drag{
-    background: #f9b660;
+    background: #7f8c8d;
+    animation: stretch 1.5s ease-out 0 alternate  infinite none running;
+}
+
+#dropzone img{
+	padding-bottom: 20px;
 }
 
 
@@ -512,6 +575,7 @@ a:hover, a:active, a:focus {
 /* change the look of scrollbar */
 ::-webkit-scrollbar {
 	width: 8px;
+	height: 8px;
 }
 
 ::-webkit-scrollbar-track {

@@ -197,8 +197,8 @@ $(document).ready(function() {
 	
 	socket.on('attachment', function(attachment) {
 		displayMessage({
-			'type' : 'html',
-			'msg' : "<img class='img' style='width:200px; height:200px' src='"+attachment.value+"'> </img>"
+			'type' : 'attachment',
+			'msg' : attachment
 		}, socket.userData, moment());
 
 	});
@@ -427,8 +427,17 @@ $(document).ready(function() {
 				+ '</div>' + '</li>');
 
 		li.find('b').text(user.username);
-
-		if (msg.match(/<[ ]*(script|style)/)) {
+		if(msgObj.type === "attachment"){
+			var preview;
+			if(msgObj.msg.type.match(/image/)){
+				preview ="<a href='#' class='image-attach'> <img class='img-responsive' src='"+msg.value+"'/> </a>";
+			}else{
+				preview ="<a href='#' class='file-attach'> <img class='img-responsive' src='../images/file.png'/> </a>";
+			}
+			
+			li.find('.message-text').html(preview);
+			
+		} else if (msg.match(/<[ ]*(script|style)/)) {
 			// if the text contains script or style tag, display
 			// it as text
 			li.find('.message-text').text(msg);
@@ -524,17 +533,17 @@ $(document).ready(function() {
 	    on: {
 		      load: function(e, file) {
 		        
-		      var id = "g_"+file.extra.groupID+"_f_"+file.extra.fileID;
+		      var id = "g"+file.extra.groupID+"_f"+file.extra.fileID;
 		        var li = $("<li id='" + id +"'>" +
 					        "<div class='att-thumb'> </div>" +
 					        "<div class='filename'>" + file.name + "</div> " +
+					        "<div class='delete-att'><img  src='../images/bin.png'/></div>"+
 					        "</li>");
 		        
-		
 		        if (file.type.match(/image/)) {
-		        	var thumb = "<img src='"+e.target.result+"' class='img' style='height:100px;min-width:100px' > </img>";
+		        	var thumb = "<img src='"+e.target.result+"'  style='height:100px;min-width:100px' />";
 		        } else {
-		        	var thumb = "<img src='../images/file.png' class='img' style='height:100px;min-width:100px' > </img>";
+		        	var thumb = "<img src='../images/file.png'  style='height:100px;min-width:100px' />";
 		        }
 		        
 		        li.find('.att-thumb').html(thumb);
@@ -543,7 +552,7 @@ $(document).ready(function() {
 		        
 		      },
 		      loadend : function(e, file){
-		    	  file = {'id' : "g_"+file.extra.groupID+"_f_"+file.extra.fileID,
+		    	  file = {'id' : "g"+file.extra.groupID+"_f"+file.extra.fileID,
 		    			   'value': e.target.result,
 		    			   'type' : file.type }
 		    	  
@@ -561,7 +570,14 @@ $(document).ready(function() {
     $("#send-att").on("click", function(){
     	
     	for (var i = 0; i < attachments.length; i++){
+    		//send the attachment to socket
     		socket.emit('attachment', attachments[i]);
+    		
+    		// display the attachment
+    		displayMessage({
+    			'type' : 'attachment',
+    			'msg' : attachments[i]
+    		}, socket.userData, moment());
     	}
   	    
     	//empty the attachment list once sent
@@ -570,36 +586,21 @@ $(document).ready(function() {
     	attachmentModal.modal('hide');
     });
     
-	 $("#clear-att").on("click", function(){
+	 $("#cancel-att").on("click", function(){
     	  	    
     	//empty the attachment list 
     	attachments = [];
     	$("#file-list").empty();
     	attachmentModal.modal('hide');
     });
-	 
-	 
-	
-    function handleFileSelect(evt) {
-    	console.log("handle file ip");
-        var files = evt.target.files; // FileList object
 
-        // files is a FileList of File objects. List some properties.
-        var output = [];
-        for (var i = 0, f; f = files[i]; i++) {
-          output.push(f.name);
-        }
-        console.log(output.join('') );
-      }
-
-     // $('#files').click(handleFileSelect);
-      $('#files').on('change', function(){console.log("input")});
-	
-	//Sending attachments
-	socket.on("attachment", function(buffer) {
-	         console.log(" image- buffer = : " + buffer);
-	 });
-	
+		$(".image-attach").on("click", function() {
+			console.log("image clicked");
+//			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+//			$('#imagemodal').modal('show');   
+		});	
+	 
+		
 	function notifyUser(title, options) {
 		// display notification only if window doesnt have focus
 		if (!document.hasFocus()) {

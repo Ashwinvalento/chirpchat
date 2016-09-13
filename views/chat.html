@@ -210,26 +210,38 @@
 	</div>
 	
 	
+	
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">              
+      <div class="modal-body">
+      	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
 	<div class="modal fade" id="attachmentModal" role="dialog">
 
 		<div class="modal-dialog" >
 			<div class="modal-content">
-				<div class="no-users">
-					<h2>Select files to send</h2>
-					
-					<p id='dropzone'>
-			            Drag and drop files from your desktop here (or select them from the input below).<br />
-			            <br />
-			             <br />
-			          </p>
-					
-					<input type="file" id="file-input" name="file-input" multiple />
-					
-					<ul id='file-list'></ul>
-					
-					<button class="btn btn-primary" id="send-att"> Send </button>
-					<button class="btn btn-primary" id="clear-att"> Cancel </button>
+				<div class="attach-box">
+				
+				<div id="dropzone" >
+					<img src="../images/upload.png" />
+					<p>	Drag and drop Files Here to Upload 	</p>
+					<button class="btn btn-primary" onClick="$('#file-input').click();"> Or Select Files</button>
+					<input style="display:none" type="file" id="file-input" name="file-input" multiple />
+			</div>
+			<div class="clearfix attach-list" > <ul id='file-list'></ul> </div>
+								
 				</div>
+				<div class="modal-footer">
+				<button class="btn btn-primary" id="send-att"> Send </button>
+					<button class="btn btn-primary" id="cancel-att"> Cancel </button>
+					</div>
 			</div>
 		</div>
 
