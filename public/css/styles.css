@@ -338,6 +338,10 @@ a:hover, a:active, a:focus {
 }
 
 /* Group users section */
+.chat-col {
+    z-index: 2;
+}
+
 .gp-slider-window {
 	background-color: #2c3e50 !important;
 }
@@ -433,6 +437,13 @@ a:hover, a:active, a:focus {
 	outline: none !important;
 }
 
+.gp-chat-toggle-btn i {
+    font-size: 32px;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 /*User Typing box */
 .typing>ul {
 	margin-bottom: 5px;
@@ -457,8 +468,9 @@ a:hover, a:active, a:focus {
 	padding-left: 3px;
 }
 
-.typing-span>img {
-	height: 16px;
+.typing-span i {
+	margin: 4px;
+    font-size: 18px;
 }
 
 .typing-span>div>img {
@@ -550,11 +562,49 @@ a:hover, a:active, a:focus {
     text-align: center;
 }
 
+.image-attach a {
+    padding: 5px!important;
+    margin: 0 !important;
+}
+
 .image-attach img {
     width: inherit !important;
     height: 120px !important;
     border-radius: 0 !important;
     padding: 5px;
+}
+
+.preview {
+	float: left;
+}
+
+.preview p {
+	position: absolute;
+	top: 45%;
+	left: 15%;
+	font-size: large;
+	color: white;
+}
+
+.file-attach div i {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 60px;
+    color: #067FCB;
+}
+
+.file-attach a i {
+    padding: 8px 10px !important;
+    font-size: 30px !important;
+    margin-top: 15px;
+}
+
+.file-attach div p.f-name {
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:100px;
 }
 
 #dropzone {
@@ -566,8 +616,10 @@ a:hover, a:active, a:focus {
     animation: stretch 1.5s ease-out 0 alternate  infinite none running;
 }
 
-#dropzone img{
-	padding-bottom: 20px;
+#dropzone i {
+    padding-bottom: 20px;
+    font-size: 150px;
+    color: #2980b9;
 }
 
 

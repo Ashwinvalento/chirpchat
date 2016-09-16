@@ -17,6 +17,9 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
 <!-- Bootstrap Material Design -->
 <link href="../css/bootstrap-material-design.min.css" rel="stylesheet">
 <link href="../css/ripples.min.css" rel="stylesheet">
@@ -52,12 +55,12 @@
 		<div class="page">
 			<button type="button"
 				class="btn btn-info gp-chat-toggle-btn visible-xs">
-				<img src="../images/nav-icon.png" alt="toggle" />
+				<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
 			</button>
 
 			<div class="row">
 				<!-- Main chat screen -->
-				<div class="col-xs-12 col-sm-8 fill-height">
+				<div class="col-xs-12 col-sm-8 fill-height chat-col">
 					<div class=" well well-sm fill-height">
 						<div class="chat-message">
 							<ul class="chat">
@@ -67,7 +70,7 @@
 					</div>
 				</div>
 				<!-- Profile and Group Users List -->
-				<div class="col-sm-4 fill-height">
+				<div class="col-sm-4 fill-height ">
 					<div class=" well well-sm list-fit-height gp-slider-window">
 						<div class="row">
 							<div class="my-profile">
@@ -230,11 +233,12 @@
 				<div class="attach-box">
 				
 				<div id="dropzone" >
-					<img src="../images/upload.png" />
+					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
 					<p>	Drag and drop Files Here to Upload 	</p>
 					<button class="btn btn-primary" onClick="$('#file-input').click();"> Or Select Files</button>
 					<input style="display:none" type="file" id="file-input" name="file-input" multiple />
 			</div>
+			<div class="attach-errors"> </div>
 			<div class="clearfix attach-list" > <ul id='file-list'></ul> </div>
 								
 				</div>

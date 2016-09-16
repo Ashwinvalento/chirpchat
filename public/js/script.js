@@ -13,6 +13,7 @@ $(document).ready(function() {
 	var unreadMsgCount = 0;
 	var windowTitle = "Chirp Chat";
 	var usersInRoom = [];
+	var attachments = [];
 
 	// ------------ JQuery Variables ------------
 	// Login form vars
@@ -195,11 +196,11 @@ $(document).ready(function() {
 	});
 
 	
-	socket.on('attachment', function(attachment) {
+	socket.on('attachment', function(attachment,user) {
 		displayMessage({
 			'type' : 'attachment',
 			'msg' : attachment
-		}, socket.userData, moment());
+		}, user, moment());
 
 	});
 	
@@ -357,7 +358,7 @@ $(document).ready(function() {
 			var li = $('<li id="' + user
 					+ '-typing" class="clearfix typing-item ">'
 					+ '<div class="typing-span ">'
-					+ '<img src="../images/typing.png">'
+					+ '<i class="fa fa-pencil" aria-hidden="true"></i>'
 					+ '<div>' + '<img class="img-circle" src="'
 					+ userData.imageUrl + '">'
 					+ '<div class=" pull-right clearfix">'
@@ -427,13 +428,9 @@ $(document).ready(function() {
 				+ '</div>' + '</li>');
 
 		li.find('b').text(user.username);
+		
 		if(msgObj.type === "attachment"){
-			var preview;
-			if(msgObj.msg.type.match(/image/)){
-				preview ="<a href='#' class='image-attach'> <img class='img-responsive' src='"+msg.value+"'/> </a>";
-			}else{
-				preview ="<a href='#' class='file-attach'> <img class='img-responsive' src='../images/file.png'/> </a>";
-			}
+			var preview = generateAttachmentPreview(msg);
 			
 			li.find('.message-text').html(preview);
 			
@@ -463,7 +460,27 @@ $(document).ready(function() {
 
 		$(".timesent").last().text(now.format('h:mm:ss a'));
 	}
+	
+	function generateAttachmentPreview(data){
+		var preview;
+		if(data.type.match(/image/)){
+			preview ="<div class='image-attach'>"+
+					" <img class='img-responsive' src='"+data.value+"'/> "+
+					"<a class='btn btn-primary' href="+data.value+" download="+ data.extra.nameNoExtension+"."+data.extra.extension +"> Download </a> "+
+					"</div>";
+		}else{
+			preview ="<div class='file-attach'> "+
+					"<div class='preview'> <i class='fa fa-file' aria-hidden='true'></i>"+
+					"<p>"+data.extra.extension+"</p> </div>"+
+					"<a  href="+data.value+"  download="+ data.extra.nameNoExtension+"."+data.extra.extension +" >"+
+					"<i class='fa fa-download btn btn-primary' aria-hidden='true'></i> </a>"+
+					"<div> <p class='f-name'> "+ data.extra.nameNoExtension+"."+data.extra.extension +" </p></div>"+
+					" </div>";
+		}
+		return preview;
+	}
 
+	
 	function scrollToBottom() {
 		$(".chat-message").animate({
 			scrollTop : $('.chat-message').prop("scrollHeight")
@@ -476,22 +493,27 @@ $(document).ready(function() {
 	});
 
 	function toggleGroupListWindow() {
-
-		var gpToggleButton = $(".gp-chat-toggle-btn > img");
+		var chatCol = $(".chat-col");
+		var gpToggleButton = $(".gp-chat-toggle-btn > i");
 		if (gpListWindow.hasClass('visible')) {
 			gpListWindow.animate({
 				"left" : "105%"
 			}, "fast", function() {
 				gpListWindow.css("display", "none");
+				chatCol.css("z-index","2");
 			}).removeClass('visible');
 			gpToggleButton.css("transform", "rotateY(0deg)");
+			
 		} else {
 			gpListWindow.animate({
 				"left" : "10%"
 			}, "fast");
+			
+			chatCol.css("z-index","0");
 			gpListWindow.addClass('visible').css("display",
-					"table");
+			"table");
 			gpToggleButton.css("transform", "rotateY(180deg)");
+			
 		}
 	}
 
@@ -500,7 +522,6 @@ $(document).ready(function() {
 		$.material.init();
 
 		$(".typing").hide();
-		
 	    
 		// on connecting , ask for permission
 
@@ -526,12 +547,33 @@ $(document).ready(function() {
 		attachmentModal.modal('toggle');
 	});
 
-	var attachments = [];
-
     
     $("#file-input, #dropzone").fileReaderJS({
 	    on: {
-		      load: function(e, file) {
+	    	
+	    	beforestart: function(e, file) {
+	            if(e.size > 20971520){
+	            	return false;
+	            }else if (e.extra.extension == "exe"){
+	            	return false;
+	            }	            
+	        },
+	        skip: function(file) {
+	        	
+	        	if(file.extra.extension== "exe"){
+	        		$(".attach-errors").append(
+			    			  '<div class="alert alert-danger" id="error-msg">'+
+			    			  '<a href="#" class="close" data-dismiss="alert">&times;</a>'+
+			    			  file.name + ' skipped. Executable files are disabled.'+ '</div>');
+	        	}else if(file.size > 20971520){
+	        		
+	        		$(".attach-errors").append(
+			    			  '<div class="alert alert-danger" id="error-msg">'+
+			    			  '<a href="#" class="close" data-dismiss="alert">&times;</a>'+
+			    			  file.name + ' skipped. File should be smaller than 20mb'+ '</div>');
+	        	}
+	        },
+	        load: function(e, file) {
 		        
 		      var id = "g"+file.extra.groupID+"_f"+file.extra.fileID;
 		        var li = $("<li id='" + id +"'>" +
@@ -541,9 +583,10 @@ $(document).ready(function() {
 					        "</li>");
 		        
 		        if (file.type.match(/image/)) {
-		        	var thumb = "<img src='"+e.target.result+"'  style='height:100px;min-width:100px' />";
+		        	var thumb = "<img src='"+e.target.result+"'style='height:100px;min-width:100px' />";
 		        } else {
-		        	var thumb = "<img src='../images/file.png'  style='height:100px;min-width:100px' />";
+		        	var thumb = "<i class='fa fa-file' aria-hidden='true' style='font-size:90px;margin:5px;color:#067FCB'></i>"+
+		        				"<p style='position: absolute; top: 40%; left: 30%;font-size: x-large;font-family: serif;'>"+file.extra.extension +" </p>";
 		        }
 		        
 		        li.find('.att-thumb').html(thumb);
@@ -554,24 +597,27 @@ $(document).ready(function() {
 		      loadend : function(e, file){
 		    	  file = {'id' : "g"+file.extra.groupID+"_f"+file.extra.fileID,
 		    			   'value': e.target.result,
-		    			   'type' : file.type }
+		    			   'type' : file.type,
+		    			   'extra': file.extra
+		    			   }
 		    	  
 			      attachments.push(file);    	  
 		      },
 		      error: function(e, file) {
-		        $("#file_" + file.extra.fileID).addClass("error");
+		    	  $(".attach-errors").append(
+		    			  '<div class="alert alert-danger" id="error-msg">'+
+		    			  '<a href="#" class="close" data-dismiss="alert">&times;</a>'+
+		    			  'Error uploading '+file.name + '</div>');
 		      }
 		    }
 		  });
     
-    
-    
-    
+       
     $("#send-att").on("click", function(){
     	
     	for (var i = 0; i < attachments.length; i++){
     		//send the attachment to socket
-    		socket.emit('attachment', attachments[i]);
+    		socket.emit('attachment', attachments[i],socket.userData);
     		
     		// display the attachment
     		displayMessage({
