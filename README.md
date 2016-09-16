@@ -41,12 +41,12 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [x] Improve Home Screen UI (Add Material design)
 - [x] Room Encryption using AES.
 - [x] Chat Room Authentication.
-- Dismiss room if 0 users in a room.
+- [x] Send Attachments
 - Private Chat
 - Store User Session
 - Email Chat History
 - Message Read 
-- Send Media
+
  
 ## How Authentication and encryption works:
 * When the user creates a new chat room with a password, the sha-256 of the password is computed and appended to the URL. 

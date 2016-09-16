@@ -17,6 +17,9 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
 <!-- Bootstrap Material Design -->
 <link href="../css/bootstrap-material-design.min.css" rel="stylesheet">
 <link href="../css/ripples.min.css" rel="stylesheet">
@@ -51,13 +54,13 @@
 
 		<div class="page">
 			<button type="button"
-				class="btn btn-info gp-chat-toggle-btn hidden-sm hidden-md hidden-lg">
-				<img src="../images/nav-icon.png" alt="toggle" />
+				class="btn btn-info gp-chat-toggle-btn visible-xs">
+				<i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
 			</button>
 
 			<div class="row">
 				<!-- Main chat screen -->
-				<div class="col-xs-12 col-sm-8 fill-height">
+				<div class="col-xs-12 col-sm-8 fill-height chat-col">
 					<div class=" well well-sm fill-height">
 						<div class="chat-message">
 							<ul class="chat">
@@ -67,7 +70,7 @@
 					</div>
 				</div>
 				<!-- Profile and Group Users List -->
-				<div class="col-sm-4 fill-height">
+				<div class="col-sm-4 fill-height ">
 					<div class=" well well-sm list-fit-height gp-slider-window">
 						<div class="row">
 							<div class="my-profile">
@@ -107,7 +110,11 @@
 
 			<form id="chatform" role="form">
 				<div class="input-group">
-					<input id="emoji-message-box"> <span
+					<span class="input-group-btn"> <a
+						class="btn btn-success no-rounded" id="attach" > <img
+							src="../images/attach.png" alt="Attach">
+					</a>
+					</span> <input id="emoji-message-box"> <span
 						class="input-group-btn">
 						<button class="btn btn-success no-rounded" id="submit"
 							type="submit">Send</button>
@@ -204,22 +211,61 @@
 		</div>
 
 	</div>
+	
+	
+	
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">              
+      <div class="modal-body">
+      	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+	<div class="modal fade" id="attachmentModal" role="dialog">
+
+		<div class="modal-dialog" >
+			<div class="modal-content">
+				<div class="attach-box">
+				
+				<div id="dropzone" >
+					<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+					<p>	Drag and drop Files Here to Upload 	</p>
+					<button class="btn btn-primary" onClick="$('#file-input').click();"> Or Select Files</button>
+					<input style="display:none" type="file" id="file-input" name="file-input" multiple />
+			</div>
+			<div class="attach-errors"> </div>
+			<div class="clearfix attach-list" > <ul id='file-list'></ul> </div>
+								
+				</div>
+				<div class="modal-footer">
+				<button class="btn btn-primary" id="send-att"> Send </button>
+					<button class="btn btn-primary" id="cancel-att"> Cancel </button>
+					</div>
+			</div>
+		</div>
+
+	</div>
+	
 
 	<div id="sound"></div>
 
 	<script src="../js/jquery.min.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+	<script	src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js" type="text/javascript"></script>
+	<script	src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js" type="text/javascript"></script>
 	<script src="//cdn.jsdelivr.net/emojione/2.2.6/lib/js/emojione.min.js"></script>
 	<script src="../js/emojionearea.min.js" type="text/javascript"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/material.min.js"></script>
-	<script src="../js/ripples.min.js"></script>
-	<script src="../js/push.min.js"></script>
-	<script src="../js/sjcl.js"></script>
-	<script src="../js/script.js"></script>
+	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../js/material.min.js" type="text/javascript"></script>
+	<script src="../js/ripples.min.js" type="text/javascript"></script>
+	<script src="../js/filereader.js" type="text/javascript" ></script>
+	<script src="../js/push.min.js" type="text/javascript"></script>
+	<script src="../js/sjcl.js" type="text/javascript"></script>
+	<script src="../js/script.js" type="text/javascript"></script>
 
 
 </body>

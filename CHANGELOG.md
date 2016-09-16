@@ -6,6 +6,9 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ## [Unreleased]
 ###Changed
 - removed html support for users.
+- added support for attachments
+- removed images and added font awesone icons.
+- fixed minor bugs
 
 ###Fixed
 - Users could remotely modifiy UI and run scripts on remote node.
