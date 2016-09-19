@@ -4,13 +4,15 @@ All notable changes to this project will be documented in this file.
 The changelog adheres to format specified in [keep change log](http://keepachangelog.com)
 
 ## [Unreleased]
-###Changed
-- removed html support for users.
-- added support for attachments
-- removed images and added font awesone icons.
-- fixed minor bugs
+### Added
+- Send any attachments
 
-###Fixed
+### Changed
+- removed html support for users.
+- removed images and added font awesome icons.
+- styles and animations.
+
+### Fixed
 - Users could remotely modifiy UI and run scripts on remote node.
 
 ## [1.4.0] - 2016-07-05
