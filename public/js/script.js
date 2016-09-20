@@ -60,14 +60,17 @@ $(document).ready(function() {
 		var msgText = emojiEditor[0].emojioneArea.getText();
 
 		if (msgText.trim().length) {
+			
+			msgObj = {
+					'type' : 'text',
+					'msg' : msgText
+				};
+			
 			// Create a new chat message and display it directly
-			displayMessage({
-				'type' : 'text',
-				'msg' : msgText
-			}, socket.userData, moment());
+			displayMessage(msgObj, socket.userData, moment());
 
 			// Send the message to the other person in the chat
-			socket.emit('new message', encryptData(msgText),
+			socket.emit('new message', encryptData(msgObj),
 					socket.userData);
 			// Empty the textarea
 			emojiEditor[0].emojioneArea.setText("");
@@ -168,12 +171,12 @@ $(document).ready(function() {
 
 	socket.on('receive', function(encmsg, user) {
 		var dMsg = decryptData(encmsg);
-		var msg = dMsg.msg;
-		if (msg !== undefined && msg.trim().length) {
+		
+		if (dMsg.msg !== undefined ) {
 			unreadMsgCount++;
 			displayMessage(dMsg, user, moment());
 
-			// if the document doesnt have focus
+			// if the document doesn't have focus
 			if (!document.hasFocus()) {
 				if (unreadMsgCount > 0) {
 					document.title = windowTitle + " - ("
@@ -182,27 +185,19 @@ $(document).ready(function() {
 			} else {
 				unreadMsgCount = 0;
 			}
-			if (dMsg.type === 'text') {
-				notifyUser("Chirp Chat : New Message", {
-					body : user.username.replace(/ +/g, " ")
-							+ ": " + msg,
-					icon : user.imageUrl,
-					tag : replaceSpace(user.username),
-					timeout : 3000
-				});
-				playNotificationSound("../sound/new_message");
-			}
+			
+			notifyUser("Chirp Chat : New Message", {
+				body : user.username.replace(/ +/g, " ")
+						+ ": " + (dMsg.type==="attachment" ? " sent attachment" : dMsg.msg),
+				icon : user.imageUrl,
+				tag : replaceSpace(user.username),
+				timeout : 3000
+			});
+			playNotificationSound("../sound/new_message");
 		}
 	});
 
 	
-	socket.on('attachment', function(attachment,user) {
-		displayMessage({
-			'type' : 'attachment',
-			'msg' : attachment
-		}, user, moment());
-
-	});
 	
 	function showLoginModal() {
 
@@ -616,14 +611,15 @@ $(document).ready(function() {
     $("#send-att").on("click", function(){
     	
     	for (var i = 0; i < attachments.length; i++){
-    		//send the attachment to socket
-    		socket.emit('attachment', attachments[i],socket.userData);
+    		athObj = {
+        			'type' : 'attachment',
+        			'msg' : attachments[i]
+        		};
     		
+    		//send the attachment to socket
+			socket.emit('new message', encryptData(athObj),	socket.userData);
     		// display the attachment
-    		displayMessage({
-    			'type' : 'attachment',
-    			'msg' : attachments[i]
-    		}, socket.userData, moment());
+    		displayMessage(athObj, socket.userData, moment());
     	}
   	    
     	//empty the attachment list once sent
@@ -707,7 +703,7 @@ $(document).ready(function() {
 
 	function encryptData(data) {
 		if (data === Object(data)) {
-			return sjcl.encrypt(ptPass, sjcl.json.encode(data));
+			return sjcl.encrypt(ptPass, JSON.stringify(data));
 		} else {
 			return sjcl.encrypt(ptPass, data);
 		}
@@ -718,19 +714,7 @@ $(document).ready(function() {
 			// decrypt the data, if it throws error, then the
 			// key is incorrect.
 			var decryptedData = sjcl.decrypt(ptPass, data);
-			try {
-				// decode the decrypted data, If it returns
-				// error, its not a Json data.
-				return {
-					'type' : 'text',
-					'msg' : sjcl.json.decode(decryptedData)
-				};
-			} catch (err) {
-				return {
-					'type' : 'text',
-					'msg' : decryptedData
-				};
-			}
+			return JSON.parse(decryptedData);
 		} catch (err) {
 			return {
 				'type' : 'html',

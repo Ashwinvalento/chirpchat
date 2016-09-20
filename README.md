@@ -80,6 +80,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [emojiOne](http://emojione.com/)
 - [emojiOneArena](http://mervick.github.io/emojionearea/)
 - [sjcl](https://github.com/bitwiseshiftleft/sjcl)
+- [filereader.js](https://github.com/bgrins/filereader.js)
 
 
 License:

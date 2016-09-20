@@ -81,12 +81,6 @@ module.exports = function(app, io) {
 			socket.broadcast.to(socket.room).emit('stop typing', user);
 		});
 		
-		//Sending attachments
-		socket.on("attachment", function(attachment,user) {
-		      socket.broadcast.to(socket.room).emit('attachment', attachment,user);
-
-		 });
-		
 
 		// Somebody left the chat
 		socket.on('disconnect', function() {
