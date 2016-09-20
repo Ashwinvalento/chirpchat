@@ -15,6 +15,7 @@ The changelog adheres to format specified in [keep change log](http://keepachang
 ### Fixed
 - Users could remotely modifiy UI and run scripts on remote node.
 
+
 ## [1.4.0] - 2016-07-05
 ### Added 
 - Room encryption using AES (sjcl.js library) 

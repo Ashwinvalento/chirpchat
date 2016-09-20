@@ -185,15 +185,17 @@ $(document).ready(function() {
 			} else {
 				unreadMsgCount = 0;
 			}
-			
-			notifyUser("Chirp Chat : New Message", {
-				body : user.username.replace(/ +/g, " ")
-						+ ": " + (dMsg.type==="attachment" ? " sent attachment" : dMsg.msg),
-				icon : user.imageUrl,
-				tag : replaceSpace(user.username),
-				timeout : 3000
-			});
-			playNotificationSound("../sound/new_message");
+			// If the message type is not html, then display notification 
+			if(dMsg.type!=="html"){
+				notifyUser("Chirp Chat : New Message", {
+					body : user.username.replace(/ +/g, " ")
+							+ ": " + (dMsg.type==="attachment" ? " sent attachment" : dMsg.msg),
+					icon : user.imageUrl,
+					tag : replaceSpace(user.username),
+					timeout : 3000
+				});
+				playNotificationSound("../sound/new_message");
+			}
 		}
 	});
 
@@ -636,7 +638,7 @@ $(document).ready(function() {
     	attachmentModal.modal('hide');
     });
 
-		$(".image-attach").on("click", function() {
+		$(".image-attach img").click( function() {
 			console.log("image clicked");
 //			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
 //			$('#imagemodal').modal('show');   
