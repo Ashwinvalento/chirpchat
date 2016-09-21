@@ -549,7 +549,8 @@ $(document).ready(function() {
 	    on: {
 	    	
 	    	beforestart: function(e, file) {
-	            if(e.size > 20971520){
+	    		// Limit file size to 1 mb
+	            if(e.size > 1000000){
 	            	return false;
 	            }else if (e.extra.extension == "exe"){
 	            	return false;
@@ -562,12 +563,12 @@ $(document).ready(function() {
 			    			  '<div class="alert alert-danger" id="error-msg">'+
 			    			  '<a href="#" class="close" data-dismiss="alert">&times;</a>'+
 			    			  file.name + ' skipped. Executable files are disabled.'+ '</div>');
-	        	}else if(file.size > 20971520){
+	        	}else if(file.size > 1000000){
 	        		
 	        		$(".attach-errors").append(
 			    			  '<div class="alert alert-danger" id="error-msg">'+
 			    			  '<a href="#" class="close" data-dismiss="alert">&times;</a>'+
-			    			  file.name + ' skipped. File should be smaller than 20mb'+ '</div>');
+			    			  file.name + ' skipped. Max file size permitted is 1mb'+ '</div>');
 	        	}
 	        },
 	        load: function(e, file) {
