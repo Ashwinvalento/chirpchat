@@ -8,10 +8,10 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 
 ##Screenshots
 ### Desktop Version
-![index screen](/screenshots/desktop/index.png?raw=true "Index Screen") ![Login Screen](/screenshots/desktop/reg.png?raw=true "Login Screen") ![Chat screen](/screenshots/desktop/chat.png?raw=true "Chat Screen")
+![index screen](/screenshots/desktop/index.png?raw=true "Index Screen") ![Login Screen](/screenshots/desktop/reg.png?raw=true "Login Screen") ![Chat screen](/screenshots/desktop/chat.png?raw=true "Chat Screen") ![Attachment screen](/screenshots/desktop/attachment.png?raw=true "Attachment Screen")
 
-### Desktop Version
-![index screen](/screenshots/phone/index.png?raw=true "Index Screen") ![Login Screen](/screenshots/phone/reg.png?raw=true "Login Screen") ![Chat screen](/screenshots/phone/chat.png?raw=true "Chat Screen") ![Users screen](/screenshots/phone/users.bmp?raw=true "Users List")
+### Mobile Version
+![index screen](/screenshots/phone/index.png?raw=true "Index Screen") ![Login Screen](/screenshots/phone/reg.png?raw=true "Login Screen") ![Chat screen](/screenshots/phone/chat.png?raw=true "Chat Screen") ![Users screen](/screenshots/phone/users.bmp?raw=true "Users List") ![Attachment screen](/screenshots/phone/attach.png?raw=true "Attachment List")
 
 ### How to Run the app
 
@@ -41,11 +41,7 @@ Find the [demo](https://chirpchat.herokuapp.com) at heroku :
 - [x] Improve Home Screen UI (Add Material design)
 - [x] Room Encryption using AES.
 - [x] Chat Room Authentication.
-- [x] Send Attachments
-- Private Chat
-- Store User Session
-- Email Chat History
-- Message Read 
+- [x] Send/Receive Attachments
 
  
 ## How Authentication and encryption works:
