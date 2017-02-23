@@ -4,7 +4,7 @@
 
 A Fully fledged personal and group chat Node js Application works for desktop and mobile.
 
-Find the [demo](https://chirpchat.herokuapp.com) at heroku : 
+Find the [demo](http://chirpchat.herokuapp.com) at heroku : 
 
 ##Screenshots
 ### Desktop Version
